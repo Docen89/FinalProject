@@ -21,9 +21,7 @@ public class StepsBook {
 
   @Step("Добавляем книгу пользователю в профиль")
   public void addBookProfileUser() {
-    Map<String, String> tokenAndExpiresAndUserIdAndStatusValue = book.addBookOldUser("Docen89",
-        "Docen1313!", "https://demoqa.com/BookStore/v1/Books", "9781449337711",
-        "03ca9059-3f99-4f3a-9cd1-57722d0c9ae0");
+    Map<String, String> tokenAndExpiresAndUserIdAndStatusValue = book.addBookOldUser();
     responseCodeAddBook = tokenAndExpiresAndUserIdAndStatusValue.get("statusValue");
     responseMessageAddBook = tokenAndExpiresAndUserIdAndStatusValue.get("messageValue");
   }
@@ -40,9 +38,7 @@ public class StepsBook {
 
   @Step("Удаляем книгу у пользователя из профиля")
   public void deleteBookProfileUser() {
-    Map<String, String> responseDeleteBook = book.deleteBook("Docen89", "Docen1313!",
-        "https://demoqa.com/BookStore/v1/Book", "9781449337711",
-        "03ca9059-3f99-4f3a-9cd1-57722d0c9ae0");
+    Map<String, String> responseDeleteBook = book.deleteBookUser();
     responseStatusDeleteBook = responseDeleteBook.get("StatusValue");
   }
 
@@ -53,8 +49,7 @@ public class StepsBook {
 
   @Step("Запрашиваем существующую книгу")
   public void getRealBook() {
-    Map<String, String> responseViewBook = book.viewBook(
-        "https://demoqa.com/BookStore/v1/Book?ISBN=" + "9781449337711");
+    Map<String, String> responseViewBook = book.viewBook();
     realTitleBook = responseViewBook.get("titleValue");
   }
 
@@ -65,8 +60,7 @@ public class StepsBook {
 
   @Step("Запрашиваем несуществующую книгу")
   public void getNoRealBook() {
-    Map<String, String> responseViewBook = book.viewBook(
-        "https://demoqa.com/BookStore/v1/Book?ISBN=" + "9781449337711121121212");
+    Map<String, String> responseViewBook = book.viewNotRealBook();
     randomNoRealTitleBookMessage = responseViewBook.get("messageValue");
   }
 

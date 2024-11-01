@@ -10,6 +10,7 @@ import lombok.Getter;
 @Getter
 
 public class StepsAccount {
+
   Account account = new Account();
   String checkNameValueResponce;
   String checkStatusValueResponseLogin;
@@ -19,8 +20,7 @@ public class StepsAccount {
 
   @Step("Создаем нового пользователя")
   public void createNewAccount() {
-    Map<String, String> userIdAndUserNameAndBooksAndStatus = account.createNewUser("Docen90",
-        "Docen1313!", "https://demoqa.com/Account/v1/User");
+    Map<String, String> userIdAndUserNameAndBooksAndStatus = account.createNewUser();
     checkNameValueResponce = userIdAndUserNameAndBooksAndStatus.get("userNameValue");
     userIdNewUser = userIdAndUserNameAndBooksAndStatus.get("userIdValue");
   }
@@ -32,25 +32,23 @@ public class StepsAccount {
 
   @Step("Авторизуемся")
   public void authorization() {
-    Map<String, String> tokenAndExpiresAndUserIdAndStatusValue = account.authorized("Docen89",
-        "Docen1313!", "https://demoqa.com/Account/v1/Login");
+    Map<String, String> tokenAndExpiresAndUserIdAndStatusValue = account.authorized();
     checkStatusValueResponseLogin = tokenAndExpiresAndUserIdAndStatusValue.get("status");
   }
 
   @Step("Проверяем статус ответа на авторизацию зарегистрированным пользователем")
-  public void checkStatusResponseAuthOldUser(){
-    assertEquals("200",checkStatusValueResponseLogin);
+  public void checkStatusResponseAuthOldUser() {
+    assertEquals("200", checkStatusValueResponseLogin);
   }
 
   @Step("Удаляем ранее созданного пользователя")
   public void deleteNewUser() {
-    Map<String, String> responseDeleteUser = account.deleteUser("Docen90",
-        "Docen1313!", "https://demoqa.com/Account/v1/User/" + userIdNewUser);
+    Map<String, String> responseDeleteUser = account.deleteUser();
     checkStatusDeleteUser = responseDeleteUser.get("StatusValue");
   }
 
   @Step("Проверяем статус ответа на запрос об удаление пользователя")
-  public void checkResponseStatusDeleteUser(){
-    assertEquals("204",checkStatusDeleteUser);
+  public void checkResponseStatusDeleteUser() {
+    assertEquals("204", checkStatusDeleteUser);
   }
 }
