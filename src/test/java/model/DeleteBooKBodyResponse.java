@@ -3,7 +3,7 @@ package model;
 import lombok.Data;
 
 @Data
-public class Response{
+public class DeleteBooKBodyResponse {
 	private String isbn;
 	private String userId;
 }
