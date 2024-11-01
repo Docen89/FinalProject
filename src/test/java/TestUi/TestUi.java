@@ -13,6 +13,7 @@ import stepsUi.StepsProfilePage;
 
 
 public class TestUi {
+
   StepsLoginPage slp = new StepsLoginPage();
   StepsProfilePage spp = new StepsProfilePage();
   StepsBookStorePage sbsp = new StepsBookStorePage();
@@ -22,36 +23,36 @@ public class TestUi {
 
   @Test
   @DisplayName("Авторизация  с неверным паролем от пользователя")
-  public void authWithNotValidPassword(){
+  public void authWithNotValidPassword() {
     slp.openBookStore("https://demoqa.com/login");
     slp.inputUserName("docen");
     slp.inputPasswordUser("docen13");
     slp.clickBottonLogin();
-    assertEquals("Invalid username or password!",slp.checkMessagePage());
+    assertEquals("Invalid username or password!", slp.checkMessagePage());
     slp.clear();
   }
 
 
   @Test
   @DisplayName("Авторизация с валидной парой логопасс")
-  public void authWithValidLogoPass(){
+  public void authWithValidLogoPass() {
     slp.openBookStore("https://demoqa.com/login");
     slp.inputUserName("Docen89");
     slp.inputPasswordUser("Docen1313!");
     slp.clickBottonLogin();
     slp.checkButtonLogOut();
-    assertEquals("Log out",slp.getButtomLogOutTextValue());
+    assertEquals("Log out", slp.getButtomLogOutTextValue());
     slp.clear();
   }
 
   @Test
   @DisplayName("Проверка кнопки 'Go To Book Store'")
-  public void checkButtomGoToBookStore(){
+  public void checkButtomGoToBookStore() {
     slp.openBookStore("https://demoqa.com/login");
     slp.inputUserName("Docen89");
     slp.inputPasswordUser("Docen1313!");
     slp.clickBottonLogin();
-    assertEquals("Publisher",sbsp.checkPublisherValue());
+    assertEquals("Publisher", sbsp.checkPublisherValue());
     slp.clear();
   }
 
@@ -98,7 +99,7 @@ public class TestUi {
 
   @Test
   @DisplayName("Удаление аккаунта пользователя")
-  public void deleteUserAccount(){
+  public void deleteUserAccount() {
     stAp.createNewAccount();
     slp.openBookStore("https://demoqa.com/login");
     slp.inputUserName("Docen90");
@@ -107,13 +108,13 @@ public class TestUi {
     spp.clickButtomDeleteAccount();
     spp.acceptAlertDelUser();
     spp.messageDeleteUser();
-    assertEquals("User Deleted.",spp.getMessageDeleteUserValue());
+    assertEquals("User Deleted.", spp.getMessageDeleteUserValue());
     slp.clear();
   }
 
   @Test
   @DisplayName("Регистрация нового пользователя")
-  public void registerNewUser(){
+  public void registerNewUser() {
     slp.openBookStore("https://demoqa.com/login");
     slp.clickBottonNewUser();
     scup.inputNewUserFirstName("Docen90");
@@ -122,7 +123,7 @@ public class TestUi {
     scup.inputNewUserPassword("Docen1313!");
     scup.recaptchaTestClick();
     scup.clickButtonRegister();
-    assertEquals("User exists!",scup.userCreateMessage());
+    assertEquals("User exists!", scup.userCreateMessage());
     slp.clear();
 
   }

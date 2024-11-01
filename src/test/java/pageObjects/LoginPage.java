@@ -46,11 +46,11 @@ public class LoginPage {
     return $x("//button[@id='submit']");
   }
 
-  public SelenideElement messegText(){
+  public SelenideElement messegText() {
     return $x("//p[text()='Invalid username or password!']");
   }
 
-  public SelenideElement anchorElememtBookPage (){
+  public SelenideElement anchorElememtBookPage() {
     return $x(" //label[text()='Books : ']");
   }
 

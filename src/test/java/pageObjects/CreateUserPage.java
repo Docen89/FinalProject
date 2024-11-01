@@ -32,20 +32,20 @@ public class CreateUserPage {
     return $x("//button[@id='register']");
   }
 
-  public  SelenideElement messageCreateUser(String createUserMessageValue){
-    return  $x("//p[text()='User exists!']");
+  public SelenideElement messageCreateUser(String createUserMessageValue) {
+    return $x("//p[text()='User exists!']");
   }
 
-  public  SelenideElement messageVerifyCaptcha(String verifyMessageCaptchyValue){
+  public SelenideElement messageVerifyCaptcha(String verifyMessageCaptchyValue) {
     return $x("//p[text()='Please verify reCaptcha to register!']");
   }
 
-  public SelenideElement noFirstName(){
+  public SelenideElement noFirstName() {
     return $x("//*[@id='firstname' and @class='mr-sm-2 is-invalid form-control']");
   }
 
-  public SelenideElement noLastName(){
-    return  $x("//*[@id='lastname' and @class='mr-sm-2 is-invalid form-control']");
+  public SelenideElement noLastName() {
+    return $x("//*[@id='lastname' and @class='mr-sm-2 is-invalid form-control']");
   }
 
 }

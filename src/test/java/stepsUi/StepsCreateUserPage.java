@@ -20,53 +20,57 @@ public class StepsCreateUserPage {
   public void inputNewUserFirstName(String firstNameValue) {
     cup.firstName(firstNameValue).sendKeys(firstNameValue);
   }
+
   @Step("Вводим фамилию нового пользователя")
   public void inputNewUserLastName(String lastNameValue) {
     cup.lastName(lastNameValue).sendKeys(lastNameValue);
   }
+
   @Step("Вводим логин нового пользователя")
   public void inputNewUserName(String newUserNameValue) {
     cup.userName(newUserNameValue).sendKeys(newUserNameValue);
   }
+
   @Step("Вводим пароль нового пользователя")
-  public void inputNewUserPassword(String newUserPasswordValue){
+  public void inputNewUserPassword(String newUserPasswordValue) {
     cup.Password(newUserPasswordValue).sendKeys(newUserPasswordValue);
   }
+
   @Step("Проверка Captcha")
   public void recaptchaTestClick() {
-      switchTo().frame($x("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha')]"));
-      $("div.rc-anchor-content").click();
-      switchTo().defaultContent();
+    switchTo().frame(
+        $x("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha')]"));
+    $("div.rc-anchor-content").click();
+    switchTo().defaultContent();
 
   }
+
   @Step("Кликаем кнопку регистрация нового пользователя")
-  public void clickButtonRegister(){
+  public void clickButtonRegister() {
     cup.buttonRegister().scrollTo().click();
   }
+
   @Step("Проверяем уведомление о том, что пользователь зарегистрировался")
-  public String userCreateMessage(){
+  public String userCreateMessage() {
     createUserMessageValue = cup.messageCreateUser(createUserMessageValue).getText();
     return createUserMessageValue;
   }
 
   @Step("Проверяем уведомление о том, что необходиму указать Сaptchy")
-  public String verifyCaptchaMcessage(){
+  public String verifyCaptchaMcessage() {
     verifyMessageCaptchyValue = cup.messageVerifyCaptcha(verifyMessageCaptchyValue).getText();
     return verifyMessageCaptchyValue;
   }
 
   @Step("Не заполнено поле FirstName")
-  public void validFirstName(){
+  public void validFirstName() {
     cup.noFirstName();
   }
 
   @Step("Не заполнено поле LastName")
-  public void validLastName(){
+  public void validLastName() {
     cup.noLastName();
   }
-
-
-
 
 
 }

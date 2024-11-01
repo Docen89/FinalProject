@@ -16,7 +16,7 @@ public class StepsLoginPage {
   @Step("Открытие страницы Book Store")
   public void openBookStore(String url) {
     Configuration.pageLoadStrategy = "eager";
-    Configuration.browserSize="2560x1440";
+    Configuration.browserSize = "2560x1440";
     Selenide.open(url);
   }
 
@@ -59,7 +59,6 @@ public class StepsLoginPage {
     Selenide.clearBrowserLocalStorage();
     Selenide.closeWebDriver();
   }
-
 
 
 }

@@ -1,77 +1,78 @@
 package TestApi;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import StepsApi.StepsAccount;
 import StepsApi.StepsBook;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@Slf4j
 public class TestApi {
+
   StepsAccount stAp = new StepsAccount();
   StepsBook stBk = new StepsBook();
 
   @Test
   @DisplayName("Создание нового пользователя")
- public void createNewUser(){
+  public void createNewUser() {
     stAp.createNewAccount();
-    assertEquals("Docen90",stAp.getCheckNameValueResponce());
+    stAp.checkLoginNewUser();
     stAp.deleteNewUser();
   }
 
   @Test
   @DisplayName("Авторизация зарегистрированным пользователем")
-  public void authOldUser(){
+  public void authOldUser() {
     stAp.authorization();
-    assertEquals("200",stAp.getCheckStatusValueResponseLogin());
-
+    stAp.checkStatusResponseAuthOldUser();
   }
 
   @Test
   @DisplayName("Добавление книги к пользователю в профиль")
-  public void addBookToOldUser(){
+  public void addBookToOldUser() {
     stBk.addBookProfileUser();
-    assertEquals("1210",stBk.getResponseCodeAddBook());
+    stBk.ckeckStatusResponseAddBooKProfileUser();
     stBk.deleteBookProfileUser();
   }
 
   @Test
   @DisplayName("Повторное добавление книги  в профиль пользователя")
-  public void bookIsAlreadyThereUser(){
+  public void bookIsAlreadyThereUser() {
     stBk.addBookProfileUser();
     stBk.addBookProfileUser();
-    assertEquals("ISBN already present in the User's Collection!",stBk.getResponseMessageAddBook());
-    assertEquals("1210",stBk.getResponseCodeAddBook());
+    stBk.ckeckMessageResponseAddBooKProfileUser();
+    stBk.deleteBookProfileUser();
   }
 
   @Test
   @DisplayName("Удаляем книгу из профиля пользователя")
-  public void deleteBookInProfileUser(){
+  public void deleteBookInProfileUser() {
     stBk.addBookProfileUser();
     stBk.deleteBookProfileUser();
-    assertEquals("204",stBk.getResponseStatusDeleteBook());
+    stBk.checkResponseStatusDeleteBookProfile();
   }
 
   @Test
   @DisplayName("Удаление  пользователя")
-  public void deleteNewUser(){
+  public void deleteNewUser() {
     stAp.createNewAccount();
     stAp.deleteNewUser();
-    assertEquals("204",stAp.getCheckStatusDeleteUser());
+    stAp.checkResponseStatusDeleteUser();
   }
 
   @Test
   @DisplayName("Запрос определенной книги")
-  public void getBooksFromStore(){
+  public void getBooksFromStore() {
     stBk.getRealBook();
-    assertEquals("Designing Evolvable Web APIs with ASP.NET",stBk.getRandomTitleBook());
+    stBk.ckeckTitleRealBook();
   }
 
   @Test
   @DisplayName("Запрос несуществующей книги")
-  public void getNonExistentBookStore(){
+  public void getNonExistentBookStore() {
     stBk.getNoRealBook();
-    assertEquals("ISBN supplied is not available in Books Collection!",stBk.getRandomNoRealTitleBookMessage());
+    stBk.checkMessageResponseNotRealBook();
   }
 
 }

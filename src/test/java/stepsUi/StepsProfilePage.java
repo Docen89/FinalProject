@@ -6,6 +6,7 @@ import lombok.Getter;
 import pageObjects.ProfilePage;
 
 public class StepsProfilePage {
+
   @Getter
   String messageDeleteUserValue;
 
@@ -28,18 +29,18 @@ public class StepsProfilePage {
   }
 
   @Step("Потверждаем удаление акккаунта")
-  public void acceptAlertDelUser(){
+  public void acceptAlertDelUser() {
     pfpage.buttonMessageDeleteUserOk().click();
   }
 
 
   @Step("Получаем уведомление об удаление пользователя")
-  public void messageDeleteUser(){
-    messageDeleteUserValue= Selenide.switchTo().alert().getText();
+  public void messageDeleteUser() {
+    messageDeleteUserValue = Selenide.switchTo().alert().getText();
   }
 
   @Step("Кликаем по кнопке 'Log out'")
-  public void clickBottonLogOut(){
+  public void clickBottonLogOut() {
     pfpage.bottonLogOut().click();
   }
 }

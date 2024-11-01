@@ -27,7 +27,7 @@ public class ProfilePage {
     return $x("//button[text()='Log out']");
   }
 
-  public SelenideElement buttonMessageDeleteUserOk(){
+  public SelenideElement buttonMessageDeleteUserOk() {
     return $x("//*[@id='closeSmallModal-ok']");
   }
 
