@@ -1,8 +1,8 @@
-package stepsUi;
+package StepsUi;
 
 import com.codeborne.selenide.Configuration;
 import lombok.Getter;
-import pageObjects.LoginPage;
+import PageObjects.LoginPage;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 

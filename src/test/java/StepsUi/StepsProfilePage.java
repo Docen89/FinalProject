@@ -1,9 +1,9 @@
-package stepsUi;
+package StepsUi;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import lombok.Getter;
-import pageObjects.ProfilePage;
+import PageObjects.ProfilePage;
 
 public class StepsProfilePage {
 

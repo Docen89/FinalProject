@@ -1,11 +1,11 @@
-package model;
+package Model;
 import java.util.List;
 import lombok.Data;
 
 
 @Data
 public class RequestBookModel {
-    private List<model.IsbnPartialModel> collectionOfIsbns;
+    private List<Model.IsbnPartialModel> collectionOfIsbns;
     private String userId;
   }
 

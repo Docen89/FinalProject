@@ -1,8 +1,8 @@
-package stepsUi;
+package StepsUi;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
-import pageObjects.BookStorePage;
+import PageObjects.BookStorePage;
 
 public class StepsBookStorePage {
 

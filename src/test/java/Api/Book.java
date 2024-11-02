@@ -1,18 +1,18 @@
 package Api;
 
+import Test.BaseTest;
 import io.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
-import model.RestAssuredModel;
+import Model.RestAssuredModel;
 
-public class Book {
 
+public class Book extends BaseTest {
   RestAssuredModel restAssuredModel = new RestAssuredModel();
 
   public Map<String, String> addBookOldUser() {
-    Response response = restAssuredModel.addBook("Docen89",
-        "Docen1313!", "https://demoqa.com/BookStore/v1/Books", "9781449337711",
-        "03ca9059-3f99-4f3a-9cd1-57722d0c9ae0");
+    Response response = restAssuredModel.addBook(cfg.baseUri(),cfg.userNameValue(), cfg.passwordValue(),
+        cfg.bookStorePath(), cfg.allBookPath(), cfg.realIsbnValue(), cfg.userId());
     Map<String, String> responseAddBookOldUser = new HashMap<>();
     responseAddBookOldUser.put("userIdValue", response.path("userId"));
     responseAddBookOldUser.put("usernameValue", response.path("username"));
@@ -28,17 +28,16 @@ public class Book {
 
 
   public Map<String, String> deleteBookUser() {
-    Response response = restAssuredModel.deleteBook("Docen89", "Docen1313!",
-        "https://demoqa.com/BookStore/v1/Book", "9781449337711",
-        "03ca9059-3f99-4f3a-9cd1-57722d0c9ae0");
+    Response response = restAssuredModel.deleteBook(cfg.baseUri(), cfg.userNameValue(),
+        cfg.passwordValue(), cfg.bookStorePath(), cfg.userId(), cfg.realIsbnValue(), cfg.bookPath());
     Map<String, String> responseDeleteBook = new HashMap<>();
     responseDeleteBook.put("StatusValue", String.valueOf(response.getStatusCode()));
     return responseDeleteBook;
   }
 
   public Map<String, String> viewBook() {
-    Response response = restAssuredModel.viewBookOther(
-        "https://demoqa.com/BookStore/v1/Book?ISBN=" + "9781449337711");
+    Response response = restAssuredModel.viewBookOther(cfg.baseUri(), cfg.bookStorePath(),
+        cfg.delViewBookPath(), cfg.realIsbnValue());
     Map<String, String> responseViewBook = new HashMap<>();
     responseViewBook.put("isbnValue", response.path("isbn"));
     responseViewBook.put("titleValue", response.path("title"));
@@ -48,8 +47,8 @@ public class Book {
   }
 
   public Map<String, String> viewNotRealBook() {
-    Response response = restAssuredModel.viewBookOther(
-        "https://demoqa.com/BookStore/v1/Book?ISBN=" + "978144933771123223232");
+    Response response = restAssuredModel.viewBookOther(cfg.baseUri(),cfg.bookStorePath(),cfg.delViewBookPath(),
+        cfg.notRealIsbnValue());
     Map<String, String> responseViewBook = new HashMap<>();
     responseViewBook.put("isbnValue", response.path("isbn"));
     responseViewBook.put("titleValue", response.path("title"));

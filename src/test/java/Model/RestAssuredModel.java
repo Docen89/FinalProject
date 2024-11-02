@@ -1,14 +1,15 @@
-package model;
+package Model;
 
 import static io.restassured.RestAssured.given;
 
+import Test.BaseTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import java.util.Collections;
 
-public class RestAssuredModel {
+public class RestAssuredModel extends BaseTest {
 
-  public Response newUser(String newUserNameValue, String newUserPassword, String userPath) {
+  public Response newUser(String baseUri,String newUserNameValue, String newUserPassword, String userPath) {
     RequestLoginBodyModel requestBookModel = new RequestLoginBodyModel();
     requestBookModel.setUserName(newUserNameValue);
     requestBookModel.setPassword(newUserPassword);
@@ -18,7 +19,7 @@ public class RestAssuredModel {
         .log()
         .all()
         .when()
-        .post(userPath)
+        .post(baseUri+userPath)
         .then()
         .log()
         .all()
@@ -27,7 +28,7 @@ public class RestAssuredModel {
 
   }
 
-  public Response authorization(String userNameValue, String passwordValue, String loginPath) {
+  public Response authorization(String baseUri,String userNameValue, String passwordValue, String loginPath) {
     RequestLoginBodyModel loginBodyModel = new RequestLoginBodyModel();
     loginBodyModel.setUserName(userNameValue);
     loginBodyModel.setPassword(passwordValue);
@@ -37,7 +38,7 @@ public class RestAssuredModel {
         .log()
         .all()
         .when()
-        .post(loginPath)
+        .post(baseUri+loginPath)
         .then()
         .log()
         .all()
@@ -45,14 +46,14 @@ public class RestAssuredModel {
         .response();
   }
 
-  public Response deleteUser(String userName, String password, String bookPath) {
+  public Response deleteUser(String baseUri,String newUserNameValue, String newUserPassword, String userPath) {
     return given()
         .auth()
         .preemptive()
-        .basic(userName, password)
+        .basic(newUserNameValue, newUserPassword)
         .log()
         .all()
-        .delete(bookPath)
+        .delete(baseUri+userPath)
         .then()
         .log()
         .all()
@@ -60,11 +61,11 @@ public class RestAssuredModel {
         .response();
   }
 
-  public Response deleteBook(String userName, String password, String bookPath,
-      String isbnValue, String userId){
+  public Response deleteBook(String baseUri,String userName, String password, String bookStorePath, String userId,
+      String realIsbnValue,String boolPath){
     DeleteBooKBodyResponse deleteBooKBodyResponse = new DeleteBooKBodyResponse();
     deleteBooKBodyResponse.setUserId(userId);
-    deleteBooKBodyResponse.setIsbn(isbnValue);
+    deleteBooKBodyResponse.setIsbn(realIsbnValue);
     return given()
         .auth()
         .preemptive()
@@ -73,7 +74,7 @@ public class RestAssuredModel {
         .body(deleteBooKBodyResponse)
         .log()
         .all()
-        .delete(bookPath)
+        .delete(baseUri+bookStorePath+boolPath)
         .then()
         .log()
         .all()
@@ -81,11 +82,11 @@ public class RestAssuredModel {
         .response();
   }
 
-  public  Response viewBookOther(String bookPath){
+  public  Response viewBookOther(String baseUri,String bookStorePath, String delViewBookPath,String realIsbnValue){
     return given()
         .log()
         .all()
-        .get(bookPath)
+        .get(baseUri+bookStorePath+delViewBookPath+realIsbnValue)
         .then()
         .log()
         .all()
@@ -93,11 +94,10 @@ public class RestAssuredModel {
         .response();
   }
 
-  public  Response addBook(String userName, String password, String bookPath,
-      String isbnValue, String userId){
+  public  Response addBook(String baseUri,String userName, String password, String bookStorePath,String allBookPath,String realIsbnValue, String userId){
     RequestBookModel requestBookModel = new RequestBookModel();
     IsbnPartialModel isbnPartialModel = new IsbnPartialModel();
-    isbnPartialModel.setIsbn(isbnValue);
+    isbnPartialModel.setIsbn(realIsbnValue);
     requestBookModel.setUserId(userId);
     requestBookModel.setCollectionOfIsbns(Collections.singletonList(isbnPartialModel));
     return given()
@@ -108,7 +108,7 @@ public class RestAssuredModel {
         .body(requestBookModel)
         .log()
         .all()
-        .post(bookPath)
+        .post(baseUri+bookStorePath+allBookPath)
         .then()
         .log()
         .all()

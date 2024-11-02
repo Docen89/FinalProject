@@ -1,19 +1,25 @@
 package Api;
 
 
+import static Test.BaseTest.cfg;
+
+
+import Test.BaseTest;
 import io.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
-import model.RestAssuredModel;
+import Model.RestAssuredModel;
 
 
-public class Account {
-  String userIdDelete;
+public class Account extends   BaseTest {
+
   RestAssuredModel restAssuredModel = new RestAssuredModel();
+  String userIdDelete;
+
 
   public Map<String, String> createNewUser() {
-    Response response = restAssuredModel.newUser("Docen90", "Docen1313!",
-        "https://demoqa.com/Account/v1/User");
+    Response response = restAssuredModel.newUser(cfg.baseUri(),cfg.newUserNameValue(), cfg.newUserPassword(),
+        cfg.userPath());
     Map<String, String> userIdAndUserNameAndBooksAndStatus = new HashMap<>();
     userIdAndUserNameAndBooksAndStatus.put("userIdValue", response.path("userID"));
     userIdDelete =response.path("userID");
@@ -22,8 +28,8 @@ public class Account {
   }
 
   public Map<String, String> authorized() {
-    Response response = restAssuredModel.authorization("Docen89","Docen1313!",
-        "https://demoqa.com/Account/v1/Login");
+    Response response = restAssuredModel.authorization(cfg.baseUri(), cfg.userNameValue(), cfg.passwordValue(),
+        cfg.loginPath());
     Map<String, String> tokenAndExpiresAndUserIdAndStatusValue = new HashMap<>();
     tokenAndExpiresAndUserIdAndStatusValue.put("token", response.path("token"));
     tokenAndExpiresAndUserIdAndStatusValue.put("expires", response.path("expires"));
@@ -33,8 +39,8 @@ public class Account {
   }
 
   public Map<String, String> deleteUser() {
-    Response response = restAssuredModel.deleteUser("Docen90", "Docen1313!",
-        "https://demoqa.com/Account/v1/User/"+userIdDelete);
+    Response response = restAssuredModel.deleteUser(cfg.baseUri(), cfg.newUserNameValue(), cfg.newUserPassword(),
+        cfg.userPath()+userIdDelete);
     Map<String, String> responseDeleteUser = new HashMap<>();
     responseDeleteUser.put("StatusValue", String.valueOf(response.getStatusCode()));
     return responseDeleteUser;

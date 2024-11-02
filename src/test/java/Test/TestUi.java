@@ -1,4 +1,4 @@
-package TestUi;
+package Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import StepsApi.StepsAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import stepsUi.StepsBookStorePage;
-import stepsUi.StepsCreateUserPage;
-import stepsUi.StepsLoginPage;
-import stepsUi.StepsProfilePage;
+import StepsUi.StepsBookStorePage;
+import StepsUi.StepsCreateUserPage;
+import StepsUi.StepsLoginPage;
+import StepsUi.StepsProfilePage;
 
 
 public class TestUi {

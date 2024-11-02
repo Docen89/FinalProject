@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import Api.Account;
 import io.qameta.allure.Step;
+import io.restassured.RestAssured;
 import java.util.Map;
 import lombok.Getter;
 
