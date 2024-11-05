@@ -27,12 +27,12 @@ public class StepsBook {
   }
 
   @Step("Проверяем статус ответа на запрос добавления книги в профиль")
-  public void ckeckStatusResponseAddBooKProfileUser() {
+  public void checkStatusResponseAddBooKProfileUser() {
     assertEquals("201", responseCodeAddBook);
   }
 
   @Step("Проверяем сообщение в ответе на запрос добавления книги в профиль")
-  public void ckeckMessageResponseAddBooKProfileUser() {
+  public void checkMessageResponseAddBooKProfileUser() {
     assertEquals("ISBN already present in the User's Collection!", responseMessageAddBook);
   }
 
@@ -54,7 +54,7 @@ public class StepsBook {
   }
 
   @Step("Проверяем название книги, которую мы запросили")
-  public void ckeckTitleRealBook() {
+  public void checkTitleRealBook() {
     assertEquals("Designing Evolvable Web APIs with ASP.NET", realTitleBook);
   }
 

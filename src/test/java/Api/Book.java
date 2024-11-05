@@ -8,10 +8,12 @@ import Model.RestAssuredModel;
 
 
 public class Book extends BaseTest {
+
   RestAssuredModel restAssuredModel = new RestAssuredModel();
 
   public Map<String, String> addBookOldUser() {
-    Response response = restAssuredModel.addBook(cfg.baseUri(),cfg.userNameValue(), cfg.passwordValue(),
+    Response response = restAssuredModel.addBook(cfg.baseUri(), cfg.userNameValue(),
+        cfg.passwordValue(),
         cfg.bookStorePath(), cfg.allBookPath(), cfg.realIsbnValue(), cfg.userId());
     Map<String, String> responseAddBookOldUser = new HashMap<>();
     responseAddBookOldUser.put("userIdValue", response.path("userId"));
@@ -29,7 +31,8 @@ public class Book extends BaseTest {
 
   public Map<String, String> deleteBookUser() {
     Response response = restAssuredModel.deleteBook(cfg.baseUri(), cfg.userNameValue(),
-        cfg.passwordValue(), cfg.bookStorePath(), cfg.userId(), cfg.realIsbnValue(), cfg.bookPath());
+        cfg.passwordValue(), cfg.bookStorePath(), cfg.userId(), cfg.realIsbnValue(),
+        cfg.bookPath());
     Map<String, String> responseDeleteBook = new HashMap<>();
     responseDeleteBook.put("StatusValue", String.valueOf(response.getStatusCode()));
     return responseDeleteBook;
@@ -47,7 +50,8 @@ public class Book extends BaseTest {
   }
 
   public Map<String, String> viewNotRealBook() {
-    Response response = restAssuredModel.viewBookOther(cfg.baseUri(),cfg.bookStorePath(),cfg.delViewBookPath(),
+    Response response = restAssuredModel.viewBookOther(cfg.baseUri(), cfg.bookStorePath(),
+        cfg.delViewBookPath(),
         cfg.notRealIsbnValue());
     Map<String, String> responseViewBook = new HashMap<>();
     responseViewBook.put("isbnValue", response.path("isbn"));

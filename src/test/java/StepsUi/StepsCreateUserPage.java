@@ -12,7 +12,7 @@ public class StepsCreateUserPage {
 
   @Getter
   String createUserMessageValue;
-  String verifyMessageCaptchyValue;
+  String verifyMessageCaptchaValue;
 
   CreateUserPage cup = new CreateUserPage();
 
@@ -56,10 +56,10 @@ public class StepsCreateUserPage {
     return createUserMessageValue;
   }
 
-  @Step("Проверяем уведомление о том, что необходиму указать Сaptchy")
-  public String verifyCaptchaMcessage() {
-    verifyMessageCaptchyValue = cup.messageVerifyCaptcha(verifyMessageCaptchyValue).getText();
-    return verifyMessageCaptchyValue;
+  @Step("Проверяем уведомление о том, что необходимо указать Captcha")
+  public String verifyCaptchaMessage() {
+    verifyMessageCaptchaValue = cup.messageVerifyCaptcha(verifyMessageCaptchaValue).getText();
+    return verifyMessageCaptchaValue;
   }
 
   @Step("Не заполнено поле FirstName")

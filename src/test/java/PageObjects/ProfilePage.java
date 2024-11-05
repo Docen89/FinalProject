@@ -10,20 +10,20 @@ public class ProfilePage {
     return $x("//input[@id='searchBox']");
   }
 
-  public SelenideElement bottonGoToBookStore() {
+  public SelenideElement buttonGoToBookStore() {
     return $x("//button[text()='Go To Book Store']");
   }
 
-  public SelenideElement bottonDeleteAccount() {
+  public SelenideElement buttonDeleteAccount() {
 
     return $x("//button[text()='Delete Account']");
   }
 
-  public SelenideElement bottonDeleteAllBooks() {
+  public SelenideElement buttonDeleteAllBooks() {
     return $x("//button[text()='Delete All Books']");
   }
 
-  public SelenideElement bottonLogOut() {
+  public SelenideElement buttonLogOut() {
     return $x("//button[text()='Log out']");
   }
 

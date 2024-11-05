@@ -9,7 +9,8 @@ import java.util.Collections;
 
 public class RestAssuredModel extends BaseTest {
 
-  public Response newUser(String baseUri,String newUserNameValue, String newUserPassword, String userPath) {
+  public Response newUser(String baseUri, String newUserNameValue, String newUserPassword,
+      String userPath) {
     RequestLoginBodyModel requestBookModel = new RequestLoginBodyModel();
     requestBookModel.setUserName(newUserNameValue);
     requestBookModel.setPassword(newUserPassword);
@@ -19,7 +20,7 @@ public class RestAssuredModel extends BaseTest {
         .log()
         .all()
         .when()
-        .post(baseUri+userPath)
+        .post(baseUri + userPath)
         .then()
         .log()
         .all()
@@ -28,7 +29,8 @@ public class RestAssuredModel extends BaseTest {
 
   }
 
-  public Response authorization(String baseUri,String userNameValue, String passwordValue, String loginPath) {
+  public Response authorization(String baseUri, String userNameValue, String passwordValue,
+      String loginPath) {
     RequestLoginBodyModel loginBodyModel = new RequestLoginBodyModel();
     loginBodyModel.setUserName(userNameValue);
     loginBodyModel.setPassword(passwordValue);
@@ -38,7 +40,7 @@ public class RestAssuredModel extends BaseTest {
         .log()
         .all()
         .when()
-        .post(baseUri+loginPath)
+        .post(baseUri + loginPath)
         .then()
         .log()
         .all()
@@ -46,14 +48,15 @@ public class RestAssuredModel extends BaseTest {
         .response();
   }
 
-  public Response deleteUser(String baseUri,String newUserNameValue, String newUserPassword, String userPath) {
+  public Response deleteUser(String baseUri, String newUserNameValue, String newUserPassword,
+      String userPath) {
     return given()
         .auth()
         .preemptive()
         .basic(newUserNameValue, newUserPassword)
         .log()
         .all()
-        .delete(baseUri+userPath)
+        .delete(baseUri + userPath)
         .then()
         .log()
         .all()
@@ -61,8 +64,9 @@ public class RestAssuredModel extends BaseTest {
         .response();
   }
 
-  public Response deleteBook(String baseUri,String userName, String password, String bookStorePath, String userId,
-      String realIsbnValue,String boolPath){
+  public Response deleteBook(String baseUri, String userName, String password, String bookStorePath,
+      String userId,
+      String realIsbnValue, String boolPath) {
     DeleteBooKBodyResponse deleteBooKBodyResponse = new DeleteBooKBodyResponse();
     deleteBooKBodyResponse.setUserId(userId);
     deleteBooKBodyResponse.setIsbn(realIsbnValue);
@@ -74,7 +78,7 @@ public class RestAssuredModel extends BaseTest {
         .body(deleteBooKBodyResponse)
         .log()
         .all()
-        .delete(baseUri+bookStorePath+boolPath)
+        .delete(baseUri + bookStorePath + boolPath)
         .then()
         .log()
         .all()
@@ -82,11 +86,12 @@ public class RestAssuredModel extends BaseTest {
         .response();
   }
 
-  public  Response viewBookOther(String baseUri,String bookStorePath, String delViewBookPath,String realIsbnValue){
+  public Response viewBookOther(String baseUri, String bookStorePath, String delViewBookPath,
+      String realIsbnValue) {
     return given()
         .log()
         .all()
-        .get(baseUri+bookStorePath+delViewBookPath+realIsbnValue)
+        .get(baseUri + bookStorePath + delViewBookPath + realIsbnValue)
         .then()
         .log()
         .all()
@@ -94,7 +99,8 @@ public class RestAssuredModel extends BaseTest {
         .response();
   }
 
-  public  Response addBook(String baseUri,String userName, String password, String bookStorePath,String allBookPath,String realIsbnValue, String userId){
+  public Response addBook(String baseUri, String userName, String password, String bookStorePath,
+      String allBookPath, String realIsbnValue, String userId) {
     RequestBookModel requestBookModel = new RequestBookModel();
     IsbnPartialModel isbnPartialModel = new IsbnPartialModel();
     isbnPartialModel.setIsbn(realIsbnValue);
@@ -108,7 +114,7 @@ public class RestAssuredModel extends BaseTest {
         .body(requestBookModel)
         .log()
         .all()
-        .post(baseUri+bookStorePath+allBookPath)
+        .post(baseUri + bookStorePath + allBookPath)
         .then()
         .log()
         .all()

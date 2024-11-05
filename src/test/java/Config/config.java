@@ -2,8 +2,6 @@ package Config;
 
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.Config.Sources;
-import org.checkerframework.checker.units.qual.K;
-import org.junit.jupiter.api.Test;
 
 @Sources({"classpath:config.properties"})
 public interface config extends Config {
@@ -25,9 +23,6 @@ public interface config extends Config {
 
   @Key("login.path")
   String loginPath();
-
-  @Key("parametr.book.path")
-  String parametrbookPath();
 
   @Key("real.isbn.value")
   String realIsbnValue();
@@ -52,7 +47,6 @@ public interface config extends Config {
 
   @Key("book.path")
   String bookPath();
-
 
 
 }

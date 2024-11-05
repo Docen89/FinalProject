@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@Slf4j
+
 public class TestApi {
 
   StepsAccount stAp = new StepsAccount();
@@ -32,7 +32,7 @@ public class TestApi {
   @DisplayName("Добавление книги к пользователю в профиль")
   public void addBookToOldUser() {
     stBk.addBookProfileUser();
-    stBk.ckeckStatusResponseAddBooKProfileUser();
+    stBk.checkStatusResponseAddBooKProfileUser();
     stBk.deleteBookProfileUser();
   }
 
@@ -41,7 +41,7 @@ public class TestApi {
   public void bookIsAlreadyThereUser() {
     stBk.addBookProfileUser();
     stBk.addBookProfileUser();
-    stBk.ckeckMessageResponseAddBooKProfileUser();
+    stBk.checkMessageResponseAddBooKProfileUser();
     stBk.deleteBookProfileUser();
   }
 
@@ -65,7 +65,7 @@ public class TestApi {
   @DisplayName("Запрос определенной книги")
   public void getBooksFromStore() {
     stBk.getRealBook();
-    stBk.ckeckTitleRealBook();
+    stBk.checkTitleRealBook();
   }
 
   @Test

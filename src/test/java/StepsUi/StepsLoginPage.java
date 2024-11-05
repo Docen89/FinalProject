@@ -9,7 +9,7 @@ import io.qameta.allure.Step;
 public class StepsLoginPage {
 
   @Getter
-  String buttomLogOutTextValue;
+  String buttonLogOutTextValue;
   String messegTextValue;
   LoginPage lgpage = new LoginPage();
 
@@ -32,12 +32,12 @@ public class StepsLoginPage {
   }
 
   @Step("Кликаем по кнопке Login")
-  public void clickBottonLogin() {
+  public void clickButtonLogin() {
     lgpage.loginButton().scrollTo().click();
   }
 
   @Step("Кликаем по кнопке New User")
-  public void clickBottonNewUser() {
+  public void clickButtonNewUser() {
     lgpage.newUserButton().scrollTo().click();
   }
 
@@ -47,10 +47,9 @@ public class StepsLoginPage {
     return messegTextValue;
   }
 
-  @Step("Проверям наличие  в профиле кнопки 'Log Out'")
-  public String checkButtonLogOut() {
-    buttomLogOutTextValue = lgpage.buttonLogOut().getText();
-    return buttomLogOutTextValue;
+  @Step("Проверяем наличие  в профиле кнопки 'Log Out'")
+  public void checkButtonLogOut() {
+    buttonLogOutTextValue = lgpage.buttonLogOut().getText();
   }
 
   @Step("Чистим  кэш")

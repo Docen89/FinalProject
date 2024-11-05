@@ -12,23 +12,23 @@ public class StepsProfilePage {
 
   ProfilePage pfpage = new ProfilePage();
 
-  public void clickButtomGoToTheBookStore() {
-    pfpage.bottonGoToBookStore().click();
+  public void clickButtonGoToTheBookStore() {
+    pfpage.buttonGoToBookStore().click();
   }
 
-  public void clickButtomDeleteAccount() {
-    pfpage.bottonDeleteAccount().scrollTo().click();
+  public void clickButtonDeleteAccount() {
+    pfpage.buttonDeleteAccount().scrollTo().click();
   }
 
-  public void clickButtomDeleteAllBooks() {
-    pfpage.bottonDeleteAllBooks().click();
+  public void clickButtonDeleteAllBooks() {
+    pfpage.buttonDeleteAllBooks().click();
   }
 
   public void inputSearchBooks(String bookNameValue) {
     pfpage.searchBook(bookNameValue).sendKeys(bookNameValue);
   }
 
-  @Step("Потверждаем удаление акккаунта")
+  @Step("Подтверждаем удаление аккаунта")
   public void acceptAlertDelUser() {
     pfpage.buttonMessageDeleteUserOk().click();
   }
@@ -40,7 +40,7 @@ public class StepsProfilePage {
   }
 
   @Step("Кликаем по кнопке 'Log out'")
-  public void clickBottonLogOut() {
-    pfpage.bottonLogOut().click();
+  public void clickButtonLogOut() {
+    pfpage.buttonLogOut().click();
   }
 }

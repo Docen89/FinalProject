@@ -27,7 +27,7 @@ public class TestUi {
     slp.openBookStore("https://demoqa.com/login");
     slp.inputUserName("docen");
     slp.inputPasswordUser("docen13");
-    slp.clickBottonLogin();
+    slp.clickButtonLogin();
     assertEquals("Invalid username or password!", slp.checkMessagePage());
     slp.clear();
   }
@@ -39,9 +39,9 @@ public class TestUi {
     slp.openBookStore("https://demoqa.com/login");
     slp.inputUserName("Docen89");
     slp.inputPasswordUser("Docen1313!");
-    slp.clickBottonLogin();
+    slp.clickButtonLogin();
     slp.checkButtonLogOut();
-    assertEquals("Log out", slp.getButtomLogOutTextValue());
+    assertEquals("Log out", slp.getButtonLogOutTextValue());
     slp.clear();
   }
 
@@ -51,7 +51,7 @@ public class TestUi {
     slp.openBookStore("https://demoqa.com/login");
     slp.inputUserName("Docen89");
     slp.inputPasswordUser("Docen1313!");
-    slp.clickBottonLogin();
+    slp.clickButtonLogin();
     assertEquals("Publisher", sbsp.checkPublisherValue());
     slp.clear();
   }
@@ -61,13 +61,13 @@ public class TestUi {
   @DisplayName("Регистрация нового пользователя")
   public void registerNewUserNotCaptcha() {
     slp.openBookStore("https://demoqa.com/login");
-    slp.clickBottonNewUser();
+    slp.clickButtonNewUser();
     scup.inputNewUserFirstName("Docen90");
     scup.inputNewUserLastName("Popov");
     scup.inputNewUserName("Docen90");
     scup.inputNewUserPassword("Docen1313!");
     scup.clickButtonRegister();
-    assertEquals("Please verify reCaptcha to register!", scup.verifyCaptchaMcessage());
+    assertEquals("Please verify reCaptcha to register!", scup.verifyCaptchaMessage());
     slp.clear();
   }
 
@@ -75,7 +75,7 @@ public class TestUi {
   @DisplayName("Не заполнено поле LastName")
   public void noValidLastName() {
     slp.openBookStore("https://demoqa.com/login");
-    slp.clickBottonNewUser();
+    slp.clickButtonNewUser();
     scup.inputNewUserFirstName("Docen90");
     scup.inputNewUserName("Docen90");
     scup.inputNewUserPassword("Docen1313!");
@@ -88,7 +88,7 @@ public class TestUi {
   @DisplayName("Не заполнено поле FirstName")
   public void noValidFirstName() {
     slp.openBookStore("https://demoqa.com/login");
-    slp.clickBottonNewUser();
+    slp.clickButtonNewUser();
     scup.inputNewUserLastName("Popov");
     scup.inputNewUserName("Docen90");
     scup.inputNewUserPassword("Docen1313!");
@@ -104,8 +104,8 @@ public class TestUi {
     slp.openBookStore("https://demoqa.com/login");
     slp.inputUserName("Docen90");
     slp.inputPasswordUser("Docen1313!");
-    slp.clickBottonLogin();
-    spp.clickButtomDeleteAccount();
+    slp.clickButtonLogin();
+    spp.clickButtonDeleteAccount();
     spp.acceptAlertDelUser();
     spp.messageDeleteUser();
     assertEquals("User Deleted.", spp.getMessageDeleteUserValue());
@@ -116,7 +116,7 @@ public class TestUi {
   @DisplayName("Регистрация нового пользователя")
   public void registerNewUser() {
     slp.openBookStore("https://demoqa.com/login");
-    slp.clickBottonNewUser();
+    slp.clickButtonNewUser();
     scup.inputNewUserFirstName("Docen90");
     scup.inputNewUserLastName("Popov");
     scup.inputNewUserName("Docen90");
