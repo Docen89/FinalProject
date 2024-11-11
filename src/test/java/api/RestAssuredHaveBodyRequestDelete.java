@@ -3,19 +3,22 @@ package api;
 
 import static io.restassured.RestAssured.given;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 
 public class RestAssuredHaveBodyRequestDelete {
+
   private Response response;
 
-  public RestAssuredHaveBodyRequestDelete  delete(
+  public RestAssuredHaveBodyRequestDelete delete(
       String endpoint,
       String userName,
       String password,
       Object bodyData) {
     this.response = given()
+        .filter(new AllureRestAssured())
         .auth()
         .preemptive()
         .basic(userName, password)
@@ -33,12 +36,12 @@ public class RestAssuredHaveBodyRequestDelete {
     return this;
   }
 
-  public RestAssuredHaveBodyRequestDelete  responseStatusCode(int statusCode) {
+  public RestAssuredHaveBodyRequestDelete responseStatusCode(int statusCode) {
     response.then().assertThat().statusCode(statusCode);
     return this;
   }
 
-  public RestAssuredHaveBodyRequestDelete  responseJson(String jsonPath, Matcher matcher) {
+  public RestAssuredHaveBodyRequestDelete responseJson(String jsonPath, Matcher matcher) {
     response.then().assertThat().body(jsonPath, matcher);
     return this;
   }

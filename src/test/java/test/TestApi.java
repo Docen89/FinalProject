@@ -2,6 +2,7 @@ package test;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import steps.api.StepsAccount;
@@ -10,9 +11,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-public class TestApi {
+public class TestApi extends test.BaseTest {
 
-
+  static AllureRestAssured allureFilter = new AllureRestAssured()
+      .setRequestTemplate("custom-http-request.ftl")
+      .setResponseTemplate("custom-http-response.ftl");
 
   StepsAccount stepsAccount = new StepsAccount();
   StepsBook stepsBook = new StepsBook();

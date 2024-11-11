@@ -3,18 +3,20 @@ package api;
 import static io.restassured.RestAssured.given;
 
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 
 public class RestAssuredNoBodyRequestGet {
-  private Response response;
 
+  private Response response;
 
 
   public RestAssuredNoBodyRequestGet get(
 
       String endpoint) {
     this.response = given()
+        .filter(new AllureRestAssured())
         .when()
         .log()
         .all()
