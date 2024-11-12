@@ -1,55 +1,53 @@
 package steps.ui;
 
-import com.codeborne.selenide.Configuration;
 import lombok.Getter;
 import page.LoginPage;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
+import test.BaseTest;
 
-public class StepsLoginPage {
+public class StepsLoginPage extends BaseTest {
 
   @Getter
   String buttonLogOutTextValue;
   String messegTextValue;
-  LoginPage lgpage = new LoginPage();
+  LoginPage loginPage = new LoginPage();
 
   @Step("Открытие страницы Book Store")
-  public void openBookStore(String url) {
-    Configuration.pageLoadStrategy = "eager";
-    Configuration.browserSize = "2560x1440";
-    Selenide.open(url);
+  public void openBookStore(String endpoint) {
+    Selenide.open(endpoint);
   }
 
 
   @Step("Вводим имя пользователя")
   public void inputUserName(String nameValue) {
-    lgpage.userName(nameValue).sendKeys(nameValue);
+    loginPage.userName(nameValue).scrollTo().sendKeys(nameValue);
   }
 
   @Step("Вводим пароль пользователя")
   public void inputPasswordUser(String passwordValue) {
-    lgpage.userPassword(passwordValue).sendKeys(passwordValue);
+    loginPage.userPassword(passwordValue).sendKeys(passwordValue);
   }
 
   @Step("Кликаем по кнопке Login")
   public void clickButtonLogin() {
-    lgpage.loginButton().scrollTo().click();
+    loginPage.loginButton().scrollTo().click();
   }
 
   @Step("Кликаем по кнопке New User")
   public void clickButtonNewUser() {
-    lgpage.newUserButton().scrollTo().click();
+    loginPage.newUserButton().scrollTo().click();
   }
 
   @Step("Проверяем наличие на странице сообщения 'Invalid username or password!'")
   public String checkMessagePage() {
-    messegTextValue = lgpage.messegText().getText();
+    messegTextValue = loginPage.messegText().getText();
     return messegTextValue;
   }
 
   @Step("Проверяем наличие  в профиле кнопки 'Log Out'")
   public void checkButtonLogOut() {
-    buttonLogOutTextValue = lgpage.buttonLogOut().getText();
+    buttonLogOutTextValue = loginPage.buttonLogOut().getText();
   }
 
   @Step("Чистим  кэш")

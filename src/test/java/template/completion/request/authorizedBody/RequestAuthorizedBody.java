@@ -1,15 +1,13 @@
 package template.completion.request.authorizedBody;
 
-import static test.BaseTest.cfg;
-
 import model.request.authorized.RequestAuthorizedBodyModel;
 
 public class RequestAuthorizedBody {
 
-  public Object completionRequestAuthorizedBody(){
+  public Object completionRequestAuthorizedBody(String passwordValue, String userName){
     RequestAuthorizedBodyModel requestAuthorizedBodyModel = new RequestAuthorizedBodyModel();
-    requestAuthorizedBodyModel.setPassword(cfg.oldPasswordValue());
-    requestAuthorizedBodyModel.setUserName(cfg.oldUserNameValue());
+    requestAuthorizedBodyModel.setPassword(passwordValue);
+    requestAuthorizedBodyModel.setUserName(userName);
     return  requestAuthorizedBodyModel;
   }
 

@@ -2,8 +2,6 @@ package test;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeEach;
 import steps.api.StepsAccount;
 import steps.api.StepsBook;
 import org.junit.jupiter.api.DisplayName;
@@ -15,11 +13,6 @@ public class TestApi extends test.BaseTest {
   StepsAccount stepsAccount = new StepsAccount();
   StepsBook stepsBook = new StepsBook();
 
-  @BeforeEach
-  public void start() {
-    RestAssured.baseURI = "https://demoqa.com";
-  }
-
 
   @Test
   @DisplayName("Создание нового пользователя")
@@ -30,9 +23,8 @@ public class TestApi extends test.BaseTest {
 
   @Test
   @DisplayName("Авторизация зарегистрированным пользователем")
-  public void authOldUser() throws JsonProcessingException {
-    stepsAccount.createNewAccount();
-    stepsAccount.deleteNewUser();
+  public void authOldUser() {
+    stepsAccount.authorization();
   }
 
   @Test

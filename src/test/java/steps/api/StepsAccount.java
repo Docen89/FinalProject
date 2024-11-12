@@ -13,9 +13,10 @@ import io.qameta.allure.Step;
 import model.response.createUser.ResponseCreateNewUser;
 import template.completion.request.authorizedBody.RequestAuthorizedBody;
 import template.completion.request.createUserBody.CreateUserBodyRequest;
+import test.BaseTest;
 
 
-public class StepsAccount {
+public class StepsAccount extends BaseTest {
 
   CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
   RequestAuthorizedBody requestAuthorizedBody = new RequestAuthorizedBody();
@@ -43,7 +44,8 @@ public class StepsAccount {
   @Step("Получаем токен авторизации")
   public void getToken() {
     new RestAssuredHaveBodyRequestNoAuthPost()
-        .post("/Account/v1/GenerateToken", requestAuthorizedBody.completionRequestAuthorizedBody())
+        .post("/Account/v1/GenerateToken", requestAuthorizedBody.completionRequestAuthorizedBody(cfg.newPasswordValue(),
+            cfg.newUserNameValue()))
         .responseStatusCode(200)
         .responseJson("result", equalTo("User authorized successfully."));
 
@@ -52,9 +54,11 @@ public class StepsAccount {
   @Step("Авторизуемся")
   public void authorization() {
     new RestAssuredHaveBodyRequestNoAuthPost()
-        .post("Account/v1/Login",requestAuthorizedBody.completionRequestAuthorizedBody())
+        .post("Account/v1/Login",
+            requestAuthorizedBody.completionRequestAuthorizedBody(cfg.oldPasswordValue(),
+                cfg.oldUserNameValue()))
         .responseStatusCode(200)
-        .responseJson("username",equalTo(cfg.oldUserNameValue()));
+        .responseJson("username", equalTo(cfg.oldUserNameValue()));
 
   }
 

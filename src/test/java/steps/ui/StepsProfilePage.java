@@ -2,10 +2,7 @@ package steps.ui;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.Matchers.equalTo;
-import static test.BaseTest.cfg;
-
 import api.RestAssuredHaveBodyRequestNoAuthPost;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,35 +12,35 @@ import model.response.Auth.ResponseAuthBody;
 import lombok.Getter;
 import org.openqa.selenium.Cookie;
 import page.ProfilePage;
-import template.completion.request.authorizedBody.RequestAuthorizedBody;
+import template.completion.request.createUserBody.CreateUserBodyRequest;
 
 public class StepsProfilePage {
 
   @Getter
   String messageDeleteUserValue;
-  RequestAuthorizedBody requestAuthorizedBody = new RequestAuthorizedBody();
-  ProfilePage pfpage = new ProfilePage();
+  CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
+  ProfilePage profilePage = new ProfilePage();
 
 
   public void clickButtonGoToTheBookStore() {
-    pfpage.buttonGoToBookStore().click();
+    profilePage.buttonGoToBookStore().click();
   }
 
   public void clickButtonDeleteAccount() {
-    pfpage.buttonDeleteAccount().scrollTo().click();
+    profilePage.buttonDeleteAccount().scrollTo().click();
   }
 
   public void clickButtonDeleteAllBooks() {
-    pfpage.buttonDeleteAllBooks().click();
+    profilePage.buttonDeleteAllBooks().click();
   }
 
   public void inputSearchBooks(String bookNameValue) {
-    pfpage.searchBook(bookNameValue).sendKeys(bookNameValue);
+    profilePage.searchBook(bookNameValue).sendKeys(bookNameValue);
   }
 
   @Step("Подтверждаем удаление аккаунта")
   public void acceptAlertDelUser() {
-    pfpage.buttonMessageDeleteUserOk().click();
+    profilePage.buttonMessageDeleteUserOk().click();
   }
 
 
@@ -54,7 +51,7 @@ public class StepsProfilePage {
 
   @Step("Кликаем по кнопке 'Log out'")
   public void clickButtonLogOut() {
-    pfpage.buttonLogOut().click();
+    profilePage.buttonLogOut().click();
   }
 
   @Step("Получаем Cookie и открываем страницу")
@@ -62,9 +59,8 @@ public class StepsProfilePage {
       throws JsonProcessingException {
     RestAssuredHaveBodyRequestNoAuthPost restAssuredHaveBodyRequestNoAuthPost = new RestAssuredHaveBodyRequestNoAuthPost()
         .post("https://demoqa.com/Account/v1/Login",
-            requestAuthorizedBody.completionRequestAuthorizedBody())
-        .responseStatusCode(200)
-        .responseJson("username", equalTo(newUserName));
+        createUserBodyRequest.completionRequestCreateUserBody())
+        .responseStatusCode(200);
     String jsonResponseAuthBody = restAssuredHaveBodyRequestNoAuthPost.getResponse().body().print();
     ObjectMapper objectMapper = new ObjectMapper();
     ResponseAuthBody responseAuthBody = objectMapper.readValue(jsonResponseAuthBody,
