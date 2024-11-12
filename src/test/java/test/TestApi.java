@@ -19,12 +19,14 @@ public class TestApi extends test.BaseTest {
   public void createNewUser() throws JsonProcessingException {
     stepsAccount.createNewAccount();
     stepsAccount.deleteNewUser();
+
   }
 
   @Test
   @DisplayName("Авторизация зарегистрированным пользователем")
   public void authOldUser() {
     stepsAccount.authorization();
+
   }
 
   @Test
@@ -32,6 +34,7 @@ public class TestApi extends test.BaseTest {
   public void addBookToOldUser() throws JsonProcessingException {
     stepsBook.addBookProfileUser();
     stepsBook.deleteBookProfileUser();
+
   }
 
   @Test
@@ -40,6 +43,7 @@ public class TestApi extends test.BaseTest {
     stepsBook.addBookProfileUser();
     stepsBook.checkMessageResponseRepeatedAddBooKProfileUser();
     stepsBook.deleteBookProfileUser();
+
   }
 
   @Test
@@ -47,6 +51,7 @@ public class TestApi extends test.BaseTest {
   public void deleteBookInProfileUser() throws JsonProcessingException {
     stepsBook.addBookProfileUser();
     stepsBook.deleteBookProfileUser();
+
   }
 
   @Test
