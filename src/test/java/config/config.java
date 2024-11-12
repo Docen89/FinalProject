@@ -9,20 +9,14 @@ public interface config extends Config {
   @Key("new.user.name.value")
   String newUserNameValue();
 
-  @Key("new.user.password")
-  String newUserPassword();
+  @Key("new.password.value")
+  String newPasswordValue();
 
-  @Key("user.name.value")
-  String userNameValue();
+  @Key("old.user.name.value")
+  String oldUserNameValue();
 
-  @Key("password.value")
-  String passwordValue();
-
-  @Key("user.path")
-  String userPath();
-
-  @Key("login.path")
-  String loginPath();
+  @Key("old.password.value")
+  String oldPasswordValue();
 
   @Key("real.isbn.value")
   String realIsbnValue();
@@ -30,23 +24,7 @@ public interface config extends Config {
   @Key("not.real.isbn.value")
   String notRealIsbnValue();
 
-  @Key("userId")
+  @Key("user.Id")
   String userId();
-
-  @Key("base.uri")
-  String baseUri();
-
-  @Key("book.store.path")
-  String bookStorePath();
-
-  @Key("all.book.path")
-  String allBookPath();
-
-  @Key("del.view.book.path")
-  String delViewBookPath();
-
-  @Key("book.path")
-  String bookPath();
-
 
 }

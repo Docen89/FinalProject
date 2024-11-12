@@ -3,6 +3,7 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+import com.codeborne.selenide.Configuration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import steps.api.StepsAccount;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +14,7 @@ import steps.ui.StepsLoginPage;
 import steps.ui.StepsProfilePage;
 
 
-public class TestUi {
+public class TestUi extends test.BaseTest {
 
   StepsLoginPage slp = new StepsLoginPage();
   StepsProfilePage spp = new StepsProfilePage();
@@ -21,6 +22,12 @@ public class TestUi {
   StepsCreateUserPage scup = new StepsCreateUserPage();
   StepsAccount stAp = new StepsAccount();
 
+
+  @Test
+  @DisplayName("проба")
+  public void proba() throws JsonProcessingException {
+    spp.getCookieOpenSite("https://demoqa.com/profile", cfg.oldUserNameValue());
+  }
 
   @Test
   @DisplayName("Авторизация  с неверным паролем от пользователя")
@@ -101,11 +108,7 @@ public class TestUi {
   @Test
   @DisplayName("Удаление аккаунта пользователя")
   public void deleteUserAccount() throws JsonProcessingException {
-    stAp.createNewAccount();
-    slp.openBookStore("https://demoqa.com/login");
-    slp.inputUserName("Docen90");
-    slp.inputPasswordUser("Docen1313!");
-    slp.clickButtonLogin();
+    spp.getCookieOpenSite("https://demoqa.com/profile", cfg.oldUserNameValue());
     spp.clickButtonDeleteAccount();
     spp.acceptAlertDelUser();
     spp.messageDeleteUser();

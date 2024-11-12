@@ -7,6 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Getter;
 import org.hamcrest.Matcher;
+
 @Getter
 
 public class RestAssuredHaveBodyRequestNoAuthPost {

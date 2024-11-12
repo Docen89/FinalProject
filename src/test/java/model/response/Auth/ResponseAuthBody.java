@@ -1,5 +1,8 @@
-package java.model.response.Auth;
+package model.response.Auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseAuthBody {
 	private String password;
 	private String expires;

@@ -9,7 +9,7 @@ public class CreateUserBodyRequest {
   public Object completionRequestCreateUserBody(){
     RequestCreateUserBodyModel requestCreateUserBodyModel = new RequestCreateUserBodyModel();
     requestCreateUserBodyModel.setUserName(cfg.newUserNameValue());
-    requestCreateUserBodyModel.setPassword(cfg.newUserPassword());
+    requestCreateUserBodyModel.setPassword(cfg.newPasswordValue());
     return requestCreateUserBodyModel;
   }
 

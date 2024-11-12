@@ -16,10 +16,10 @@ import template.completion.request.createUserBody.CreateUserBodyRequest;
 
 
 public class StepsAccount {
-  CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
-  RequestAuthorizedBody requestAuthorizedBody= new RequestAuthorizedBody();
-  String newUserIdValue;
 
+  CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
+  RequestAuthorizedBody requestAuthorizedBody = new RequestAuthorizedBody();
+  String newUserIdValue;
 
 
   @Step("Создаем нового пользователя")
@@ -28,13 +28,24 @@ public class StepsAccount {
         .post("/Account/v1/User/",
             createUserBodyRequest.completionRequestCreateUserBody(),
             cfg.newUserNameValue(),
-            cfg.newUserPassword())
+            cfg.newPasswordValue())
         .responseStatusCode(201)
-        .responseJson("username",equalTo(cfg.newUserNameValue()));
-    String jsonResponseCreateUserBody = restAssuredHaveBodyRequestAuthPost.getResponse().body().print();
+        .responseJson("username", equalTo(cfg.newUserNameValue()));
+    String jsonResponseCreateUserBody = restAssuredHaveBodyRequestAuthPost.getResponse().body()
+        .print();
     ObjectMapper objectMapper = new ObjectMapper();
-    ResponseCreateNewUser  responseCreateNewUser = objectMapper.readValue(jsonResponseCreateUserBody, ResponseCreateNewUser.class);
-    newUserIdValue=responseCreateNewUser.getUserID();
+    ResponseCreateNewUser responseCreateNewUser = objectMapper.readValue(jsonResponseCreateUserBody,
+        ResponseCreateNewUser.class);
+    newUserIdValue = responseCreateNewUser.getUserID();
+
+  }
+
+  @Step("Получаем токен авторизации")
+  public void getToken() {
+    new RestAssuredHaveBodyRequestNoAuthPost()
+        .post("/Account/v1/GenerateToken", requestAuthorizedBody.completionRequestAuthorizedBody())
+        .responseStatusCode(200)
+        .responseJson("result", equalTo("User authorized successfully."));
 
   }
 
@@ -43,15 +54,18 @@ public class StepsAccount {
     new RestAssuredHaveBodyRequestNoAuthPost()
         .post("Account/v1/Login",requestAuthorizedBody.completionRequestAuthorizedBody())
         .responseStatusCode(200)
-        .responseJson("username",equalTo(cfg.userNameValue()));
+        .responseJson("username",equalTo(cfg.oldUserNameValue()));
+
   }
 
 
   @Step("Удаляем ранее созданного пользователя")
   public void deleteNewUser() {
-      new RestAssuredNoBodyRequestDelete()
-          .delete("/Account/v1/User/"+newUserIdValue,cfg.newUserNameValue(), cfg.newUserPassword())
-          .responseStatusCode(204);
+    new RestAssuredNoBodyRequestDelete()
+        .delete("/Account/v1/User/" + newUserIdValue,
+            cfg.newUserNameValue(),
+            cfg.newPasswordValue())
+        .responseStatusCode(204);
 
   }
 

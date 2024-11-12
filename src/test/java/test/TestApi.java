@@ -2,7 +2,6 @@ package test;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import steps.api.StepsAccount;
@@ -13,29 +12,27 @@ import org.junit.jupiter.api.Test;
 
 public class TestApi extends test.BaseTest {
 
-  static AllureRestAssured allureFilter = new AllureRestAssured()
-      .setRequestTemplate("custom-http-request.ftl")
-      .setResponseTemplate("custom-http-response.ftl");
-
   StepsAccount stepsAccount = new StepsAccount();
   StepsBook stepsBook = new StepsBook();
 
   @BeforeEach
-  public void start(){
+  public void start() {
     RestAssured.baseURI = "https://demoqa.com";
   }
 
+
   @Test
   @DisplayName("Создание нового пользователя")
-  public void createNewUser ()  throws JsonProcessingException{
-    stepsAccount.createNewAccount ();
+  public void createNewUser() throws JsonProcessingException {
+    stepsAccount.createNewAccount();
     stepsAccount.deleteNewUser();
   }
 
   @Test
   @DisplayName("Авторизация зарегистрированным пользователем")
-  public void authOldUser() {
-    stepsAccount.authorization();
+  public void authOldUser() throws JsonProcessingException {
+    stepsAccount.createNewAccount();
+    stepsAccount.deleteNewUser();
   }
 
   @Test
@@ -47,7 +44,7 @@ public class TestApi extends test.BaseTest {
 
   @Test
   @DisplayName("Повторное добавление книги  в профиль пользователя")
-  public void bookIsAlreadyThereUser() throws JsonProcessingException{
+  public void bookIsAlreadyThereUser() throws JsonProcessingException {
     stepsBook.addBookProfileUser();
     stepsBook.checkMessageResponseRepeatedAddBooKProfileUser();
     stepsBook.deleteBookProfileUser();
@@ -55,14 +52,14 @@ public class TestApi extends test.BaseTest {
 
   @Test
   @DisplayName("Удаляем книгу из профиля пользователя")
-  public void deleteBookInProfileUser()throws JsonProcessingException {
-    stepsBook.addBookProfileUser() ;
+  public void deleteBookInProfileUser() throws JsonProcessingException {
+    stepsBook.addBookProfileUser();
     stepsBook.deleteBookProfileUser();
   }
 
   @Test
   @DisplayName("Удаление  пользователя")
-  public void deleteNewUser()  throws JsonProcessingException{
+  public void deleteNewUser() throws JsonProcessingException {
     stepsAccount.createNewAccount();
     stepsAccount.deleteNewUser();
 

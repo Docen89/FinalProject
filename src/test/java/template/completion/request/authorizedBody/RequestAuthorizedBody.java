@@ -8,8 +8,8 @@ public class RequestAuthorizedBody {
 
   public Object completionRequestAuthorizedBody(){
     RequestAuthorizedBodyModel requestAuthorizedBodyModel = new RequestAuthorizedBodyModel();
-    requestAuthorizedBodyModel.setPassword(cfg.passwordValue());
-    requestAuthorizedBodyModel.setUserName(cfg.userNameValue());
+    requestAuthorizedBodyModel.setPassword(cfg.oldPasswordValue());
+    requestAuthorizedBodyModel.setUserName(cfg.oldUserNameValue());
     return  requestAuthorizedBodyModel;
   }
 
