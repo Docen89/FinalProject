@@ -7,20 +7,20 @@ import com.codeborne.selenide.SelenideElement;
 public class CreateUserPage {
 
   public SelenideElement firstName(String firstNameValue) {
-    return $x("//input[@id='firstname']");
+    return $x("//input[@id='firstname']").as("Поле'Имя'");
   }
 
   public SelenideElement lastName(String lastNameValue) {
 
-    return $x("//input[@id='lastname']");
+    return $x("//input[@id='lastname']").as("Поле'Фамилия'");
   }
 
   public SelenideElement userName(String newUserNameValue) {
-    return $x("//input[@id='userName']");
+    return $x("//input[@id='userName']").as("Поле'Имя пользователя'");
   }
 
   public SelenideElement Password(String newUserPasswordValue) {
-    return $x("//input[@id='password']");
+    return $x("//input[@id='password']").as("Поле'Пароль'");
   }
 
   public SelenideElement buttonBackToLogin() {
@@ -29,23 +29,16 @@ public class CreateUserPage {
 
 
   public SelenideElement buttonRegister() {
-    return $x("//button[@id='register']");
+    return $x("//button[@id='register']").as("Кнопка'Регистрация'");
   }
 
-  public SelenideElement messageCreateUser(String createUserMessageValue) {
-    return $x("//p[text()='User exists!']");
-  }
-
-  public SelenideElement messageVerifyCaptcha(String verifyMessageCaptchyValue) {
-    return $x("//p[text()='Please verify reCaptcha to register!']");
-  }
 
   public SelenideElement noFirstName() {
-    return $x("//*[@id='firstname' and @class='mr-sm-2 is-invalid form-control']");
+    return $x("//*[@id='firstname' and @class='mr-sm-2 is-invalid form-control']") .as("Валидация на поле 'Имя'");
   }
 
   public SelenideElement noLastName() {
-    return $x("//*[@id='lastname' and @class='mr-sm-2 is-invalid form-control']");
+    return $x("//*[@id='lastname' and @class='mr-sm-2 is-invalid form-control']").as("Валидация на поле 'Фамилия'");
   }
 
 }

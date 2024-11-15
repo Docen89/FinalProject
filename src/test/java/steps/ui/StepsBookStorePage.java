@@ -1,5 +1,7 @@
 package steps.ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import io.qameta.allure.Step;
 import lombok.Getter;
 import page.BookStorePage;
@@ -8,11 +10,11 @@ public class StepsBookStorePage {
 
   @Getter
   String publisherValue;
-  BookStorePage bsp = new BookStorePage();
+  BookStorePage bookStorePage = new BookStorePage();
 
-  @Step("Проверяем наличие колонки 'Автор'")
-  public String checkPublisherValue() {
-    publisherValue = bsp.publisher().getText();
-    return publisherValue;
+  @Step("Проверить наличие колонки 'Автор'")
+  public void checkPublisherValue() {
+    publisherValue = bookStorePage.publisher().getText();
+    assertEquals("Publisher", publisherValue);
   }
 }

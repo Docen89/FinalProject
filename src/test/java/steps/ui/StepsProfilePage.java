@@ -1,7 +1,8 @@
 package steps.ui;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import api.RestAssuredHaveBodyRequestNoAuthPost;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -9,14 +10,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
 import model.response.Auth.ResponseAuthBody;
-import lombok.Getter;
 import org.openqa.selenium.Cookie;
 import page.ProfilePage;
-import template.completion.request.createUserBody.CreateUserBodyRequest;
+import java.template.request.createUserBody.CreateUserBodyRequest;
 
 public class StepsProfilePage {
 
-  @Getter
   String messageDeleteUserValue;
   CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
   ProfilePage profilePage = new ProfilePage();
@@ -38,23 +37,24 @@ public class StepsProfilePage {
     profilePage.searchBook(bookNameValue).sendKeys(bookNameValue);
   }
 
-  @Step("Подтверждаем удаление аккаунта")
+  @Step("Подтвердить удаление аккаунта")
   public void acceptAlertDelUser() {
     profilePage.buttonMessageDeleteUserOk().click();
   }
 
 
-  @Step("Получаем уведомление об удаление пользователя")
+  @Step("Получить уведомление об удаление пользователя")
   public void messageDeleteUser() {
     messageDeleteUserValue = Selenide.switchTo().alert().getText();
+    assertEquals("User Deleted.", messageDeleteUserValue);
   }
 
-  @Step("Кликаем по кнопке 'Log out'")
+  @Step("Кликнуть по кнопке 'Log out'")
   public void clickButtonLogOut() {
     profilePage.buttonLogOut().click();
   }
 
-  @Step("Получаем Cookie и открываем страницу")
+  @Step("Получить Cookie и открыть страницу")
   public void getCookieOpenSite(String endPoint, String newUserName)
       throws JsonProcessingException {
     RestAssuredHaveBodyRequestNoAuthPost restAssuredHaveBodyRequestNoAuthPost = new RestAssuredHaveBodyRequestNoAuthPost()

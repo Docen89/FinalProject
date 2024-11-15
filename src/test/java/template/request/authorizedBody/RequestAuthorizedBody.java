@@ -1,4 +1,4 @@
-package template.completion.request.authorizedBody;
+package java.template.request.authorizedBody;
 
 import model.request.authorized.RequestAuthorizedBodyModel;
 

@@ -1,4 +1,4 @@
-package template.completion.request.createUserBody;
+package java.template.request.createUserBody;
 
 import static test.BaseTest.cfg;
 

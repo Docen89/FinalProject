@@ -1,12 +1,8 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import steps.api.StepsAccount;
 import steps.ui.StepsBookStorePage;
 import steps.ui.StepsCreateUserPage;
 import steps.ui.StepsLoginPage;
@@ -19,7 +15,7 @@ public class TestUi extends test.BaseTest {
   StepsProfilePage stepsProfilePage = new StepsProfilePage();
   StepsBookStorePage stepsBookStorePage = new StepsBookStorePage();
   StepsCreateUserPage stepsCreateUserPage = new StepsCreateUserPage();
-  StepsAccount stepsAccount = new StepsAccount();
+  steps.api.StepsApi stepsApi = new steps.api.StepsApi();
 
 
   @Test
@@ -29,7 +25,7 @@ public class TestUi extends test.BaseTest {
     stepsLoginPage.inputUserName("docen");
     stepsLoginPage.inputPasswordUser("docen13");
     stepsLoginPage.clickButtonLogin();
-    assertEquals("Invalid username or password!", stepsLoginPage.checkMessagePage());
+    stepsLoginPage.checkMessagePage();
     stepsLoginPage.clear();
 
   }
@@ -38,26 +34,25 @@ public class TestUi extends test.BaseTest {
   @Test
   @DisplayName("Авторизация с валидной парой логопасс")
   public void authWithValidLogoPass() throws JsonProcessingException {
-    stepsAccount.createNewAccount();
+    stepsApi.createNewAccount();
     stepsLoginPage.openBookStore("login");
     stepsLoginPage.inputUserName(cfg.newUserNameValue());
     stepsLoginPage.inputPasswordUser(cfg.newPasswordValue());
     stepsLoginPage.clickButtonLogin();
     stepsLoginPage.checkButtonLogOut();
-    assertEquals("Log out", stepsLoginPage.getButtonLogOutTextValue());
     stepsLoginPage.clear();
-    stepsAccount.deleteNewUser();
+    stepsApi.deleteNewUser();
 
   }
 
   @Test
   @DisplayName("Проверка кнопки 'Go To Book Store'")
   public void checkButtomGoToBookStore() throws JsonProcessingException {
-    stepsAccount.createNewAccount();
-    stepsAccount.getToken();
+    stepsApi.createNewAccount();
+    stepsApi.getToken();
     stepsProfilePage.getCookieOpenSite("profile", cfg.oldUserNameValue());
-    assertEquals("Publisher", stepsBookStorePage.checkPublisherValue());
-    stepsAccount.deleteNewUser();
+    stepsBookStorePage.checkPublisherValue();
+    stepsApi.deleteNewUser();
     stepsLoginPage.clear();
 
   }
@@ -93,13 +88,12 @@ public class TestUi extends test.BaseTest {
   @Test
   @DisplayName("Удаление аккаунта пользователя")
   public void deleteUserAccount() throws JsonProcessingException {
-    stepsAccount.createNewAccount();
-    stepsAccount.getToken();
+    stepsApi.createNewAccount();
+    stepsApi.getToken();
     stepsProfilePage.getCookieOpenSite("profile", cfg.newUserNameValue());
     stepsProfilePage.clickButtonDeleteAccount();
     stepsProfilePage.acceptAlertDelUser();
     stepsProfilePage.messageDeleteUser();
-    assertEquals("User Deleted.", stepsProfilePage.getMessageDeleteUserValue());
     stepsLoginPage.clear();
 
   }

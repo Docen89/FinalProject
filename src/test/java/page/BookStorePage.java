@@ -6,8 +6,8 @@ import com.codeborne.selenide.SelenideElement;
 
 public class BookStorePage {
 
-  public SelenideElement publisher() {
-    return $x("//div[contains(text(), 'Publisher')]");
+  public SelenideElement publisher(){
+    return $x("//div[contains(text(), 'Publisher')]").as("Колонка 'Автор'");
   }
 }
 

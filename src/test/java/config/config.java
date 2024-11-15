@@ -25,9 +25,6 @@ public interface config extends Config {
   @Key("not.real.isbn.value")
   String notRealIsbnValue();
 
-  @Key("user.Id")
-  String userId();
-
   @Key("load.strategy")
   String loadStrategy();
 

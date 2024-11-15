@@ -1,5 +1,7 @@
 package steps.ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import lombok.Getter;
 import page.LoginPage;
 import com.codeborne.selenide.Selenide;
@@ -13,41 +15,42 @@ public class StepsLoginPage extends BaseTest {
   String messegTextValue;
   LoginPage loginPage = new LoginPage();
 
-  @Step("Открытие страницы Book Store")
+  @Step("Открыть страницу Book Store")
   public void openBookStore(String endpoint) {
     Selenide.open(endpoint);
   }
 
 
-  @Step("Вводим имя пользователя")
+  @Step("Ввести имя пользователя")
   public void inputUserName(String nameValue) {
     loginPage.userName(nameValue).scrollTo().sendKeys(nameValue);
   }
 
-  @Step("Вводим пароль пользователя")
+  @Step("Ввести пароль пользователя")
   public void inputPasswordUser(String passwordValue) {
     loginPage.userPassword(passwordValue).sendKeys(passwordValue);
   }
 
-  @Step("Кликаем по кнопке Login")
+  @Step("Кликнуть по кнопке Login")
   public void clickButtonLogin() {
     loginPage.loginButton().scrollTo().click();
   }
 
-  @Step("Кликаем по кнопке New User")
+  @Step("Кликнуть по кнопке New User")
   public void clickButtonNewUser() {
     loginPage.newUserButton().scrollTo().click();
   }
 
-  @Step("Проверяем наличие на странице сообщения 'Invalid username or password!'")
-  public String checkMessagePage() {
-    messegTextValue = loginPage.messegText().getText();
-    return messegTextValue;
+  @Step("Проверить наличие на странице сообщения 'Invalid username or password!'")
+  public  void  checkMessagePage() {
+    messegTextValue =loginPage.messegText().getText();
+    assertEquals("Invalid username or password!", messegTextValue);
   }
 
-  @Step("Проверяем наличие  в профиле кнопки 'Log Out'")
+  @Step("Проверить наличие  в профиле кнопки 'Log Out'")
   public void checkButtonLogOut() {
     buttonLogOutTextValue = loginPage.buttonLogOut().getText();
+    assertEquals("Log out", buttonLogOutTextValue);
   }
 
   @Step("Чистим  кэш")
