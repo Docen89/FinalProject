@@ -5,12 +5,14 @@ import static io.restassured.RestAssured.given;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import lombok.Getter;
 import org.hamcrest.Matcher;
 
-@Getter
 
 public class RestAssuredHaveBodyRequestAuthPost {
+
+  static AllureRestAssured allureFilter = new AllureRestAssured()
+      .setRequestTemplate("custom-http-request.ftl")
+      .setResponseTemplate("custom-http-response.ftl");
 
   private Response response;
 
@@ -20,7 +22,7 @@ public class RestAssuredHaveBodyRequestAuthPost {
       String userName,
       String password) {
     this.response = given()
-        .filter(new AllureRestAssured())
+        .filter(allureFilter)
         .auth()
         .preemptive()
         .basic(userName, password)

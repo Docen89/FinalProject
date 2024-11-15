@@ -1,4 +1,4 @@
-package java.template.request.addBookOldUserBody;
+package template.request.addBookOldUserBody;
 
 
 import java.util.Collections;

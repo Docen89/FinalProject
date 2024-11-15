@@ -9,6 +9,9 @@ import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 
 public class RestAssuredHaveBodyRequestDelete {
+  static AllureRestAssured allureFilter = new AllureRestAssured()
+      .setRequestTemplate("custom-http-request.ftl")
+      .setResponseTemplate("custom-http-response.ftl");
 
   private Response response;
 
@@ -18,7 +21,7 @@ public class RestAssuredHaveBodyRequestDelete {
       String password,
       Object bodyData) {
     this.response = given()
-        .filter(new AllureRestAssured())
+        .filter(allureFilter)
         .auth()
         .preemptive()
         .basic(userName, password)

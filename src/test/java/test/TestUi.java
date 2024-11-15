@@ -1,12 +1,14 @@
 package test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import template.generationdata.GenerationDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import steps.ui.StepsBookStorePage;
 import steps.ui.StepsCreateUserPage;
 import steps.ui.StepsLoginPage;
 import steps.ui.StepsProfilePage;
+import steps.api.StepsApi;
 
 
 public class TestUi extends test.BaseTest {
@@ -15,15 +17,16 @@ public class TestUi extends test.BaseTest {
   StepsProfilePage stepsProfilePage = new StepsProfilePage();
   StepsBookStorePage stepsBookStorePage = new StepsBookStorePage();
   StepsCreateUserPage stepsCreateUserPage = new StepsCreateUserPage();
-  steps.api.StepsApi stepsApi = new steps.api.StepsApi();
+  StepsApi stepsApi = new StepsApi();
+  GenerationDate generationDate = new GenerationDate();
 
 
   @Test
   @DisplayName("Авторизация  с неверным паролем от пользователя")
   public void authWithNotValidPassword() {
     stepsLoginPage.openBookStore("login");
-    stepsLoginPage.inputUserName("docen");
-    stepsLoginPage.inputPasswordUser("docen13");
+    stepsLoginPage.inputUserName(cfg.newUserNameValue());
+    stepsLoginPage.inputPasswordUser(generationDate.newPasswordValue);
     stepsLoginPage.clickButtonLogin();
     stepsLoginPage.checkMessagePage();
     stepsLoginPage.clear();
@@ -62,9 +65,9 @@ public class TestUi extends test.BaseTest {
   public void noValidLastName() {
     stepsLoginPage.openBookStore("login");
     stepsLoginPage.clickButtonNewUser();
-    stepsCreateUserPage.inputNewUserFirstName("Docen90");
-    stepsCreateUserPage.inputNewUserName("Docen90");
-    stepsCreateUserPage.inputNewUserPassword("Docen1313!");
+    stepsCreateUserPage.inputNewUserFirstName(cfg.oldUserNameValue());
+    stepsCreateUserPage.inputNewUserName(cfg.oldUserNameValue());
+    stepsCreateUserPage.inputNewUserPassword(cfg.oldPasswordValue());
     stepsCreateUserPage.clickButtonRegister();
     stepsCreateUserPage.validLastName();
     stepsLoginPage.clear();
@@ -76,9 +79,9 @@ public class TestUi extends test.BaseTest {
   public void noValidFirstName() {
     stepsLoginPage.openBookStore("login");
     stepsLoginPage.clickButtonNewUser();
-    stepsCreateUserPage.inputNewUserLastName("Popov");
-    stepsCreateUserPage.inputNewUserName("Docen90");
-    stepsCreateUserPage.inputNewUserPassword("Docen1313!");
+    stepsCreateUserPage.inputNewUserLastName(cfg.newUserNameValue());
+    stepsCreateUserPage.inputNewUserName(cfg.newUserNameValue());
+    stepsCreateUserPage.inputNewUserPassword(cfg.newPasswordValue());
     stepsCreateUserPage.clickButtonRegister();
     stepsCreateUserPage.validFirstName();
     stepsLoginPage.clear();

@@ -11,12 +11,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
 import model.response.createUser.ResponseCreateNewUser;
-import java.template.request.authorizedBody.RequestAuthorizedBody;
-import java.template.request.createUserBody.CreateUserBodyRequest;
+import template.request.authorizedBody.RequestAuthorizedBody;
+import template.request.createUserBody.CreateUserBodyRequest;
 import test.BaseTest;
 import model.response.Auth.ResponseAuthBody;
-import java.template.request.addBookOldUserBody.AddBookOldUserBody;
-import java.template.request.deleteBookUserBody.DeleteBookUserBody;
+import template.request.addBookOldUserBody.AddBookOldUserBody;
+import template.request.deleteBookUserBody.DeleteBookUserBody;
 
 
 public class StepsApi extends BaseTest {

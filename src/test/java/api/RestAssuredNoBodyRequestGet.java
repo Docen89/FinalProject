@@ -9,6 +9,10 @@ import org.hamcrest.Matcher;
 
 public class RestAssuredNoBodyRequestGet {
 
+  static AllureRestAssured allureFilter = new AllureRestAssured()
+      .setRequestTemplate("custom-http-request.ftl")
+      .setResponseTemplate("custom-http-response.ftl");
+
   private Response response;
 
 
@@ -16,7 +20,7 @@ public class RestAssuredNoBodyRequestGet {
 
       String endpoint) {
     this.response = given()
-        .filter(new AllureRestAssured())
+        .filter(allureFilter)
         .when()
         .log()
         .all()

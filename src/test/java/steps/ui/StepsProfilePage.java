@@ -12,7 +12,7 @@ import io.qameta.allure.Step;
 import model.response.Auth.ResponseAuthBody;
 import org.openqa.selenium.Cookie;
 import page.ProfilePage;
-import java.template.request.createUserBody.CreateUserBodyRequest;
+import template.request.createUserBody.CreateUserBodyRequest;
 
 public class StepsProfilePage {
 

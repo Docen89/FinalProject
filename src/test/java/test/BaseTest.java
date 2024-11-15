@@ -5,6 +5,7 @@ import static com.codeborne.selenide.Configuration.baseUrl;
 import com.codeborne.selenide.Configuration;
 import config.config;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;

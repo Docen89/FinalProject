@@ -12,6 +12,10 @@ import org.hamcrest.Matcher;
 
 public class RestAssuredHaveBodyRequestNoAuthPost {
 
+  static AllureRestAssured allureFilter = new AllureRestAssured()
+      .setRequestTemplate("custom-http-request.ftl")
+      .setResponseTemplate("custom-http-response.ftl");
+
   private Response response;
 
   public RestAssuredHaveBodyRequestNoAuthPost post(
@@ -19,7 +23,7 @@ public class RestAssuredHaveBodyRequestNoAuthPost {
       Object bodyData
   ) {
     this.response = given()
-        .filter(new AllureRestAssured())
+        .filter(allureFilter)
         .contentType(ContentType.JSON)
         .body(bodyData)
         .when()
