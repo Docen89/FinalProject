@@ -5,9 +5,10 @@ import static io.restassured.RestAssured.given;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.Getter;
 import org.hamcrest.Matcher;
 
-
+@Getter
 public class RestAssuredHaveBodyRequestAuthPost {
 
   static AllureRestAssured allureFilter = new AllureRestAssured()

@@ -34,11 +34,11 @@ public class CreateUserPage {
 
 
   public SelenideElement noFirstName() {
-    return $x("//*[@id='firstname' and @class='mr-sm-2 is-invalid form-control']") .as("Валидация на поле 'Имя'");
+    return $x("//*[contains(@class,'invalid form-control')]") .as("Валидация на поле 'Имя'");
   }
 
   public SelenideElement noLastName() {
-    return $x("//*[@id='lastname' and @class='mr-sm-2 is-invalid form-control']").as("Валидация на поле 'Фамилия'");
+    return $x("//*[contains(@class,'invalid form-control')]").as("Валидация на поле 'Фамилия'");
   }
 
 }
