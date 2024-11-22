@@ -1,6 +1,7 @@
 package test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import steps.api.UpperStepsApi;
 import template.generationdata.GenerationDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,8 @@ import steps.ui.StepsBookStorePage;
 import steps.ui.StepsCreateUserPage;
 import steps.ui.StepsLoginPage;
 import steps.ui.StepsProfilePage;
-import steps.api.StepsApi;
+import  steps.api.LowerStepsApi;
+
 
 
 public class TestUi extends test.BaseTest {
@@ -17,8 +19,9 @@ public class TestUi extends test.BaseTest {
   StepsProfilePage stepsProfilePage = new StepsProfilePage();
   StepsBookStorePage stepsBookStorePage = new StepsBookStorePage();
   StepsCreateUserPage stepsCreateUserPage = new StepsCreateUserPage();
-  StepsApi stepsApi = new StepsApi();
+  LowerStepsApi lowerStepsApi = new LowerStepsApi();
   GenerationDate generationDate = new GenerationDate();
+  UpperStepsApi upperStepsApi =  new UpperStepsApi();
 
 
   @Test
@@ -36,26 +39,26 @@ public class TestUi extends test.BaseTest {
 
   @Test
   @DisplayName("Авторизация с валидной парой логопасс")
-  public void authWithValidLogoPass() throws JsonProcessingException {
-    stepsApi.createNewAccount();
+  public void authWithValidLogoPass() {
+    lowerStepsApi.createNewAccount();
     stepsLoginPage.openBookStore("login");
     stepsLoginPage.inputUserName(cfg.newUserNameValue());
     stepsLoginPage.inputPasswordUser(cfg.newPasswordValue());
     stepsLoginPage.clickButtonLogin();
     stepsLoginPage.checkButtonLogOut();
     stepsLoginPage.clear();
-    stepsApi.deleteNewUser();
+    upperStepsApi.deleteNewUser();
 
   }
 
   @Test
   @DisplayName("Проверка кнопки 'Go To Book Store'")
-  public void checkButtomGoToBookStore() throws JsonProcessingException {
-    stepsApi.createNewAccount();
-    stepsApi.getToken();
-    stepsProfilePage.getCookieOpenSite("profile", cfg.oldUserNameValue());
+  public void checkButtomGoToBookStore() {
+    lowerStepsApi.createNewAccount();
+    lowerStepsApi.getToken();
+    stepsProfilePage.getCookieOpenSite("profile");
     stepsBookStorePage.checkPublisherValue();
-    stepsApi.deleteNewUser();
+    upperStepsApi.deleteNewUser();
     stepsLoginPage.clear();
 
   }
@@ -90,10 +93,10 @@ public class TestUi extends test.BaseTest {
 
   @Test
   @DisplayName("Удаление аккаунта пользователя")
-  public void deleteUserAccount() throws JsonProcessingException {
-    stepsApi.createNewAccount();
-    stepsApi.getToken();
-    stepsProfilePage.getCookieOpenSite("profile", cfg.newUserNameValue());
+  public void deleteUserAccount()  {
+    lowerStepsApi.createNewAccount();
+    lowerStepsApi.getToken();
+    stepsProfilePage.getCookieOpenSite("profile");
     stepsProfilePage.clickButtonDeleteAccount();
     stepsProfilePage.acceptAlertDelUser();
     stepsProfilePage.messageDeleteUser();

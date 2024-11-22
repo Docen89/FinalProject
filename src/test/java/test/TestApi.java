@@ -1,78 +1,79 @@
 package test;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+
+import steps.api.UpperStepsApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import steps.api.StepsApi;
+import  steps.api.LowerStepsApi;
 
 
 public class TestApi extends test.BaseTest {
 
- StepsApi stepsApi = new StepsApi();
-
+LowerStepsApi lowerStepsApi = new LowerStepsApi();
+UpperStepsApi upperStepsApi =  new UpperStepsApi();
 
   @Test
   @DisplayName("Создание нового пользователя")
-  public void createNewUser() throws JsonProcessingException {
-    stepsApi.createNewAccount();
-    stepsApi.deleteNewUser();
+  public void createNewUser() {
+    lowerStepsApi.createNewAccount();
+    upperStepsApi.deleteNewUser();
 
   }
 
   @Test
   @DisplayName("Авторизация зарегистрированным пользователем")
-  public void authOldUser() throws JsonProcessingException {
-    stepsApi.authorization() ;
+  public void authOldUser()  {
+    lowerStepsApi.authorization();
 
   }
 
   @Test
   @DisplayName("Добавление книги к пользователю в профиль")
-  public void addBookToOldUser() throws JsonProcessingException {
-    stepsApi.authorization();
-    stepsApi.addBookProfileUser();
-    stepsApi.deleteBookProfileUser();
+  public void addBookToOldUser()  {
+    lowerStepsApi.authorization();
+    upperStepsApi.addBookProfileUser();
+    upperStepsApi.deleteBookProfileUser();
 
   }
 
   @Test
   @DisplayName("Повторное добавление книги  в профиль пользователя")
-  public void bookIsAlreadyThereUser() throws JsonProcessingException {
-    stepsApi.authorization();
-    stepsApi.addBookProfileUser();
-    stepsApi.checkMessageResponseRepeatedAddBooKProfileUser();
-    stepsApi.deleteBookProfileUser();
+  public void bookIsAlreadyThereUser()  {
+    lowerStepsApi.authorization();
+    upperStepsApi.addBookProfileUser();
+    upperStepsApi.checkMessageResponseRepeatedAddBooKProfileUser();
+    upperStepsApi.deleteBookProfileUser();
 
   }
 
   @Test
   @DisplayName("Удаляем книгу из профиля пользователя")
-  public void deleteBookInProfileUser()throws JsonProcessingException {
-    stepsApi.authorization();
-    stepsApi.addBookProfileUser();
-    stepsApi.deleteBookProfileUser();
+  public void deleteBookInProfileUser() {
+    lowerStepsApi.authorization();
+    upperStepsApi.addBookProfileUser();
+    upperStepsApi.deleteBookProfileUser();
 
   }
 
   @Test
   @DisplayName("Удаление  пользователя")
-  public void deleteNewUser() throws JsonProcessingException {
-    stepsApi.createNewAccount();
-    stepsApi.deleteNewUser();
+  public void deleteNewUser()  {
+    lowerStepsApi.createNewAccount();
+    upperStepsApi.deleteNewUser();
 
   }
 
   @Test
   @DisplayName("Запрос определенной книги")
   public void getBooksFromStore() {
-    stepsApi.getRealBook();
+    upperStepsApi.getRealBook();
   }
 
   @Test
   @DisplayName("Запрос несуществующей книги")
   public void getNonExistentBookStore() {
-    stepsApi.getNoRealBook();
+    upperStepsApi.getNoRealBook();
 
   }
 

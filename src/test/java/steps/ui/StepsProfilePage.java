@@ -1,24 +1,24 @@
 package steps.ui;
 
+
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import api.RestAssuredHaveBodyRequestNoAuthPost;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
-import model.response.Auth.ResponseAuthBody;
 import org.openqa.selenium.Cookie;
 import page.ProfilePage;
 import template.request.createUserBody.CreateUserBodyRequest;
+import steps.api.LowerStepsApi;
+import model.response.Auth.ResponseAuthBody;
 
 public class StepsProfilePage {
 
   String messageDeleteUserValue;
   CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
   ProfilePage profilePage = new ProfilePage();
+  LowerStepsApi lowerStepsApi = new LowerStepsApi();
+  ResponseAuthBody responseAuthBody = new ResponseAuthBody();
 
 
   public void clickButtonGoToTheBookStore() {
@@ -55,23 +55,18 @@ public class StepsProfilePage {
   }
 
   @Step("Получить Cookie и открыть страницу")
-  public void getCookieOpenSite(String endPoint, String newUserName)
-      throws JsonProcessingException {
-    RestAssuredHaveBodyRequestNoAuthPost restAssuredHaveBodyRequestNoAuthPost = new RestAssuredHaveBodyRequestNoAuthPost()
-        .post("https://demoqa.com/Account/v1/Login",
-        createUserBodyRequest.completionRequestCreateUserBody())
-        .responseStatusCode(200);
-    String jsonResponseAuthBody = restAssuredHaveBodyRequestNoAuthPost.getResponse().body().print();
-    ObjectMapper objectMapper = new ObjectMapper();
-    ResponseAuthBody responseAuthBody = objectMapper.readValue(jsonResponseAuthBody,
-        ResponseAuthBody.class);
+  public void getCookieOpenSite(String endPoint){
+    lowerStepsApi
+        .authorization()
+        .asPojo(ResponseAuthBody.class);
     open(endPoint);
     WebDriverRunner.getWebDriver().manage()
-        .addCookie(new Cookie("userID", responseAuthBody.getUserId()));
+        .addCookie((new Cookie("userID", responseAuthBody.getUserId())));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie(new Cookie("token", responseAuthBody.getToken()));
+        .addCookie((new Cookie("token", responseAuthBody.getToken())));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie(new Cookie("expires", responseAuthBody.getExpires()));
+        .addCookie((new Cookie("expires", responseAuthBody.getExpires())));
     open(endPoint);
+
   }
 }
