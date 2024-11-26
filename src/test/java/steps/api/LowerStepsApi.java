@@ -16,9 +16,7 @@ public class LowerStepsApi extends BaseTest {
   CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
   RequestAuthorizedBody requestAuthorizedBody = new RequestAuthorizedBody();
 
-
-
-
+  
   @Step("Создать нового пользователя")
   public ActionsResponce  createNewAccount() {
     return new ActionsResponce(given()
@@ -32,24 +30,22 @@ public class LowerStepsApi extends BaseTest {
 
 
   @Step("Получить токен авторизации")
-  public ActionsResponce getToken(){
+  public ActionsResponce getToken(String password,String userName){
     return   new ActionsResponce(
         given()
         .spec(restRequestSpec())
-        .body(requestAuthorizedBody.completionRequestAuthorizedBody(cfg.newPasswordValue(),
-                cfg.newUserNameValue()))
+        .body(requestAuthorizedBody.completionRequestAuthorizedBody(password,userName))
             .expect().spec(responseSpec())
             .when()
         .post("/Account/v1/GenerateToken"));
   }
 
   @Step("Авторизоваться под пользователем")
-  public ActionsResponce authorization(){
+  public ActionsResponce authorization(String  userName, String password){
     return new ActionsResponce(
         given()
             .spec(restRequestSpec())
-            .body(requestAuthorizedBody.completionRequestAuthorizedBody(cfg.oldPasswordValue(),
-                cfg.oldUserNameValue()))
+            .body(requestAuthorizedBody.completionRequestAuthorizedBody(userName,password))
             .expect().spec(responseSpec())
             .when()
             .post("Account/v1/Login"));

@@ -13,21 +13,24 @@ import template.request.addBookOldUserBody.AddBookOldUserBody;
 import steps.api.LowerStepsApi;
 
 public class UpperStepsApi {
-  String newUserIdValue;
   String oldUserIdValue;
+  String newUserIdValue;
   LowerStepsApi lowerStepsApi = new LowerStepsApi();
-  ResponseCreateNewUser responseCreateNewUser = new ResponseCreateNewUser();
   DeleteBookUserBody deleteBookUserBody = new DeleteBookUserBody();
   AddBookOldUserBody addBookOldUserBody = new AddBookOldUserBody();
 
-  @Step("получаем userId")
+  @Step("получаем userIdNewUser")
   public void addUserIdNewUser(){
-    lowerStepsApi.createNewAccount().asPojo(ResponseCreateNewUser.class);
-    newUserIdValue=responseCreateNewUser.getUserID();
+    newUserIdValue= lowerStepsApi.authorization(cfg.newPasswordValue(),cfg.newUserNameValue()).getBodyFieldString("userId");
+  }
+
+  @Step("получаем userIdOldUser")
+  public void addUserIdOldUser(){
+    oldUserIdValue= lowerStepsApi.authorization(cfg.oldPasswordValue(),cfg.oldUserNameValue()).getBodyFieldString("userId");
   }
 
   @Step("Удалить ранее созданного пользователя")
-  public ActionsResponce deleteNewUser(){
+  public ActionsResponce deleteUser(){
     return  new ActionsResponce(
         given()
             .spec(restRequestSpec().auth().preemptive().basic(cfg.newUserNameValue(),

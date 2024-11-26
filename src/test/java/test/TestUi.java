@@ -1,6 +1,7 @@
 package test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import static api.check.VerificationProcedures.bodyField;
+import static api.check.VerificationProcedures.statusCode;
 import steps.api.UpperStepsApi;
 import template.generationdata.GenerationDate;
 import org.junit.jupiter.api.DisplayName;
@@ -47,18 +48,23 @@ public class TestUi extends test.BaseTest {
     stepsLoginPage.clickButtonLogin();
     stepsLoginPage.checkButtonLogOut();
     stepsLoginPage.clear();
-    upperStepsApi.deleteNewUser();
+    upperStepsApi.addUserIdNewUser();
+    upperStepsApi.deleteUser()
+        .shouldHave(statusCode(204));
 
   }
 
   @Test
   @DisplayName("Проверка кнопки 'Go To Book Store'")
   public void checkButtomGoToBookStore() {
-    lowerStepsApi.createNewAccount();
-    lowerStepsApi.getToken();
-    stepsProfilePage.getCookieOpenSite("profile");
+    lowerStepsApi.createNewAccount()
+        .shouldHave(statusCode(201));
+    lowerStepsApi.getToken(cfg.newPasswordValue(), cfg.newUserNameValue());
+    stepsProfilePage.getCookieOpenSite("profile",cfg.newPasswordValue(), cfg.newUserNameValue());
     stepsBookStorePage.checkPublisherValue();
-    upperStepsApi.deleteNewUser();
+    upperStepsApi.addUserIdNewUser();
+    upperStepsApi.deleteUser()
+        .shouldHave(statusCode(204));
     stepsLoginPage.clear();
 
   }
@@ -94,13 +100,13 @@ public class TestUi extends test.BaseTest {
   @Test
   @DisplayName("Удаление аккаунта пользователя")
   public void deleteUserAccount()  {
-    lowerStepsApi.createNewAccount();
-    lowerStepsApi.getToken();
-    stepsProfilePage.getCookieOpenSite("profile");
+    lowerStepsApi.createNewAccount()
+        .shouldHave(statusCode(201));
+    lowerStepsApi.getToken(cfg.newPasswordValue(), cfg.newUserNameValue());
+    stepsProfilePage.getCookieOpenSite("profile",cfg.newPasswordValue(), cfg.newUserNameValue());
     stepsProfilePage.clickButtonDeleteAccount();
     stepsProfilePage.acceptAlertDelUser();
     stepsProfilePage.messageDeleteUser();
     stepsLoginPage.clear();
-
   }
 }

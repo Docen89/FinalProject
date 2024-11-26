@@ -25,7 +25,6 @@ public class Specifications {
   public static RequestSpecification restRequestSpec() {
     return new RequestSpecBuilder()
         .setContentType(ContentType.JSON)
-        .setAccept(ContentType.JSON)
         .setBaseUri(cfg.baseUri())
         .addFilter(allureFilter)
         .log(LogDetail.ALL)
@@ -37,9 +36,6 @@ public class Specifications {
         .log(LogDetail.ALL)
         .build();
   }
-  ResponseSpecification responseSpec = new ResponseSpecBuilder()
-      .log(LogDetail.ALL)
-      .build();
 }
 
 

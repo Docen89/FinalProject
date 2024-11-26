@@ -3,6 +3,8 @@ package steps.ui;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static test.BaseTest.cfg;
+
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
@@ -11,11 +13,11 @@ import page.ProfilePage;
 import template.request.createUserBody.CreateUserBodyRequest;
 import steps.api.LowerStepsApi;
 import model.response.Auth.ResponseAuthBody;
+import api.ActionsResponce;
 
 public class StepsProfilePage {
 
   String messageDeleteUserValue;
-  CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
   ProfilePage profilePage = new ProfilePage();
   LowerStepsApi lowerStepsApi = new LowerStepsApi();
   ResponseAuthBody responseAuthBody = new ResponseAuthBody();
@@ -54,19 +56,18 @@ public class StepsProfilePage {
     profilePage.buttonLogOut().click();
   }
 
-  @Step("Получить Cookie и открыть страницу")
-  public void getCookieOpenSite(String endPoint){
-    lowerStepsApi
-        .authorization()
-        .asPojo(ResponseAuthBody.class);
+  @Step("Получить Cookie")
+  public void getCookieOpenSite(String endPoint,String password,String userName) {
+    ActionsResponce responce= lowerStepsApi
+        .authorization(password, userName);
     open(endPoint);
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("userID", responseAuthBody.getUserId())));
+        .addCookie((new Cookie("userID", responce.getBodyFieldString("userId"))));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("token", responseAuthBody.getToken())));
+        .addCookie((new Cookie("token", responce.getBodyFieldString("token"))));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("expires", responseAuthBody.getExpires())));
+        .addCookie((new Cookie("expires", responce.getBodyFieldString("expires"))));
     open(endPoint);
-
   }
+
 }
