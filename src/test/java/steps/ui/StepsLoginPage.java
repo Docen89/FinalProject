@@ -2,7 +2,6 @@ package steps.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import lombok.Getter;
 import page.LoginPage;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
@@ -10,7 +9,6 @@ import test.BaseTest;
 
 public class StepsLoginPage extends BaseTest {
 
-  @Getter
   String buttonLogOutTextValue;
   String messegTextValue;
   LoginPage loginPage = new LoginPage();

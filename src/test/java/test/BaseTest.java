@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeAll;
 
 public class BaseTest {
 
-
   public static config cfg = ConfigFactory.create(config.class);
 
   @BeforeAll
@@ -22,9 +21,8 @@ public class BaseTest {
     SelenideLogger.addListener("allureSelenide",
         new AllureSelenide().screenshots(true).savePageSource(true));
     Configuration.pageLoadStrategy = cfg.loadStrategy();
-    baseUrl=cfg.baseUri();
+    baseUrl = cfg.baseUri();
     Configuration.browserSize = "2560x1440";
-    RestAssured.baseURI = "https://demoqa.com";
   }
 
 }

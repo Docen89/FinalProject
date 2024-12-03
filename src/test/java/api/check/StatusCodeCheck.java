@@ -5,9 +5,10 @@ import api.check.Condition;
 
 
 public class StatusCodeCheck implements Condition {
+
   private final int statusCode;
 
-  public StatusCodeCheck (int statusCode) {
+  public StatusCodeCheck(int statusCode) {
     this.statusCode = statusCode;
 
   }
