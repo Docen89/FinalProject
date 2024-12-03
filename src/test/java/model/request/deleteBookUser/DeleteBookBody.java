@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 
 public class DeleteBookBody {
-	private String isbn;
-	private String userId;
+
+  private String isbn;
+  private String userId;
 }
