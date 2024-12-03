@@ -58,7 +58,7 @@ mvn clean test
 # Формирование отчетов
 Формирование AllureReport:
 ```sh
-maven allure:serve
+mvn allure:serve
 ```
 [К оглавлению ⬆](#оглавление)
 <a name="Allure"></a>

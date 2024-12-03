@@ -11,8 +11,7 @@ import steps.ui.StepsBookStorePage;
 import steps.ui.StepsCreateUserPage;
 import steps.ui.StepsLoginPage;
 import steps.ui.StepsProfilePage;
-import  steps.api.LowerStepsApi;
-
+import steps.api.LowerStepsApi;
 
 
 public class TestUi extends test.BaseTest {
@@ -23,7 +22,7 @@ public class TestUi extends test.BaseTest {
   StepsCreateUserPage stepsCreateUserPage = new StepsCreateUserPage();
   LowerStepsApi lowerStepsApi = new LowerStepsApi();
   GenerationDate generationDate = new GenerationDate();
-  UpperStepsApi upperStepsApi =  new UpperStepsApi();
+  UpperStepsApi upperStepsApi = new UpperStepsApi();
 
 
   @Test
@@ -51,7 +50,7 @@ public class TestUi extends test.BaseTest {
     stepsLoginPage.clickButtonLogin();
     stepsLoginPage.checkButtonLogOut();
     stepsLoginPage.clear();
-    upperStepsApi.getUserId(cfg.newPasswordValue(),cfg.newUserNameValue());
+    upperStepsApi.getUserId(cfg.newPasswordValue(), cfg.newUserNameValue());
     upperStepsApi.deleteUser()
         .shouldHave(statusCode(204));
 
@@ -64,7 +63,7 @@ public class TestUi extends test.BaseTest {
     lowerStepsApi.createNewAccount()
         .shouldHave(statusCode(201));
     lowerStepsApi.getToken(cfg.newPasswordValue(), cfg.newUserNameValue());
-    stepsProfilePage.getCookieOpenSite("profile",cfg.newPasswordValue(), cfg.newUserNameValue());
+    stepsProfilePage.getCookieOpenSite("profile", cfg.newPasswordValue(), cfg.newUserNameValue());
     stepsBookStorePage.checkPublisherValue();
     upperStepsApi.getUserId(cfg.newPasswordValue(), cfg.newUserNameValue());
     upperStepsApi.deleteUser()
@@ -106,25 +105,26 @@ public class TestUi extends test.BaseTest {
   @Test
   @Feature("Действия над пользователем")
   @DisplayName("Удаление аккаунта пользователя")
-  public void deleteUserAccount()  {
+  public void deleteUserAccount() {
     lowerStepsApi.createNewAccount()
         .shouldHave(statusCode(201));
     lowerStepsApi.getToken(cfg.newPasswordValue(), cfg.newUserNameValue());
-    stepsProfilePage.getCookieOpenSite("profile",cfg.newPasswordValue(), cfg.newUserNameValue());
+    stepsProfilePage.getCookieOpenSite("profile", cfg.newPasswordValue(), cfg.newUserNameValue());
     stepsProfilePage.clickButtonDeleteAccount();
     stepsProfilePage.acceptAlertDelUser();
     stepsProfilePage.messageDeleteUser();
     stepsLoginPage.clear();
+
   }
 
   @Test
   @Feature("Действия над книгами")
   @DisplayName("Отображение добавленной книги в профиле у пользователя")
-  public void viewBookProfileUser()  {
+  public void viewBookProfileUser() {
     upperStepsApi.getUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue());
     upperStepsApi.addBookProfileUser(cfg.realIsbnValue())
         .shouldHave(statusCode(201));
-    stepsProfilePage.getCookieOpenSite("profile",cfg.oldPasswordValue(), cfg.oldUserNameValue());
+    stepsProfilePage.getCookieOpenSite("profile", cfg.oldPasswordValue(), cfg.oldUserNameValue());
     stepsProfilePage.checkAuthorValue();
     upperStepsApi.deleteBookProfileUser();
     stepsLoginPage.clear();
@@ -134,11 +134,11 @@ public class TestUi extends test.BaseTest {
   @Test
   @Feature("Действия в профиле")
   @DisplayName("Проверка кнопки 'Delete All Books")
-  public void checkButtonDeleteAllBooks(){
+  public void checkButtonDeleteAllBooks() {
     upperStepsApi.getUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue());
     upperStepsApi.addBookProfileUser(cfg.realIsbnValue())
         .shouldHave(statusCode(201));
-    stepsProfilePage.getCookieOpenSite("profile",cfg.oldPasswordValue(), cfg.oldUserNameValue());
+    stepsProfilePage.getCookieOpenSite("profile", cfg.oldPasswordValue(), cfg.oldUserNameValue());
     stepsProfilePage.clickButtonDeleteAllBooks();
     stepsProfilePage.acceptAlertDelAllBooks();
     stepsProfilePage.messageDeletAllBooks();
@@ -149,25 +149,27 @@ public class TestUi extends test.BaseTest {
   @Test
   @Feature("Действия в профиле")
   @DisplayName("Проверка отображения информации о книге в профиле пользователя")
-  public void checkInfoBookProfileUser(){
+  public void checkInfoBookProfileUser() {
     upperStepsApi.getUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue());
     upperStepsApi.addBookProfileUser(cfg.realIsbnValue())
         .shouldHave(statusCode(201));
-    stepsProfilePage.getCookieOpenSite("profile",cfg.oldPasswordValue(), cfg.oldUserNameValue());
+    stepsProfilePage.getCookieOpenSite("profile", cfg.oldPasswordValue(), cfg.oldUserNameValue());
     stepsProfilePage.clickToBooProfileUser();
     stepsProfilePage.getDescriptionBook();
     upperStepsApi.deleteBookProfileUser();
     stepsLoginPage.clear();
+
   }
 
   @Test
   @Feature("Действия над книгами")
   @DisplayName("Поиск книги по названию в BookStore")
-  public void searchBookToBookStore(){
-    stepsProfilePage.getCookieOpenSite("books",cfg.oldPasswordValue(), cfg.oldUserNameValue());
+  public void searchBookToBookStore() {
+    stepsProfilePage.getCookieOpenSite("books", cfg.oldPasswordValue(), cfg.oldUserNameValue());
     stepsBookStorePage.getValueNameBook();
     stepsBookStorePage.inputSearchBooks();
     stepsBookStorePage.checkTitleBookStore();
     stepsLoginPage.clear();
+
   }
 }

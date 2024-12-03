@@ -1,7 +1,6 @@
 package test;
 
 
-
 import static api.check.VerificationProcedures.bodyField;
 import static api.check.VerificationProcedures.statusCode;
 import static org.hamcrest.Matchers.equalTo;
@@ -13,7 +12,7 @@ import io.qameta.allure.Owner;
 import steps.api.UpperStepsApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import  steps.api.LowerStepsApi;
+import steps.api.LowerStepsApi;
 import test.BaseTest;
 
 @Owner("T. Popov")
@@ -21,8 +20,8 @@ import test.BaseTest;
 
 public class TestApi extends BaseTest {
 
-LowerStepsApi lowerStepsApi = new LowerStepsApi();
-UpperStepsApi upperStepsApi =  new UpperStepsApi();
+  LowerStepsApi lowerStepsApi = new LowerStepsApi();
+  UpperStepsApi upperStepsApi = new UpperStepsApi();
 
   @Test
   @Feature("Создание пользователя")
@@ -31,38 +30,39 @@ UpperStepsApi upperStepsApi =  new UpperStepsApi();
     lowerStepsApi.createNewAccount()
         .shouldHave(statusCode(201));
     upperStepsApi.getUserId(cfg.newPasswordValue(), cfg.newUserNameValue());
-        upperStepsApi.deleteUser()
+    upperStepsApi.deleteUser()
         .shouldHave(statusCode(204));
+
   }
 
   @Test
   @Feature("Авторизация")
   @DisplayName("Авторизация зарегистрированным пользователем")
-  public void authUser()  {
+  public void authUser() {
     lowerStepsApi.getToken(cfg.oldPasswordValue(), cfg.oldUserNameValue())
         .shouldHave(statusCode(200))
-        .shouldHave(bodyField("result",equalTo("User authorized successfully.")));
-    lowerStepsApi.authorization(cfg.oldPasswordValue(),cfg.oldUserNameValue())
+        .shouldHave(bodyField("result", equalTo("User authorized successfully.")));
+    lowerStepsApi.authorization(cfg.oldPasswordValue(), cfg.oldUserNameValue())
         .shouldHave(statusCode(200))
-        .shouldHave(bodyField("username",equalTo(cfg.oldUserNameValue())));
+        .shouldHave(bodyField("username", equalTo(cfg.oldUserNameValue())));
 
   }
 
   @Test
   @Feature("Авторизация")
   @DisplayName("Авторизация незарегистрированным пользователем")
-  public void authNotRegisterUser()  {
+  public void authNotRegisterUser() {
     lowerStepsApi.getToken(cfg.newPasswordValue(), cfg.newUserNameValue())
         .shouldHave(statusCode(200))
-        .shouldHave(bodyField("status",equalTo("Failed")))
-        .shouldHave(bodyField("result",equalTo("User authorization failed.")));
+        .shouldHave(bodyField("status", equalTo("Failed")))
+        .shouldHave(bodyField("result", equalTo("User authorization failed.")));
 
   }
 
   @Test
   @Feature("Действия в профиле")
   @DisplayName("Добавление книги к пользователю в профиль")
-  public void addBookToOldUser()  {
+  public void addBookToOldUser() {
     upperStepsApi.getUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue());
     upperStepsApi.addBookProfileUser(cfg.realIsbnValue())
         .shouldHave(statusCode(201));
@@ -74,12 +74,13 @@ UpperStepsApi upperStepsApi =  new UpperStepsApi();
   @Test
   @Feature("Действия в профиле")
   @DisplayName("Повторное добавление книги  в профиль пользователя")
-  public void bookIsAlreadyThereUser()  {
+  public void bookIsAlreadyThereUser() {
     upperStepsApi.getUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue());
     upperStepsApi.addBookProfileUser(cfg.realIsbnValue());
     upperStepsApi.checkMessageResponseRepeatedAddBooKProfileUser()
         .shouldHave(statusCode(400))
-        .shouldHave(bodyField("message",equalTo("ISBN already present in the User's Collection!")));
+        .shouldHave(
+            bodyField("message", equalTo("ISBN already present in the User's Collection!")));
     upperStepsApi.deleteBookProfileUser();
 
   }
@@ -98,7 +99,7 @@ UpperStepsApi upperStepsApi =  new UpperStepsApi();
   @Test
   @Feature("Действия над пользователем")
   @DisplayName("Удаление  пользователя")
-  public void deleteNewUser()  {
+  public void deleteNewUser() {
     lowerStepsApi.createNewAccount();
     upperStepsApi.getUserId(cfg.newPasswordValue(), cfg.newUserNameValue());
     upperStepsApi.deleteUser()
@@ -112,7 +113,8 @@ UpperStepsApi upperStepsApi =  new UpperStepsApi();
   public void getBooksFromStore() {
     upperStepsApi.getBook(cfg.realIsbnValue())
         .shouldHave(statusCode(200))
-        .shouldHave(bodyField("isbn",equalTo(cfg.realIsbnValue())));
+        .shouldHave(bodyField("isbn", equalTo(cfg.realIsbnValue())));
+
   }
 
   @Test
@@ -121,19 +123,20 @@ UpperStepsApi upperStepsApi =  new UpperStepsApi();
   public void getNonExistentBookStore() {
     upperStepsApi.getBook(cfg.notRealIsbnValue())
         .shouldHave(statusCode(400))
-        .shouldHave(bodyField("message",equalTo("ISBN supplied is not available in Books Collection!")));;
+        .shouldHave(
+            bodyField("message", equalTo("ISBN supplied is not available in Books Collection!")));
 
   }
 
   @Test
   @Feature("Действия над книгами")
   @DisplayName("Проверка сохранения книги в профиле у пользователя")
-  public void checkBookProfileUser(){
-    upperStepsApi.getUserId(cfg.oldPasswordValue(),cfg.oldUserNameValue());
+  public void checkBookProfileUser() {
+    upperStepsApi.getUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue());
     upperStepsApi.addBookProfileUser(cfg.realIsbnValue());
-    upperStepsApi.getInfoUser(cfg.oldUserNameValue(),cfg.oldPasswordValue())
+    upperStepsApi.getInfoUser(cfg.oldUserNameValue(), cfg.oldPasswordValue())
         .shouldHave(statusCode(200))
-        .shouldHave(bodyField("books[0].isbn",equalTo(cfg.realIsbnValue())));
+        .shouldHave(bodyField("books[0].isbn", equalTo(cfg.realIsbnValue())));
     upperStepsApi.deleteBookProfileUser();
 
   }
