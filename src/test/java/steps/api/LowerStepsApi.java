@@ -2,16 +2,20 @@ package steps.api;
 
 import static api.Specifications.responseSpec;
 import static api.Specifications.restRequestSpec;
+import static configs.EndPoints.BOOKSTORE_BOOKS;
 import static io.restassured.RestAssured.given;
+import static configs.EndPoints.ACCOUNT_GENERATE_TOKEN;
+import static configs.EndPoints.ACCOUNT_LOGIN;
+import static configs.EndPoints.ACCOUNT_USER;
+import static test.BaseTest.cfg;
 
 import io.qameta.allure.Step;
 import template.request.authorizedBody.RequestAuthorizedBody;
 import template.request.createUserBody.CreateUserBodyRequest;
-import test.BaseTest;
 import api.ActionsResponce;
 
 
-public class LowerStepsApi extends BaseTest {
+public class LowerStepsApi  {
 
   CreateUserBodyRequest createUserBodyRequest = new CreateUserBodyRequest();
   RequestAuthorizedBody requestAuthorizedBody = new RequestAuthorizedBody();
@@ -24,12 +28,36 @@ public class LowerStepsApi extends BaseTest {
             .auth()
             .preemptive()
             .basic(cfg.newUserNameValue(), cfg.newPasswordValue()))
-        .body(createUserBodyRequest.completionRequestCreateUserBody())
+        .body(createUserBodyRequest.RequestCreateUserBody())
         .expect()
         .spec(responseSpec())
         .when()
-        .post("/Account/v1/User/"));
+        .post(ACCOUNT_USER));
+  }
 
+  @Step("Получить userId")
+  public String UserIdValue(String password, String userName) {
+    String UserIdValue;
+    UserIdValue = authorization(password, userName).getBodyFieldString("userId");
+    return UserIdValue;
+  }
+
+  @Step("Получить realIsbnValue")
+  public String realIsbnValue() {
+    String realIsbnValue;
+    realIsbnValue = getListBook().getBodyFieldString("books[0].isbn");
+    return realIsbnValue;
+  }
+
+  @Step("Получить cписок книг")
+  public ActionsResponce getListBook() {
+    return new ActionsResponce(
+        given()
+            .spec(restRequestSpec())
+            .expect()
+            .spec(responseSpec())
+            .when()
+            .get(BOOKSTORE_BOOKS));
   }
 
 
@@ -38,12 +66,11 @@ public class LowerStepsApi extends BaseTest {
     return new ActionsResponce(
         given()
             .spec(restRequestSpec())
-            .body(requestAuthorizedBody.completionRequestAuthorizedBody(password, userName))
+            .body(requestAuthorizedBody.RequestAuthorizedBody(password, userName))
             .expect()
             .spec(responseSpec())
             .when()
-            .post("/Account/v1/GenerateToken"));
-
+            .post(ACCOUNT_GENERATE_TOKEN));
   }
 
   @Step("Авторизоваться под пользователем")
@@ -51,13 +78,11 @@ public class LowerStepsApi extends BaseTest {
     return new ActionsResponce(
         given()
             .spec(restRequestSpec())
-            .body(requestAuthorizedBody.completionRequestAuthorizedBody(userName, password))
+            .body(requestAuthorizedBody.RequestAuthorizedBody(userName, password))
             .expect()
             .spec(responseSpec())
             .when()
-            .post("Account/v1/Login"));
-
-
+            .post(ACCOUNT_LOGIN));
   }
 
 }

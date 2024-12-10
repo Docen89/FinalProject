@@ -2,6 +2,10 @@ package steps.api;
 
 import static api.Specifications.responseSpec;
 import static api.Specifications.restRequestSpec;
+import static configs.EndPoints.ACCOUNT_USER;
+import static configs.EndPoints.BOOKSTORE_BOOK;
+import static configs.EndPoints.BOOKSTORE_BOOKS;
+import static configs.EndPoints.BOOKSTORE_ISBN;
 import static io.restassured.RestAssured.given;
 import static test.BaseTest.cfg;
 
@@ -13,16 +17,11 @@ import steps.api.LowerStepsApi;
 
 public class UpperStepsApi {
 
-  public String UserIdValue;
+
   LowerStepsApi lowerStepsApi = new LowerStepsApi();
   DeleteBookUserBody deleteBookUserBody = new DeleteBookUserBody();
   AddBookOldUserBody addBookOldUserBody = new AddBookOldUserBody();
 
-  @Step("получить userId")
-  public void getUserId(String password, String userName) {
-    UserIdValue = lowerStepsApi.authorization(password, userName).getBodyFieldString("userId");
-
-  }
 
   @Step("Получить название книги")
   public ActionsResponce getNameBook() {
@@ -32,8 +31,7 @@ public class UpperStepsApi {
             .expect()
             .spec(responseSpec())
             .when()
-            .get("BookStore/v1/Book?ISBN=" + cfg.realIsbnValue()));
-
+            .get(BOOKSTORE_BOOKS));
   }
 
   @Step("Удалить ранее созданного пользователя")
@@ -48,8 +46,8 @@ public class UpperStepsApi {
             .expect()
             .spec(responseSpec())
             .when()
-            .delete("Account/v1/User/" + UserIdValue));
-
+            .delete(ACCOUNT_USER + lowerStepsApi.UserIdValue(cfg.newPasswordValue(),
+                cfg.newUserNameValue())));
   }
 
   @Step("Удалить книгу у пользователя из профиля")
@@ -61,14 +59,13 @@ public class UpperStepsApi {
                 .preemptive()
                 .basic(cfg.oldUserNameValue(),
                     cfg.oldPasswordValue()))
-            .body(deleteBookUserBody.completionDeleteBookUserBody(
-                UserIdValue,
-                cfg.realIsbnValue()))
+            .body(deleteBookUserBody.DeleteBookUserBody(
+                lowerStepsApi.UserIdValue(cfg.oldPasswordValue(), cfg.oldUserNameValue()),
+                lowerStepsApi.realIsbnValue()))
             .expect()
             .spec(responseSpec())
             .when()
-            .delete("BookStore/v1/Book"));
-
+            .delete(BOOKSTORE_BOOK));
   }
 
   @Step("Добавить книгу пользователю в профиль")
@@ -80,14 +77,13 @@ public class UpperStepsApi {
                 .preemptive()
                 .basic(cfg.oldUserNameValue(),
                     cfg.oldPasswordValue())
-                .body(addBookOldUserBody.completionBodyAddBook(
+                .body(addBookOldUserBody.BodyAddBook(
                     isbnValue,
-                    UserIdValue)))
+                    lowerStepsApi.UserIdValue(cfg.oldPasswordValue(), cfg.oldUserNameValue()))))
             .expect()
             .spec(responseSpec())
             .when()
-            .post("/BookStore/v1/Books"));
-
+            .post(BOOKSTORE_BOOKS));
   }
 
   @Step("Проверить сообщение в ответе на запрос повторного добавления книги в профиль")
@@ -98,13 +94,13 @@ public class UpperStepsApi {
                 .auth().preemptive()
                 .basic(cfg.oldUserNameValue(),
                     cfg.oldPasswordValue())
-                .body(addBookOldUserBody.completionBodyAddBook(
-                    cfg.realIsbnValue(), UserIdValue)))
+                .body(addBookOldUserBody.BodyAddBook(
+                    lowerStepsApi.realIsbnValue(),
+                    lowerStepsApi.UserIdValue(cfg.oldPasswordValue(), cfg.oldUserNameValue()))))
             .expect()
             .spec(responseSpec())
             .when()
-            .post("/BookStore/v1/Books"));
-
+            .post(BOOKSTORE_BOOKS));
   }
 
   @Step("Запросить книгу")
@@ -115,8 +111,7 @@ public class UpperStepsApi {
             .expect()
             .spec(responseSpec())
             .when()
-            .get("BookStore/v1/Book?ISBN=" + isbnValue));
-
+            .get(BOOKSTORE_ISBN + isbnValue));
   }
 
   @Step("Запросить данные о пользователе")
@@ -128,7 +123,7 @@ public class UpperStepsApi {
                 .basic(userName, password))
             .expect().spec(responseSpec())
             .when()
-            .get("Account/v1/User/" + UserIdValue));
-
+            .get(ACCOUNT_USER + lowerStepsApi.UserIdValue(cfg.oldPasswordValue(),
+                cfg.oldUserNameValue())));
   }
 }

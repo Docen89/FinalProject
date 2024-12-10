@@ -9,15 +9,13 @@ import model.request.addBookOldUser.RequestBookModel;
 public class AddBookOldUserBody {
 
 
-  public Object completionBodyAddBook(String bookIsbn, String userID) {
+  public RequestBookModel BodyAddBook(String bookIsbn, String userID) {
     RequestBookModel requestBookModel = new RequestBookModel();
     IsbnPartialModel isbnPartialModel = new IsbnPartialModel();
     isbnPartialModel.setIsbn(bookIsbn);
     requestBookModel.setUserId(userID);
     requestBookModel.setCollectionOfIsbns(Collections.singletonList(isbnPartialModel));
     return requestBookModel;
-
   }
-
 
 }

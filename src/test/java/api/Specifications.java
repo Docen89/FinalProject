@@ -26,32 +26,24 @@ public class Specifications {
       .setRequestTemplate("custom-http-request.ftl")  // HTML-шаблон запроса для REST-тестов
       .setResponseTemplate("custom-http-response.ftl"); // HTML-шаблон ответа для REST-тестов
 
-  public static RequestSpecification authRequestSpec(String userName, String password) {
-    return restRequestSpec()
-        .auth()
-        .preemptive()
-        .basic(userName, password);
-
-  }
 
   public static RequestSpecification restRequestSpec() {
     return new RequestSpecBuilder()
         .setContentType(ContentType.JSON)
         .setBaseUri(cfg.baseUri())
         .addFilter(allureFilter)
-        .addFilter(new RequestLoggingFilter(logDetail, false, logStream, true))
-        .addFilter(new ResponseLoggingFilter(logDetail, false, logStream))
+//        .addFilter(new RequestLoggingFilter(logDetail, false, logStream, true))
+//        .addFilter(new ResponseLoggingFilter(logDetail, false, logStream))
         .log(LogDetail.ALL)
         .build();
-
   }
 
   public static ResponseSpecification responseSpec() {
     return new ResponseSpecBuilder()
         .log(LogDetail.ALL)
         .build();
-
   }
+
 }
 
 

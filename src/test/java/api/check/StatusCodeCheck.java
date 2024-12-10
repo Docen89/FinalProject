@@ -10,20 +10,14 @@ public class StatusCodeCheck implements Condition {
 
   public StatusCodeCheck(int statusCode) {
     this.statusCode = statusCode;
-
   }
-
 
   public void check(Response response) {
     response.then().assertThat().statusCode(statusCode);
-
   }
-
 
   public String toString() {
     return String.format("HTTP status code - %s", statusCode);
-
   }
-
 
 }

@@ -19,12 +19,6 @@ public interface config extends Config {
   @Key("old.password.value")
   String oldPasswordValue();
 
-  @Key("real.isbn.value")
-  String realIsbnValue();
-
-  @Key("not.real.isbn.value")
-  String notRealIsbnValue();
-
   @Key("load.strategy")
   String loadStrategy();
 

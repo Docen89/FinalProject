@@ -6,19 +6,16 @@ import com.codeborne.selenide.SelenideElement;
 
 public class BookStorePage {
 
-  public SelenideElement publisher(){
+  public SelenideElement publisher() {
     return $x("//div[contains(text(), 'Publisher')]").as("Колонка 'Автор'");
-
   }
 
   public SelenideElement searchBook() {
     return $x("//input[@id='searchBox']").as("строка поиска");
-
   }
 
   public SelenideElement titleBookStore() {
-    return $x("//a[text()='Designing Evolvable Web APIs with ASP.NET']").as("Колонка 'Название");
-
+    return $x("//a[text()='Git Pocket Guide']").as("Колонка 'Название");
   }
 }
 

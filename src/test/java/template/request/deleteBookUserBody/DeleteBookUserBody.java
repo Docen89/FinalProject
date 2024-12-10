@@ -5,12 +5,11 @@ import model.request.deleteBookUser.DeleteBookBody;
 
 public class DeleteBookUserBody {
 
-  public Object completionDeleteBookUserBody(String oldUserId, String realIsbnBook) {
+  public DeleteBookBody DeleteBookUserBody(String oldUserId, String realIsbnBook) {
     DeleteBookBody deleteBookBody = new DeleteBookBody();
     deleteBookBody.setUserId(oldUserId);
     deleteBookBody.setIsbn(realIsbnBook);
     return deleteBookBody;
-
   }
 
 }

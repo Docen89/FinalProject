@@ -6,12 +6,11 @@ import model.request.createNewUser.RequestCreateUserBodyModel;
 
 public class CreateUserBodyRequest {
 
-  public Object completionRequestCreateUserBody() {
+  public RequestCreateUserBodyModel RequestCreateUserBody() {
     RequestCreateUserBodyModel requestCreateUserBodyModel = new RequestCreateUserBodyModel();
     requestCreateUserBodyModel.setUserName(cfg.newUserNameValue());
     requestCreateUserBodyModel.setPassword(cfg.newPasswordValue());
     return requestCreateUserBodyModel;
-
   }
 
 }

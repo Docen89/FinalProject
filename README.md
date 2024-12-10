@@ -1,5 +1,5 @@
 # Проект по автоматизации тестирования API на сайте - demoqa.com.
-<img title="Main Gage" src="media/mainpage.PNG">
+<img title="Main Gage" src="src/test/resources/media/mainpage.PNG">
 
 <a name="оглавление"></a>
 # Оглавление
@@ -13,14 +13,14 @@
 <a name="технологии"></a>
 # Использованны слудующие технологии:
 <p align="center">
-<img width="16%" title="Maven" src="media/maven-logo-black-on-white.png">
-<img width="16%" title="Java" src="media/Java.svg">
-<img width="16%" title="JUnit5" src="media/JUnit5.svg">
-<img width="16%" title="IntelliJ IDEA" src="media/Intelij_IDEA.svg">
-<img width="14%" title="Rest Assured" src="media/RestAssured.svg">
-<img width="16%" title="Allure Report" src="media/Allure_Report.svg">
-<img width="16%" title="GitHub" src="media/GitHub.svg">
-<img width="15%" title="Allure TestOps" src="media/Allure-logo.svg">
+<img width="16%" title="Maven" src="src/test/resources/media/maven-logo-black-on-white.png">
+<img width="16%" title="Java" src="src/test/resources/media/Java.svg">
+<img width="16%" title="JUnit5" src="src/test/resources/media/JUnit5.svg">
+<img width="16%" title="IntelliJ IDEA" src="src/test/resources/media/Intelij_IDEA.svg">
+<img width="14%" title="Rest Assured" src="src/test/resources/media/RestAssured.svg">
+<img width="16%" title="Allure Report" src="src/test/resources/media/Allure_Report.svg">
+<img width="16%" title="GitHub" src="src/test/resources/media/GitHub.svg">
+<img width="15%" title="Allure TestOps" src="src/test/resources/media/Allure-logo.svg">
 </p>
 
 [К оглавлению ⬆](#оглавление)
@@ -64,21 +64,21 @@ mvn allure:serve
 <a name="Allure"></a>
 # Allure и Allure TestOps
 Главный экран отчета
-![](media\11.PNG)
+![](src/test/resources/media/11.PNG)
 
 Страница с проведенными тестами
-![](media\22.PNG)
+![](src/test/resources/media/22.PNG)
 
 Каждый запрос и ответ API логируется в удобном виде с помощью настраиваемых шаблонов
-![](media\33.PNG)
+![](src/test/resources/media/33.PNG)
 
 Allure TestOps Главный экран
-![](media\44.PNG)
+![](src/test/resources/media/44.PNG)
 
 Allure TestOps страница с тестами
-![](media\55.PNG)
+![](src/test/resources/media/55.PNG)
 
 Allure TestOps выполненные прогоны
-![](media\66.PNG)
+![](src/test/resources/media/66.PNG)
 
 [К оглавлению ⬆](#оглавление)

@@ -9,32 +9,31 @@ public class StepsCreateUserPage {
 
   CreateUserPage createUserPage = new CreateUserPage();
 
-  @Step("Ввести имя нового пользователя")
+  @Step("Ввод имени нового пользователя")
   public void inputNewUserFirstName(String firstNameValue) {
     createUserPage.firstName(firstNameValue).sendKeys(firstNameValue);
   }
 
-  @Step("Ввести фамилию нового пользователя")
+  @Step("Ввод фамилии нового пользователя")
   public void inputNewUserLastName(String lastNameValue) {
     createUserPage.lastName(lastNameValue).sendKeys(lastNameValue);
   }
 
-  @Step("Ввести логин нового пользователя")
+  @Step("Ввод логина нового пользователя")
   public void inputNewUserName(String newUserNameValue) {
     createUserPage.userName(newUserNameValue).sendKeys(newUserNameValue);
   }
 
-  @Step("Ввести пароль нового пользователя")
+  @Step("Ввод пароля нового пользователя")
   public void inputNewUserPassword(String newUserPasswordValue) {
     createUserPage.Password(newUserPasswordValue).sendKeys(newUserPasswordValue);
   }
 
 
-  @Step("Кликнуть кнопку регистрация нового пользователя")
+  @Step("Клик по кнопке 'Регистрация нового пользователя'")
   public void clickButtonRegister() {
     createUserPage.buttonRegister().scrollTo().click();
   }
-
 
   @Step("Не заполнено поле FirstName")
   public void validFirstName() {
@@ -45,6 +44,5 @@ public class StepsCreateUserPage {
   public void validLastName() {
     createUserPage.noLastName();
   }
-
 
 }
