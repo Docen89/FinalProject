@@ -11,9 +11,8 @@ import static test.BaseTest.cfg;
 
 import api.ActionsResponce;
 import io.qameta.allure.Step;
-import template.request.deleteBookUserBody.DeleteBookUserBody;
-import template.request.addBookOldUserBody.AddBookOldUserBody;
-import steps.api.LowerStepsApi;
+import java.templates.request.deleteBookUserBody.DeleteBookUserBody;
+import java.templates.request.addBookOldUserBody.AddBookOldUserBody;
 
 public class UpperStepsApi {
 

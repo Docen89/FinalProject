@@ -1,4 +1,4 @@
-package model.request.createNewUser;
+package java.models.request.createNewUser;
 
 import lombok.Data;
 

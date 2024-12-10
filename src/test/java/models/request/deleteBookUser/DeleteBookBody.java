@@ -1,4 +1,4 @@
-package model.request.deleteBookUser;
+package java.models.request.deleteBookUser;
 
 import lombok.Data;
 import lombok.Setter;

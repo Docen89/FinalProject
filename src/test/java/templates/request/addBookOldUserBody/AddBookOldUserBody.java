@@ -1,9 +1,9 @@
-package template.request.addBookOldUserBody;
+package java.templates.request.addBookOldUserBody;
 
 
 import java.util.Collections;
-import model.request.addBookOldUser.IsbnPartialModel;
-import model.request.addBookOldUser.RequestBookModel;
+import java.models.request.addBookOldUser.IsbnPartialModel;
+import java.models.request.addBookOldUser.RequestBookModel;
 
 
 public class AddBookOldUserBody {
