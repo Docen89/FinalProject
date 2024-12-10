@@ -1,4 +1,4 @@
-package java.models.request.authorized;
+package model.request.authorized;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
-package java.templates.request.deleteBookUserBody;
+package template.request.deleteBookUserBody;
 
 
-import java.models.request.deleteBookUser.DeleteBookBody;
+import model.request.deleteBookUser.DeleteBookBody;
 
 public class DeleteBookUserBody {
 

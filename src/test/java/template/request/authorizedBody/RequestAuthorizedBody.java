@@ -1,6 +1,6 @@
-package java.templates.request.authorizedBody;
+package template.request.authorizedBody;
 
-import java.models.request.authorized.RequestAuthorizedBodyModel;
+import model.request.authorized.RequestAuthorizedBodyModel;
 
 public class RequestAuthorizedBody {
 

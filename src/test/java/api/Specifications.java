@@ -32,8 +32,8 @@ public class Specifications {
         .setContentType(ContentType.JSON)
         .setBaseUri(cfg.baseUri())
         .addFilter(allureFilter)
-//        .addFilter(new RequestLoggingFilter(logDetail, false, logStream, true))
-//        .addFilter(new ResponseLoggingFilter(logDetail, false, logStream))
+        .addFilter(new RequestLoggingFilter(logDetail, false, logStream, true))
+        .addFilter(new ResponseLoggingFilter(logDetail, false, logStream))
         .log(LogDetail.ALL)
         .build();
   }

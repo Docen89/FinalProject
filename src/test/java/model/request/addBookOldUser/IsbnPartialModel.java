@@ -1,4 +1,4 @@
-package java.models.request.addBookOldUser;
+package model.request.addBookOldUser;
 
 import lombok.Data;
 

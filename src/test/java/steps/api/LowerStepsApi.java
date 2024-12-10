@@ -10,8 +10,8 @@ import static configs.EndPoints.ACCOUNT_USER;
 import static test.BaseTest.cfg;
 
 import io.qameta.allure.Step;
-import java.templates.request.authorizedBody.RequestAuthorizedBody;
-import java.templates.request.createUserBody.CreateUserBodyRequest;
+import template.request.authorizedBody.RequestAuthorizedBody;
+import template.request.createUserBody.CreateUserBodyRequest;
 import api.ActionsResponce;
 
 
