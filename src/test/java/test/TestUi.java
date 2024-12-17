@@ -112,8 +112,8 @@ public class TestUi extends test.BaseTest {
   @Feature("Действия в профиле")
   @DisplayName("Проверка кнопки 'Delete All Books")
   public void checkButtonDeleteAllBooks() {
-    stepsLoginPage.openSiteWithCookieOldUser(PROFILE);
     lowerStepsUI.addBookUser();
+    stepsLoginPage.openSiteWithCookieOldUser(PROFILE);
     stepsProfilePage.clickButtonDeleteAllBooks();
     stepsProfilePage.acceptAlertDelAllBooks();
     stepsProfilePage.messageDeleteAllBooks();

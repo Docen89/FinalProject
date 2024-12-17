@@ -50,7 +50,7 @@ public class StepsApi {
   @Step("Подготовка тестовых данных. Добавление книги в профиль пользователю")
   public void testDataAddBookToProfileUser(){
     getUserIdValue(cfg.oldPasswordValue(), cfg.oldUserNameValue());
-    realIsbnValue();
+    isbnValue();
     addBookProfileUser();
   }
 
@@ -71,8 +71,8 @@ public class StepsApi {
         .post(ACCOUNT_USER));
   }
 
-  @Step("Вспомогательные шаги.Получить realIsbnValue")
-  public void realIsbnValue() {
+  @Step("Вспомогательные шаги.Получить IsbnValue")
+  public void isbnValue() {
     isbnValue = getListBook().getBodyFieldString("books[0].isbn");
   }
 

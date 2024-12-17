@@ -34,6 +34,7 @@ public class LowerStepsUI {
   @Step("Вспомогательные шаги.Добавить книгу в профиль к пользователю")
   public void addBookUser() {
     stepsApi.getUserIdValue(cfg.oldPasswordValue(), cfg.oldUserNameValue());
+    stepsApi.isbnValue();
     stepsApi.addBookProfileUser();
   }
 

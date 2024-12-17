@@ -2,16 +2,18 @@ package steps.ui;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
-import steps.ui.LowerStepsUI;
 import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.Cookie;
 import page.LoginPage;
+import steps.api.StepsApi;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import test.BaseTest;
+import steps.ui.LowerStepsUI;
 
 public class StepsLoginPage extends BaseTest {
   LoginPage loginPage = new LoginPage();
+  StepsApi stepsApi = new StepsApi();
 
   @Step("Открыть страницу Book Store")
   public void openBookStore(String endpoint) {
@@ -51,24 +53,28 @@ public class StepsLoginPage extends BaseTest {
   @Step("Открыть страницу сайта с Cookie старого пользователя")
   public void openSiteWithCookieOldUser(String endPoint) {
     open(endPoint);
+    api.ActionsResponce responceOldUser = stepsApi.authorization(cfg.oldPasswordValue(),
+        cfg.oldUserNameValue());
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("userID",BaseTest.getUserIDCookieValueOld())));
+        .addCookie((new Cookie("userID",responceOldUser.getBodyFieldString("userId"))));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("token", BaseTest.getTokenCookieValueOld())));
+        .addCookie((new Cookie("token", responceOldUser.getBodyFieldString("token"))));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("expires", BaseTest.getTokenCookieValueOld())));
+        .addCookie((new Cookie("expires", responceOldUser.getBodyFieldString("expires"))));
     open(endPoint);
   }
 
   @Step("Открыть страницу сайта с Cookie нового пользователя")
   public void openSiteWithCookieNewUser(String endPoint) {
     open(endPoint);
+    api.ActionsResponce responceNewUser = stepsApi.authorization(cfg.newPasswordValue(),
+        cfg.newUserNameValue());
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("userID", LowerStepsUI.getUserIDCookieValueNew())));
+        .addCookie((new Cookie("userID", responceNewUser.getBodyFieldString("userId"))));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("token", LowerStepsUI.getTokenCookieValueNew())));
+        .addCookie((new Cookie("token", responceNewUser.getBodyFieldString("token"))));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("expires", LowerStepsUI.getExpiresCookieValueNew())));
+        .addCookie((new Cookie("expires", responceNewUser.getBodyFieldString("expires"))));
     open(endPoint);
   }
 
