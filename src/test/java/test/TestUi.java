@@ -4,15 +4,11 @@ package test;
 import static configs.EndPoints.BOOKS;
 import static configs.EndPoints.LOGIN;
 import static configs.EndPoints.PROFILE;
-import static steps.ui.LowerStepsUI.expiresCookieValueNew;
-import static steps.ui.LowerStepsUI.tokenCookieValueNew;
-import static steps.ui.LowerStepsUI.userIDCookieValueNew;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import steps.ui.LowerStepsUI;
-import steps.api.UpperStepsApi;
 import template.generationdata.GenerationDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +28,6 @@ public class TestUi extends test.BaseTest {
   StepsBookStorePage stepsBookStorePage = new StepsBookStorePage();
   StepsCreateUserPage stepsCreateUserPage = new StepsCreateUserPage();
   GenerationDate generationDate = new GenerationDate();
-  UpperStepsApi upperStepsApi = new UpperStepsApi();
 
 
   @Test
@@ -62,8 +57,7 @@ public class TestUi extends test.BaseTest {
   @Feature("Действия в профиле")
   @DisplayName("Проверка кнопки 'Go To Book Store'")
   public void checkButtonGoToBookStore() {
-    lowerStepsUI.openSiteWithCookie("profile", userIDCookieValueOld, tokenCookieValueOld,
-        expiresCookieValueOld);
+    stepsLoginPage.openSiteWithCookieOldUser(PROFILE);
     stepsBookStorePage.checkPublisherValue();
   }
 
@@ -99,8 +93,7 @@ public class TestUi extends test.BaseTest {
   public void deleteUserAccount() {
     lowerStepsUI.creatNewUser();
     lowerStepsUI.addCookieNewUser();
-    lowerStepsUI.openSiteWithCookie(PROFILE, userIDCookieValueNew, tokenCookieValueNew,
-        expiresCookieValueNew);
+    stepsLoginPage.openSiteWithCookieNewUser(PROFILE);
     stepsProfilePage.clickButtonDeleteAccount();
     stepsProfilePage.acceptAlertDelUser();
   }
@@ -110,8 +103,7 @@ public class TestUi extends test.BaseTest {
   @DisplayName("Отображение добавленной книги в профиле у пользователя")
   public void viewBookProfileUser() {
     lowerStepsUI.addBookUser();
-    lowerStepsUI.openSiteWithCookie(PROFILE, userIDCookieValueOld, tokenCookieValueOld,
-        expiresCookieValueOld);
+    stepsLoginPage.openSiteWithCookieOldUser(PROFILE);
     stepsProfilePage.checkAuthorValue();
     lowerStepsUI.deleteBookUser();
   }
@@ -120,9 +112,8 @@ public class TestUi extends test.BaseTest {
   @Feature("Действия в профиле")
   @DisplayName("Проверка кнопки 'Delete All Books")
   public void checkButtonDeleteAllBooks() {
+    stepsLoginPage.openSiteWithCookieOldUser(PROFILE);
     lowerStepsUI.addBookUser();
-    lowerStepsUI.openSiteWithCookie(PROFILE, userIDCookieValueOld, tokenCookieValueOld,
-        expiresCookieValueOld);
     stepsProfilePage.clickButtonDeleteAllBooks();
     stepsProfilePage.acceptAlertDelAllBooks();
     stepsProfilePage.messageDeleteAllBooks();
@@ -133,19 +124,17 @@ public class TestUi extends test.BaseTest {
   @DisplayName("Проверка отображения информации о книге в профиле пользователя")
   public void checkInfoBookProfileUser() {
     lowerStepsUI.addBookUser();
-    lowerStepsUI.openSiteWithCookie(PROFILE, userIDCookieValueOld, tokenCookieValueOld,
-        expiresCookieValueOld);
-    stepsProfilePage.clickToBooProfileUser();
+    stepsLoginPage.openSiteWithCookieOldUser(PROFILE);
+    stepsProfilePage.clickToBookProfileUser();
     stepsProfilePage.getDescriptionBook();
-    upperStepsApi.deleteBookProfileUser();
+    stepsApi.deleteBookProfileUser();
   }
 
   @Test
   @Feature("Действия над книгами")
   @DisplayName("Поиск книги по названию в BookStore")
   public void searchBookToBookStore() {
-    lowerStepsUI.openSiteWithCookie(BOOKS, userIDCookieValueOld, tokenCookieValueOld,
-        expiresCookieValueOld);
+    stepsLoginPage.openSiteWithCookieOldUser(BOOKS);
     stepsBookStorePage.inputSearchBooks();
     stepsBookStorePage.checkTitleBookStore();
   }

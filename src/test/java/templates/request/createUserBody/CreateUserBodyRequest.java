@@ -1,8 +1,8 @@
-package template.request.createUserBody;
+package templates.request.createUserBody;
 
 import static test.BaseTest.cfg;
 
-import model.request.createNewUser.RequestCreateUserBodyModel;
+import models.request.createNewUser.RequestCreateUserBodyModel;
 
 public class CreateUserBodyRequest {
 

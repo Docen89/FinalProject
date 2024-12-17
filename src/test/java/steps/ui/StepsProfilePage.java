@@ -1,6 +1,7 @@
 package steps.ui;
 
 
+import static com.codeborne.selenide.Condition.text;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.codeborne.selenide.Selenide;
@@ -48,21 +49,17 @@ public class StepsProfilePage {
 
   @Step("Проверить наличие колонки 'Автор'")
   public void checkAuthorValue() {
-    String authorValue;
-    authorValue = profilePage.checkAddBookProfile().getText();
-    assertEquals("Richard E. Silverman", authorValue);
+  profilePage.checkAddBookProfile().shouldHave(text("Richard E. Silverman"));
   }
 
   @Step("Клик по книге в профиле пользователя")
-  public void clickToBooProfileUser() {
+  public void clickToBookProfileUser() {
     profilePage.infoBook().scrollTo().click();
   }
 
   @Step("Получить описание книги")
   public void getDescriptionBook() {
-    String descriptionValue;
-    descriptionValue = profilePage.descriptionBook().getText();
-    assertEquals("Description :", descriptionValue);
+    profilePage.descriptionBook().shouldHave(text("Description"));
   }
 
 }

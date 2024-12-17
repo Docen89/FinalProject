@@ -1,6 +1,6 @@
-package template.request.authorizedBody;
+package templates.request.authorizedBody;
 
-import model.request.authorized.RequestAuthorizedBodyModel;
+import models.request.authorized.RequestAuthorizedBodyModel;
 
 public class RequestAuthorizedBody {
 

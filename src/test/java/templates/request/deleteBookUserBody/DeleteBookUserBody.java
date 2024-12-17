@@ -1,7 +1,7 @@
-package template.request.deleteBookUserBody;
+package templates.request.deleteBookUserBody;
 
 
-import model.request.deleteBookUser.DeleteBookBody;
+import models.request.deleteBookUser.DeleteBookBody;
 
 public class DeleteBookUserBody {
 

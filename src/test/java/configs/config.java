@@ -25,4 +25,7 @@ public interface config extends Config {
   @Key("base.uri")
   String baseUri();
 
+  @Key("browser.size")
+  String browserSize();
+
 }

@@ -3,12 +3,15 @@ package api;
 import static test.BaseTest.cfg;
 
 import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.authentication.AuthenticationScheme;
+import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.internal.http.HTTPBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import java.io.PrintStream;
@@ -26,6 +29,19 @@ public class Specifications {
       .setRequestTemplate("custom-http-request.ftl")  // HTML-шаблон запроса для REST-тестов
       .setResponseTemplate("custom-http-response.ftl"); // HTML-шаблон ответа для REST-тестов
 
+
+  public static RequestSpecification restRequestSpecAuth(String userName, String password) {
+    PreemptiveBasicAuthScheme authPreemptive = new PreemptiveBasicAuthScheme();
+    authPreemptive.setUserName(userName);
+    authPreemptive.setPassword(password);
+    return new RequestSpecBuilder()
+        .setContentType(ContentType.JSON)
+        .setAuth(authPreemptive)
+        .setBaseUri(cfg.baseUri())
+        .addFilter(allureFilter)
+        .log(LogDetail.ALL)
+        .build();
+  }
 
   public static RequestSpecification restRequestSpec() {
     return new RequestSpecBuilder()
