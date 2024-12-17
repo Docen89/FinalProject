@@ -3,6 +3,7 @@ package steps.ui;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
 import com.codeborne.selenide.WebDriverRunner;
+import helpers.CookieOldUser;
 import org.openqa.selenium.Cookie;
 import page.LoginPage;
 import steps.api.StepsApi;
@@ -51,15 +52,25 @@ public class StepsLoginPage extends BaseTest {
 
   @Step("Открыть страницу сайта с Cookie старого пользователя")
   public void openSiteWithCookieOldUser(String endPoint) {
+//    open(endPoint);
+//    api.ActionsResponce responceOldUser = stepsApi.authorization(cfg.oldPasswordValue(),
+//        cfg.oldUserNameValue());
+//    WebDriverRunner.getWebDriver().manage()
+//        .addCookie((new Cookie("userID",responceOldUser.getBodyFieldString("userId"))));
+//    WebDriverRunner.getWebDriver().manage()
+//        .addCookie((new Cookie("token", responceOldUser.getBodyFieldString("token"))));
+//    WebDriverRunner.getWebDriver().manage()
+//        .addCookie((new Cookie("expires", responceOldUser.getBodyFieldString("expires"))));
+//    open(endPoint);
     open(endPoint);
-    api.ActionsResponce responceOldUser = stepsApi.authorization(cfg.oldPasswordValue(),
-        cfg.oldUserNameValue());
+//    api.ActionsResponce responceOldUser = stepsApi.authorization(cfg.oldPasswordValue(),
+//        cfg.oldUserNameValue());
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("userID",responceOldUser.getBodyFieldString("userId"))));
+        .addCookie((new Cookie("userID", CookieOldUser.getInstance().getUserIdValueOldUser())));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("token", responceOldUser.getBodyFieldString("token"))));
+        .addCookie((new Cookie("token", CookieOldUser.getInstance().getTokenValueOldUser())));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("expires", responceOldUser.getBodyFieldString("expires"))));
+        .addCookie((new Cookie("expires", CookieOldUser.getInstance().getExpiresValueOldUser())));
     open(endPoint);
   }
 
