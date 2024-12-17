@@ -1,15 +1,13 @@
 package steps.ui;
 
 import static com.codeborne.selenide.Condition.text;
-import static steps.ui.LowerStepsUI.stepsApi;
-
 import io.qameta.allure.Step;
 import page.BookStorePage;
-
+import steps.api.StepsApi;
 
 
 public class StepsBookStorePage {
-
+  StepsApi stepsApi = new StepsApi();
   BookStorePage bookStorePage = new BookStorePage();
 
   @Step("Проверить наличие колонки 'Автор'")
