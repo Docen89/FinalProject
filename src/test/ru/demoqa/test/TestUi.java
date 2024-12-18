@@ -23,7 +23,6 @@ import ru.demoqa.steps.ui.HelpersStepsUI;
 @Owner("T. Popov")
 @Epic("UI")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
 public class TestUi extends BaseTest {
 
   HelpersStepsUI helpersStepsUI = new HelpersStepsUI();
@@ -35,7 +34,7 @@ public class TestUi extends BaseTest {
 
   @Test
   @Feature("Авторизация")
-  @Order(1)
+  @Order@Order(1)
   @DisplayName("Авторизация  с неверным паролем от пользователя")
   public void authWithNotValidPassword() {
     helpersStepsUI.dataTestAuthNotValid();
