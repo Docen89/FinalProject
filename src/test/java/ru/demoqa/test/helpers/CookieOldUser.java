@@ -12,7 +12,7 @@ public class CookieOldUser {
 
 
   private CookieOldUser() {}
-  Map<String, String> tokenAndExpiresAndUserIdValue = BaseTest.getCookieOldUser();
+
   public static synchronized CookieOldUser getInstance() {
     if (instance == null) {
       instance = new CookieOldUser();
@@ -22,21 +22,21 @@ public class CookieOldUser {
 
   public String getUserIdValueOldUser() {
     if (userIdValueOldUser == null) {
-      userIdValueOldUser = tokenAndExpiresAndUserIdValue.get("userId");
+      userIdValueOldUser = BaseTest.cookie.get("userId");
     }
     return userIdValueOldUser;
   }
 
   public String getTokenValueOldUser() {
     if (userIdValueOldUser == null) {
-      tokenValueOldUser = tokenAndExpiresAndUserIdValue.get("token");
+      tokenValueOldUser = BaseTest.cookie.get("token");
     }
     return tokenValueOldUser;
   }
 
   public String getExpiresValueOldUser() {
     if (userIdValueOldUser == null) {
-      expiresValueOldUser = tokenAndExpiresAndUserIdValue.get("expires");
+      expiresValueOldUser = BaseTest.cookie.get("expires");
     }
     return expiresValueOldUser;
   }
