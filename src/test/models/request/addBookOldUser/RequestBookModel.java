@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class RequestBookModel {
-    private List<IsbnPartialModel> collectionOfIsbns;
+    private List<models.request.addBookOldUser.IsbnPartialModel> collectionOfIsbns;
     private String userId;
   }
 
