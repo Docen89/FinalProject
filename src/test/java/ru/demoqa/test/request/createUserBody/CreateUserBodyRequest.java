@@ -1,6 +1,6 @@
 package templates.request.createUserBody;
 
-import static test.BaseTest.cfg;
+import static ru.demoqa.test.test.BaseTest.cfg;
 
 import models.request.createNewUser.RequestCreateUserBodyModel;
 

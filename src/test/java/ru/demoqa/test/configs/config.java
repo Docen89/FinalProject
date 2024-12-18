@@ -1,8 +1,7 @@
-package config;
+package configs;
 
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.Config.Sources;
-import org.checkerframework.checker.units.qual.K;
 
 @Sources({"classpath:config.properties"})
 public interface config extends Config {

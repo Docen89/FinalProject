@@ -1,23 +1,15 @@
 package api;
 
-import static test.BaseTest.cfg;
+import static ru.demoqa.test.test.BaseTest.cfg;
 
 import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.authentication.AuthenticationScheme;
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
-import io.restassured.internal.http.HTTPBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import java.io.PrintStream;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.io.IoBuilder;
 
 public class Specifications {
 

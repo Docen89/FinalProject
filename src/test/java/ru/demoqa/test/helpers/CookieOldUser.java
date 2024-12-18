@@ -1,7 +1,7 @@
 package helpers;
 
 import java.util.Map;
-import test.BaseTest;
+import ru.demoqa.test.test.BaseTest;
 
 public class CookieOldUser {
   private static CookieOldUser instance;

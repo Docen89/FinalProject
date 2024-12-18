@@ -9,7 +9,7 @@ import page.LoginPage;
 import steps.api.StepsApi;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
-import test.BaseTest;
+import ru.demoqa.test.test.BaseTest;
 
 public class StepsLoginPage extends BaseTest {
   LoginPage loginPage = new LoginPage();

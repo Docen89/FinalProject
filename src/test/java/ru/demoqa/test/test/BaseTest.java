@@ -1,10 +1,8 @@
-package test;
+package ru.demoqa.test.test;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
-
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import config.config;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -14,13 +12,13 @@ import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import api.ActionsResponce;
-
+import steps.api.StepsApi;
 public class BaseTest {
 
 
-  static steps.api.StepsApi stepsApi = new steps.api.StepsApi();
+  static StepsApi stepsApi = new StepsApi();
 
-  public static config cfg = ConfigFactory.create(config.class);
+  public static configs.config cfg = ConfigFactory.create(configs.config.class);
 
   @BeforeAll
   public static void setup() {

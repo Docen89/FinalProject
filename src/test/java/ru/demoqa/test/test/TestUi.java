@@ -1,8 +1,10 @@
 package test;
 
 
-import static configs.EndPoints.BOOKS;
-import static configs.EndPoints.PROFILE;
+import static ru.demoqa.test.configs.EndPoints.BOOKS;
+import static ru.demoqa.test.configs.EndPoints.PROFILE;
+
+import ru.demoqa.test.test.BaseTest;
 import steps.ui.HelpersStepsUI;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -17,7 +19,7 @@ import steps.ui.StepsProfilePage;
 @Owner("T. Popov")
 @Epic("UI")
 
-public class TestUi extends test.BaseTest {
+public class TestUi extends BaseTest {
 
   HelpersStepsUI helpersStepsUI = new HelpersStepsUI();
   StepsLoginPage stepsLoginPage = new StepsLoginPage();
@@ -106,7 +108,7 @@ public class TestUi extends test.BaseTest {
     helpersStepsUI.dateTestAddBookToUserProfile();
     stepsProfilePage.clickToBookProfileUser();
     stepsProfilePage.getDescriptionBook();
-    stepsApi.deleteBookProfileUser();
+    helpersStepsUI.deleteBookUser();
   }
 
   @Test

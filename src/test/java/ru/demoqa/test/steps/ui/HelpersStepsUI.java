@@ -1,13 +1,15 @@
 package steps.ui;
 
-import static configs.EndPoints.LOGIN;
-import static configs.EndPoints.PROFILE;
-import static test.BaseTest.cfg;
+import static ru.demoqa.test.configs.EndPoints.LOGIN;
+import static ru.demoqa.test.configs.EndPoints.PROFILE;
+import static ru.demoqa.test.test.BaseTest.cfg;
+
 import io.qameta.allure.Step;
 import steps.api.StepsApi;
-import steps.ui.StepsLoginPage;
 import template.generationdata.GenerationDate;
+import steps.ui.StepsLoginPage;
 import steps.ui.StepsCreateUserPage;
+
 public class HelpersStepsUI {
 
   StepsApi stepsApi = new StepsApi();

@@ -1,4 +1,4 @@
-package configs;
+package ru.demoqa.test.configs;
 
 public class EndPoints {
 

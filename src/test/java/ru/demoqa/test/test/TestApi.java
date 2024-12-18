@@ -5,19 +5,21 @@ import static api.check.VerificationProcedures.bodyField;
 import static api.check.VerificationProcedures.statusCode;
 
 import static org.hamcrest.Matchers.equalTo;
-import static test.BaseTest.cfg;
+import static ru.demoqa.test.test.BaseTest.cfg;
+
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import steps.api.StepsApi;
 
 @Owner("T. Popov")
 @Epic("API")
 
 public class TestApi {
 
-  steps.api.StepsApi stepsApi = new steps.api.StepsApi();
+  StepsApi stepsApi = new StepsApi();
 
   @Test
   @Feature("Создание пользователя")
