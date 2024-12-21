@@ -8,10 +8,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import ru.demoqa.helpers.CookieKillUser;
 import ru.demoqa.helpers.GuiUserCookie;
 import ru.demoqa.steps.ui.HelpersStepsUI;
@@ -20,7 +17,6 @@ import ru.demoqa.steps.ui.StepsCreateUserPage;
 import ru.demoqa.steps.ui.StepsLoginPage;
 import ru.demoqa.steps.ui.StepsProfilePage;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Owner("T. Popov")
 @Epic("UI")
 public class TestUi extends BaseTest {
@@ -35,7 +31,6 @@ public class TestUi extends BaseTest {
   @Test
   @Feature("Авторизация")
   @DisplayName("Авторизация  с неверным паролем от пользователя")
-  @Order(3)
   public void authWithNotValidPassword() {
     helpersStepsUI.dataTestAuthNotValid();
     stepsLoginPage.clickButtonLogin();
@@ -45,7 +40,6 @@ public class TestUi extends BaseTest {
   @Test
   @Feature("Авторизация")
   @DisplayName("Авторизация с валидной парой логопасс")
-  @Order(4)
   public void authWithValidLogoPass() {
     helpersStepsUI.dataTestAuthValid();
     stepsLoginPage.clickButtonLogin();
@@ -56,7 +50,6 @@ public class TestUi extends BaseTest {
   @Test
   @Feature("Создание пользователя")
   @DisplayName("Не заполнено поле LastName")
-  @Order(5)
   public void noValidLastName() {
     helpersStepsUI.dataTestCreateUserNoLastName();
     stepsCreateUserPage.clickButtonRegister();
@@ -66,7 +59,6 @@ public class TestUi extends BaseTest {
   @Test
   @Feature("Создание пользователя")
   @DisplayName("Не заполнено поле FirstName")
-  @Order(2)
   public void noValidFirstName() {
     helpersStepsUI.dataTestCreateUserFirstName();
     stepsCreateUserPage.clickButtonRegister();
@@ -87,8 +79,8 @@ public class TestUi extends BaseTest {
   @Test
   @Feature("Действия над пользователем")
   @DisplayName("Удаление аккаунта пользователя")
-  @Order(1)
   public void deleteUserAccount() {
+    helpersStepsUI.clear();
     stepsLoginPage.openSiteWithCookieUser(PROFILE,
         CookieKillUser.getInstance().getUserIdValueKillUser(),
         CookieKillUser.getInstance().getTokenValueKillUser(),

@@ -8,15 +8,18 @@ import org.openqa.selenium.Cookie;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import ru.demoqa.page.LoginPage;
+import ru.demoqa.steps.api.StepsApi;
 import ru.demoqa.test.BaseTest;
 
 
 public class StepsLoginPage extends BaseTest {
 
   LoginPage loginPage = new LoginPage();
+  StepsApi stepsApi = new StepsApi();
 
   @Step("Открыть страницу Book Store")
   public void openBookStore(String endpoint) {
+    Selenide.clearBrowserCookies();
     Selenide.open(endpoint);
   }
 
@@ -53,6 +56,7 @@ public class StepsLoginPage extends BaseTest {
   @Step("Открыть страницу сайта с Cookie нового пользователя")
   public void openSiteWithCookieUser(String endPointTwo, String userID, String token,
       String expires) {
+    stepsApi.authUser(cfg.guiNewUserNameValue(), cfg.guiNewPasswordValue());
     WebDriverRunner.getWebDriver().manage().addCookie((new Cookie("userID", userID)));
     WebDriverRunner.getWebDriver().manage().addCookie((new Cookie("token", token)));
     WebDriverRunner.getWebDriver().manage().addCookie((new Cookie("expires", expires)));

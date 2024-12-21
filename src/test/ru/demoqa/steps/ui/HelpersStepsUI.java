@@ -79,7 +79,6 @@ public class HelpersStepsUI {
   @Step("Подготовка тестовых данных.Добавление книги в профиль пользователю")
   public void dateTestAddBookToUserProfile() {
     addBookUser();
-    stepsApi.authUser(cfg.guiNewUserNameValue(), cfg.guiNewUserNameValue());
     stepsLoginPage.openSiteWithCookieUser(PROFILE,
         GuiUserCookie.getInstance().getGuiUserIdValueNewUser(),
         GuiUserCookie.getInstance().getGuiTokenValueNewUser(),
