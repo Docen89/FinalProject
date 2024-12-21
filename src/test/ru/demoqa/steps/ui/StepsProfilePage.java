@@ -49,7 +49,7 @@ public class StepsProfilePage {
 
   @Step("Проверить наличие колонки 'Автор'")
   public void checkAuthorValue() {
-  profilePage.checkAddBookProfile().shouldHave(text("Richard E. Silverman"));
+    profilePage.checkAddBookProfile().shouldHave(text("Richard E. Silverman"));
   }
 
   @Step("Клик по книге в профиле пользователя")

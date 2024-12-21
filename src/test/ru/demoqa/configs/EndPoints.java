@@ -12,5 +12,5 @@ public class EndPoints {
   public static final String LOGIN = "login";
   public static final String PROFILE = "profile";
   public static final String BOOKS = "books";
-  public static final String AUTHORIZED ="/Account/v1/Authorized";
+  public static final String AUTHORIZED = "/Account/v1/Authorized";
 }

@@ -20,24 +20,23 @@ public class HelpersStepsUI {
   StepsCreateUserPage stepsCreateUserPage = new StepsCreateUserPage();
 
   @Step("Очистить кэш")
-  public void clear(){
+  public void clear() {
     Selenide.clearBrowserCookies();
     Selenide.clearBrowserLocalStorage();
   }
 
-
   @Step("Вспомогательные шаги.Создать нового пользователя")
-  public void createNewUser(String password,String userName) {
-    stepsApi.createNewAccount(password, userName,userName,password);
+  public void createNewUser(String password, String userName) {
+    stepsApi.createNewAccount(password, userName, userName, password);
     stepsApi.getToken(password, userName);
-    stepsApi.authUser(password,userName);
+    stepsApi.authUser(password, userName);
   }
 
   @Step("Вспомогательные шаги.Добавить книгу в профиль к пользователю")
   public void addBookUser() {
-    stepsApi.addBookProfileUser(stepsApi.getLoginUserId(
-        cfg.guiNewPasswordValue(),cfg.guiNewUserNameValue()),
-        cfg.guiNewUserNameValue(),cfg.guiNewPasswordValue());
+    stepsApi.addBookProfileUser(
+        stepsApi.getLoginUserId(cfg.guiNewPasswordValue(), cfg.guiNewUserNameValue()),
+        cfg.guiNewUserNameValue(), cfg.guiNewPasswordValue());
   }
 
   @Step("Вспомогательные шаги.Удалить книгу у пользователя")
@@ -45,23 +44,22 @@ public class HelpersStepsUI {
     stepsApi.deleteBookProfileUser();
   }
 
-
   @Step("Подготовка тестовых данных. Авторизация с невалидными значениями LogoPass.Pass not valid")
-  public void dataTestAuthNotValid(){
+  public void dataTestAuthNotValid() {
     stepsLoginPage.openBookStore(LOGIN);
     stepsLoginPage.inputUserName(generationDate.newUserNameValue());
     stepsLoginPage.inputPasswordUser(generationDate.newPasswordValue());
   }
 
   @Step("Подготовка тестовых данных. Авторизация с валидными значениями LogoPass")
-  public void dataTestAuthValid(){
+  public void dataTestAuthValid() {
     stepsLoginPage.openBookStore(LOGIN);
     stepsLoginPage.inputUserName(cfg.oldUserNameValue());
     stepsLoginPage.inputPasswordUser(cfg.oldPasswordValue());
   }
 
   @Step("Подготовка тестовых данных. Заполнение данных о пользотвателе.Не заполнено поле LastName ")
-  public void dataTestCreateUserNoLastName(){
+  public void dataTestCreateUserNoLastName() {
     stepsLoginPage.openBookStore(LOGIN);
     stepsLoginPage.clickButtonNewUser();
     stepsCreateUserPage.inputNewUserFirstName(cfg.oldUserNameValue());
@@ -70,7 +68,7 @@ public class HelpersStepsUI {
   }
 
   @Step("Подготовка тестовых данных. Заполнение данных о пользотвателе.Не заполнено поле FirstName ")
-  public void dataTestCreateUserFirstName(){
+  public void dataTestCreateUserFirstName() {
     stepsLoginPage.openBookStore(LOGIN);
     stepsLoginPage.clickButtonNewUser();
     stepsCreateUserPage.inputNewUserLastName(cfg.killUserNameValue());
@@ -81,7 +79,7 @@ public class HelpersStepsUI {
   @Step("Подготовка тестовых данных.Добавление книги в профиль пользователю")
   public void dateTestAddBookToUserProfile() {
     addBookUser();
-    stepsApi.authUser(cfg.guiNewUserNameValue(),cfg.guiNewUserNameValue());
+    stepsApi.authUser(cfg.guiNewUserNameValue(), cfg.guiNewUserNameValue());
     stepsLoginPage.openSiteWithCookieUser(PROFILE,
         GuiUserCookie.getInstance().getGuiUserIdValueNewUser(),
         GuiUserCookie.getInstance().getGuiTokenValueNewUser(),

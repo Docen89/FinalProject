@@ -1,7 +1,6 @@
 package ru.demoqa.test;
 
 
-
 import static ru.demoqa.configs.EndPoints.BOOKS;
 import static ru.demoqa.configs.EndPoints.PROFILE;
 
@@ -42,7 +41,6 @@ public class TestUi extends BaseTest {
     stepsLoginPage.clickButtonLogin();
     stepsLoginPage.checkMessagePage();
   }
-
 
   @Test
   @Feature("Авторизация")

@@ -7,6 +7,7 @@ import ru.demoqa.steps.api.StepsApi;
 
 
 public class CookieKillUser {
+
   private static CookieKillUser instance;
   private String userIdValueKillUser;
   private String tokenValueKillUser;
@@ -14,12 +15,12 @@ public class CookieKillUser {
   StepsApi stepsApi = new StepsApi();
 
 
-
   private CookieKillUser() {
-    ActionsResponce responceKillUser = stepsApi.userLoginInfo(cfg.killPasswordValue(),cfg.killUserNameValue());
+    ActionsResponce responceKillUser = stepsApi.userLoginInfo(cfg.killPasswordValue(),
+        cfg.killUserNameValue());
     userIdValueKillUser = responceKillUser.getBodyFieldString("userId");
     tokenValueKillUser = responceKillUser.getBodyFieldString("token");
-    expiresValueKillUser =responceKillUser.getBodyFieldString("expires");
+    expiresValueKillUser = responceKillUser.getBodyFieldString("expires");
   }
 
   public static synchronized CookieKillUser getInstance() {
@@ -29,16 +30,16 @@ public class CookieKillUser {
     return instance;
   }
 
-  public String getUserIdValueKillUser(){
+  public String getUserIdValueKillUser() {
     return userIdValueKillUser;
   }
 
-  public String getTokenValueKillUser(){
+  public String getTokenValueKillUser() {
     return tokenValueKillUser;
   }
 
-  public String getExpiresValueKillUser(){
-    return  expiresValueKillUser;
+  public String getExpiresValueKillUser() {
+    return expiresValueKillUser;
   }
 
 }
