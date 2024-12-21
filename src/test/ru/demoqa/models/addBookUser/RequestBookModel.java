@@ -1,4 +1,4 @@
-package ru.demoqa.models.addBookOldUser;
+package ru.demoqa.models.addBookUser;
 import java.util.List;
 import lombok.Data;
 

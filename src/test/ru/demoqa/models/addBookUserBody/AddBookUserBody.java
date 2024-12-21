@@ -1,12 +1,12 @@
-package ru.demoqa.models.addBookOldUserBody;
+package ru.demoqa.models.addBookUserBody;
 
 
-import ru.demoqa.models.addBookOldUser.RequestBookModel;
-import ru.demoqa.models.addBookOldUser.IsbnPartialModel;
+import ru.demoqa.models.addBookUser.RequestBookModel;
+import ru.demoqa.models.addBookUser.IsbnPartialModel;
 import java.util.Collections;
 
 
-public class AddBookOldUserBody {
+public class AddBookUserBody {
 
 
   public RequestBookModel BodyAddBook(String bookIsbn, String userID) {

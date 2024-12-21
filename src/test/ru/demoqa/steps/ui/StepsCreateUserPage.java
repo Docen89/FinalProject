@@ -1,4 +1,4 @@
-package ru.demoqa.steps.api;
+package ru.demoqa.steps.ui;
 
 
 import io.qameta.allure.Step;

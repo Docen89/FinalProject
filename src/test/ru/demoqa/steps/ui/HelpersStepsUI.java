@@ -5,11 +5,11 @@ import static ru.demoqa.configs.EndPoints.LOGIN;
 import static ru.demoqa.configs.EndPoints.PROFILE;
 import static ru.demoqa.test.BaseTest.cfg;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import ru.demoqa.generationdata.GenerationDate;
+import ru.demoqa.helpers.GuiUserCookie;
 import ru.demoqa.steps.api.StepsApi;
-import ru.demoqa.steps.api.StepsCreateUserPage;
-import ru.demoqa.steps.api.StepsLoginPage;
 
 
 public class HelpersStepsUI {
@@ -19,17 +19,25 @@ public class HelpersStepsUI {
   GenerationDate generationDate = new GenerationDate();
   StepsCreateUserPage stepsCreateUserPage = new StepsCreateUserPage();
 
+  @Step("Очистить кэш")
+  public void clear(){
+    Selenide.clearBrowserCookies();
+    Selenide.clearBrowserLocalStorage();
+  }
 
 
   @Step("Вспомогательные шаги.Создать нового пользователя")
-  public void createNewUser() {
-    stepsApi.createNewAccount(cfg.guiNewPasswordValue(), cfg.guiNewUserNameValue(),cfg.guiNewUserNameValue(),cfg.guiNewPasswordValue());
-    stepsApi.getToken(cfg.guiNewPasswordValue(), cfg.guiNewUserNameValue());
+  public void createNewUser(String password,String userName) {
+    stepsApi.createNewAccount(password, userName,userName,password);
+    stepsApi.getToken(password, userName);
+    stepsApi.authUser(password,userName);
   }
 
   @Step("Вспомогательные шаги.Добавить книгу в профиль к пользователю")
   public void addBookUser() {
-    stepsApi.addBookProfileUser();
+    stepsApi.addBookProfileUser(stepsApi.getLoginUserId(
+        cfg.guiNewPasswordValue(),cfg.guiNewUserNameValue()),
+        cfg.guiNewUserNameValue(),cfg.guiNewPasswordValue());
   }
 
   @Step("Вспомогательные шаги.Удалить книгу у пользователя")
@@ -40,7 +48,7 @@ public class HelpersStepsUI {
 
   @Step("Подготовка тестовых данных. Авторизация с невалидными значениями LogoPass.Pass not valid")
   public void dataTestAuthNotValid(){
-    stepsLoginPage.openBookStore("login");
+    stepsLoginPage.openBookStore(LOGIN);
     stepsLoginPage.inputUserName(generationDate.newUserNameValue());
     stepsLoginPage.inputPasswordUser(generationDate.newPasswordValue());
   }
@@ -65,20 +73,20 @@ public class HelpersStepsUI {
   public void dataTestCreateUserFirstName(){
     stepsLoginPage.openBookStore(LOGIN);
     stepsLoginPage.clickButtonNewUser();
-    stepsCreateUserPage.inputNewUserLastName(cfg.newUserNameValue());
-    stepsCreateUserPage.inputNewUserName(cfg.newUserNameValue());
-    stepsCreateUserPage.inputNewUserPassword(cfg.newPasswordValue());
-  }
-  @Step("Подготовка тестовых данных.Создание нового пользователя")
-  public void dateTestCreateNewUser(){
-    createNewUser();
-    stepsLoginPage.openSiteWithCookieNewUser(PROFILE);
+    stepsCreateUserPage.inputNewUserLastName(cfg.killUserNameValue());
+    stepsCreateUserPage.inputNewUserName(cfg.killUserNameValue());
+    stepsCreateUserPage.inputNewUserPassword(cfg.killPasswordValue());
   }
 
   @Step("Подготовка тестовых данных.Добавление книги в профиль пользователю")
-  public void dateTestAddBookToUserProfile(){
+  public void dateTestAddBookToUserProfile() {
     addBookUser();
-    stepsLoginPage.openSiteWithCookieOldUser(PROFILE);
+    stepsApi.authUser(cfg.guiNewUserNameValue(),cfg.guiNewUserNameValue());
+    stepsLoginPage.openSiteWithCookieUser(PROFILE,
+        GuiUserCookie.getInstance().getGuiUserIdValueNewUser(),
+        GuiUserCookie.getInstance().getGuiTokenValueNewUser(),
+        GuiUserCookie.getInstance().getGuiExpiresValueNewUser());
   }
 
 }
+

@@ -1,9 +1,10 @@
-package ru.demoqa.steps.api;
+package ru.demoqa.steps.ui;
 
 import static com.codeborne.selenide.Condition.text;
 import io.qameta.allure.Step;
 import ru.demoqa.api.check.ActionsResponce;
 import ru.demoqa.page.BookStorePage;
+import ru.demoqa.steps.api.StepsApi;
 
 
 public class StepsBookStorePage {

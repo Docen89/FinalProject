@@ -7,11 +7,11 @@ import org.aeonbits.owner.Config.Sources;
 @Sources({"classpath:config.properties"})
 public interface config extends Config {
 
-  @Key("new.user.name.value")
-  String newUserNameValue();
+  @Key("dell.user.name.value")
+  String killUserNameValue();
 
-  @Key("new.password.value")
-  String newPasswordValue();
+  @Key("dell.password.value")
+  String killPasswordValue();
 
   @Key("old.user.name.value")
   String oldUserNameValue();

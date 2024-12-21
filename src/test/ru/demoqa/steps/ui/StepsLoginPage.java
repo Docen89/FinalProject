@@ -1,4 +1,4 @@
-package ru.demoqa.steps.api;
+package ru.demoqa.steps.ui;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
@@ -8,7 +8,6 @@ import org.openqa.selenium.Cookie;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
-import ru.demoqa.helpers.CookieOldUser;
 import ru.demoqa.helpers.GuiUserCookie;
 import ru.demoqa.page.LoginPage;
 import ru.demoqa.test.BaseTest;
@@ -52,28 +51,18 @@ public class StepsLoginPage extends BaseTest {
   loginPage.buttonLogOut().shouldHave(text("Log out"));
   }
 
-  @Step("Открыть страницу сайта с Cookie старого пользователя")
-  public void openSiteWithCookieOldUser(String endPoint) {
-    open(endPoint);
-    WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("userID", CookieOldUser.getInstance().getUserIdValueOldUser())));
-    WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("token", CookieOldUser.getInstance().getTokenValueOldUser())));
-    WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("expires", CookieOldUser.getInstance().getExpiresValueOldUser())));
-    open(endPoint);
-  }
 
   @Step("Открыть страницу сайта с Cookie нового пользователя")
-  public void openSiteWithCookieNewUser(String endPoint) {
-    open(endPoint);
+  public void openSiteWithCookieUser(String endPointTwo,String userID,String token,String expires) {
+
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("userID", GuiUserCookie.getInstance().getGuiUserIdValueNewUser())));
+        .addCookie((new Cookie("userID", userID)));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("token", GuiUserCookie.getInstance().getGuiTokenValueNewUser())));
+        .addCookie((new Cookie("token", token)));
     WebDriverRunner.getWebDriver().manage()
-        .addCookie((new Cookie("expires", GuiUserCookie.getInstance().getGuiExpiresValueNewUser())));
-    open(endPoint);
+        .addCookie((new Cookie("expires", expires)));
+    open(endPointTwo);
   }
+
 
 }

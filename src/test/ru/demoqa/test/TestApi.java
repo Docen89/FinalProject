@@ -5,47 +5,41 @@ package ru.demoqa.test;
 import static org.hamcrest.Matchers.equalTo;
 import static ru.demoqa.api.check.VerificationProcedures.bodyField;
 import static ru.demoqa.api.check.VerificationProcedures.statusCode;
-
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.demoqa.helpers.IsbnBook;
 import ru.demoqa.steps.api.StepsApi;
+import static ru.demoqa.test.BaseTest.cfg;
 
 
 @Owner("T. Popov")
 @Epic("API")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
 public class TestApi {
   StepsApi stepsApi = new StepsApi();
 
   @Test
   @Feature("Создание пользователя")
-  @Order(1)
   @DisplayName("Создание нового пользователя")
   public void createNewUser() {
-    stepsApi.createNewAccount(BaseTest.cfg.newPasswordValue(), BaseTest.cfg.newUserNameValue(),
-        BaseTest.cfg.newUserNameValue(), BaseTest.cfg.newPasswordValue()).shouldHave(statusCode(201));
-    stepsApi.authorization(BaseTest.cfg.newUserNameValue(), BaseTest.cfg.newPasswordValue());
-    stepsApi.clearDeleteNewUser();
+    stepsApi.testDataAddNewUserAndUserId();
+    stepsApi.authUser(cfg.killUserNameValue(), cfg.killPasswordValue());
+    stepsApi.clearDeleteKillUser(stepsApi.getUserIdDellUser());
   }
 
   @Test
   @Feature("Авторизация")
   @DisplayName("Авторизация зарегистрированным пользователем")
-  public void authUser() {
-    stepsApi.getToken(BaseTest.cfg.oldPasswordValue(), BaseTest.cfg.oldUserNameValue())
+  public void authValidUser() {
+    stepsApi.getToken(cfg.oldPasswordValue(), cfg.oldUserNameValue())
         .shouldHave(statusCode(200))
         .shouldHave(bodyField("result", equalTo("User authorized successfully.")));
-    stepsApi.authorization(BaseTest.cfg.oldPasswordValue(), BaseTest.cfg.oldUserNameValue())
+    stepsApi.userLoginInfo(cfg.oldPasswordValue(),cfg.oldUserNameValue())
         .shouldHave(statusCode(200))
-        .shouldHave(bodyField("username", equalTo(BaseTest.cfg.oldUserNameValue())));
+        .shouldHave(bodyField("username", equalTo(cfg.oldUserNameValue())));
   }
 
   @Test
@@ -53,7 +47,7 @@ public class TestApi {
   @Order(2)
   @DisplayName("Авторизация незарегистрированным пользователем")
   public void authNotRegisterUser() {
-    stepsApi.getToken(BaseTest.cfg.newPasswordValue(), BaseTest.cfg.newUserNameValue())
+    stepsApi.getToken(cfg.killPasswordValue(),cfg.killUserNameValue())
         .shouldHave(statusCode(200)).shouldHave(bodyField("status", equalTo("Failed")))
         .shouldHave(bodyField("result", equalTo("User authorization failed.")));
   }
@@ -62,7 +56,9 @@ public class TestApi {
   @Feature("Действия в профиле")
   @DisplayName("Добавление книги к пользователю в профиль")
   public void addBookToOldUser() {
-    stepsApi.addBookProfileUser().shouldHave(statusCode(201));
+    stepsApi.addBookProfileUser(stepsApi.getLoginUserId(
+        cfg.oldPasswordValue(), cfg.oldUserNameValue()),
+        cfg.oldUserNameValue(), cfg.oldPasswordValue()).shouldHave(statusCode(201));
     stepsApi.deleteBookProfileUser().shouldHave(statusCode(204));
   }
 
@@ -71,9 +67,9 @@ public class TestApi {
   @DisplayName("Повторное добавление книги  в профиль пользователя")
   public void bookIsAlreadyThereUser() {
     stepsApi.testDataAddBookToProfileUser();
-    stepsApi.checkMessageResponseRepeatedAddBooKProfileUser().shouldHave(statusCode(400))
-        .shouldHave(
-            bodyField("message", equalTo("ISBN already present in the User's Collection!")));
+    stepsApi.checkMessageResponseRepeatedAddBooKProfileUser(stepsApi.getLoginUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue()))
+        .shouldHave(statusCode(400))
+        .shouldHave(bodyField("message", equalTo("ISBN already present in the User's Collection!")));
     stepsApi.clearDeleteBookFromUserProfile();
   }
 
@@ -81,7 +77,9 @@ public class TestApi {
   @Feature("Действия в профиле")
   @DisplayName("Удаляем книгу из профиля пользователя")
   public void deleteBookInProfileUser() {
-    stepsApi.addBookProfileUser();
+    stepsApi.addBookProfileUser(stepsApi.getLoginUserId(
+        cfg.oldPasswordValue(), cfg.oldUserNameValue()),
+        cfg.oldUserNameValue(), cfg.oldPasswordValue());
     stepsApi.deleteBookProfileUser().shouldHave(statusCode(204));
   }
 
@@ -90,7 +88,7 @@ public class TestApi {
   @DisplayName("Удаление  пользователя")
   public void deleteNewUser() {
     stepsApi.testDataAddNewUserAndUserId();
-    stepsApi.deleteUser(stepsApi.getUserId()).shouldHave(statusCode(204));
+    stepsApi.deleteUser(stepsApi.getLoginUserId(cfg.killPasswordValue(),cfg.killUserNameValue())).shouldHave(statusCode(204));
   }
 
   @Test
@@ -113,10 +111,15 @@ public class TestApi {
   @DisplayName("Проверка сохранения книги в профиле у пользователя")
   public void checkBookProfileUser() {
     stepsApi.testDataAddBookToProfileUser();
-    stepsApi.getInfoUser(BaseTest.cfg.oldUserNameValue(), BaseTest.cfg.oldPasswordValue())
+    stepsApi.getInfoUserProfile(cfg.oldUserNameValue(), cfg.oldPasswordValue())
         .shouldHave(statusCode(200))
         .shouldHave(bodyField("books[0].isbn", equalTo(IsbnBook.getInstance().isbnBookValue())));
     stepsApi.deleteBookProfileUser();
   }
+
+//  @Test
+//  public void fdffd(){
+//   stepsApi.getInfoUserProfile(cfg.oldUserNameValue(), cfg.oldPasswordValue());
+//  }
 
 }

@@ -1,17 +1,21 @@
 package ru.demoqa.test;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
+import static com.codeborne.selenide.Selenide.open;
+
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import ru.demoqa.configs.config;
+import ru.demoqa.steps.api.StepsApi;
+import ru.demoqa.steps.ui.HelpersStepsUI;
 
 public class BaseTest {
-
+  static StepsApi stepsApi = new StepsApi();
+  static HelpersStepsUI helpersStepsUI= new HelpersStepsUI();
   public static config cfg = ConfigFactory.create(config.class);
 
   @BeforeAll
@@ -21,11 +25,14 @@ public class BaseTest {
     Configuration.pageLoadStrategy = cfg.loadStrategy();
     baseUrl = cfg.baseUri();
     Configuration.browserSize = cfg.browserSize();
+    open("favicon.ico");
+    helpersStepsUI.createNewUser(cfg.killPasswordValue(),cfg.killUserNameValue());
+
   }
 
-  @AfterEach
-  public void clear() {
-    Selenide.clearBrowserCookies();
-    Selenide.clearBrowserLocalStorage();
-  }
+//  @AfterAll
+//  public static void end(){
+//    helpersStepsUI.d
+//  }
+
 }
