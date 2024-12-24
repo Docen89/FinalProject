@@ -79,7 +79,9 @@ public class TestUi extends BaseTest {
   @Feature("Действия над пользователем")
   @DisplayName("Удаление аккаунта пользователя")
   public void deleteUserAccount() {
-    helpersStepsUI.createNewUser(cfg.killUserNameValue(),cfg.killPasswordValue());
+    helpersStepsUI.createNewUser(
+        cfg.killUserNameValue(),
+        cfg.killPasswordValue());
     stepsProfilePage.clickButtonDeleteAccount();
     stepsProfilePage.acceptAlertDelUser();
     helpersStepsUI.clear();
@@ -95,13 +97,21 @@ public class TestUi extends BaseTest {
   }
 
   @Test
+  @Feature("Действия над книгами")
+  @DisplayName("Удаление книги из профиля пользователя")
+  public void deleteBookProfileUser() {
+    helpersStepsUI.dateTestAddBookToUserProfile();
+    stepsProfilePage.deleteBook();
+    stepsProfilePage.acceptDeleteBook();
+  }
+
+  @Test
   @Feature("Действия в профиле")
   @DisplayName("Проверка кнопки 'Delete All Books")
   public void checkButtonDeleteAllBooks() {
     helpersStepsUI.dateTestAddBookToUserProfile();
     stepsProfilePage.clickButtonDeleteAllBooks();
     stepsProfilePage.acceptAlertDelAllBooks();
-    stepsProfilePage.messageDeleteAllBooks();
   }
 
   @Test

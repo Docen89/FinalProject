@@ -53,7 +53,7 @@ public class StepsLoginPage extends BaseTest {
     loginPage.buttonLogOut().shouldHave(text("Log out"));
   }
 
-  @Step("Открыть страницу сайта с Cookie нового пользователя")
+  @Step("Открыть страницу сайта с Cookie  пользователя")
   public void openSiteWithCookieUser(String endPointTwo, String userID, String token,
       String expires) {
     WebDriverRunner.getWebDriver().manage().addCookie((new Cookie("userID", userID)));

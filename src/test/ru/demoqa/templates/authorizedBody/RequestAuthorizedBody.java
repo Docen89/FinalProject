@@ -1,4 +1,4 @@
-package ru.demoqa.models.authorizedBody;
+package ru.demoqa.templates.authorizedBody;
 
 
 import ru.demoqa.models.authorized.RequestAuthorizedBodyModel;

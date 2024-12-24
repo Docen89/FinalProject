@@ -28,23 +28,33 @@ public class HelpersStepsUI {
 
   @Step("Вспомогательные шаги.Создать нового пользователя")
   public void createNewUser(String userName, String password) {
-    stepsApi.createNewAccount(cfg.killUserNameValue(), cfg.killPasswordValue(), cfg.killUserNameValue(), cfg.killPasswordValue());
-    stepsApi.getToken(cfg.killUserNameValue(), cfg.killPasswordValue());
-    stepsApi.authUser(userName,password);
+    stepsApi.createNewAccount(
+        cfg.killUserNameValue(),
+        cfg.killPasswordValue(),
+        cfg.killUserNameValue(),
+        cfg.killPasswordValue());
+    stepsApi.getToken(
+        cfg.killUserNameValue(),
+        cfg.killPasswordValue());
+    stepsApi.authUser(userName, password);
     stepsLoginPage.openSiteWithCookieUser(PROFILE,
         KillUserGui.getInstance().getUserIdValueKillUser(),
         KillUserGui.getInstance().getTokenValueKillUser(),
         KillUserGui.getInstance().getExpiresValueKillUser());
   }
 
-  @Step("Вспомогательные шаги.Добавить книгу в профиль к пользователю")
+  @Step("Добавить книгу в профиль к пользователю")
   public void addBookUser() {
-    stepsApi.addBookProfileUser(cfg.guiNewUserNameValue(), cfg.guiNewPasswordValue(),GuiUserCookie.getInstance().getGuiUserIdValueNewUser());
+    stepsApi.addBookProfileUser(
+        cfg.guiNewUserNameValue(),
+        cfg.guiNewPasswordValue(),
+        GuiUserCookie.getInstance().getGuiUserIdValueNewUser());
   }
 
   @Step("Вспомогательные шаги.Удалить книгу у пользователя")
   public void deleteBookUser() {
-    stepsApi.deleteBookProfileUser(GuiUserCookie.getInstance().getGuiUserIdValueNewUser());
+    stepsApi.deleteBookProfileUser(
+        GuiUserCookie.getInstance().getGuiUserIdValueNewUser());
   }
 
   @Step("Подготовка тестовых данных. Авторизация с невалидными значениями LogoPass.Pass not valid")

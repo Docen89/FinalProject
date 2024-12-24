@@ -1,4 +1,4 @@
-package ru.demoqa.models.deleteBookUserBody;
+package ru.demoqa.templates.deleteBookUserBody;
 
 
 import ru.demoqa.models.deleteBookUser.DeleteBookBody;

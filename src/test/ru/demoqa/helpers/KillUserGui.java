@@ -16,7 +16,9 @@ public class KillUserGui {
 
 
   private KillUserGui() {
-    ActionsResponce responceKillUser = stepsApi.userLoginInfo(cfg.killUserNameValue(), cfg.killPasswordValue());
+    ActionsResponce responceKillUser = stepsApi.userLoginInfo(
+        cfg.killUserNameValue(),
+        cfg.killPasswordValue());
     userIdValueKillUser = responceKillUser.getBodyFieldString("userId");
     tokenValueKillUser = responceKillUser.getBodyFieldString("token");
     expiresValueKillUser = responceKillUser.getBodyFieldString("expires");

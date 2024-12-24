@@ -1,4 +1,4 @@
-package ru.demoqa.models.addBookUserBody;
+package ru.demoqa.templates.addBookUserBody;
 
 
 import ru.demoqa.models.addBookUser.RequestBookModel;

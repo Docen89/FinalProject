@@ -1,4 +1,4 @@
-package ru.demoqa.models.createUserBody;
+package ru.demoqa.templates.createUserBody;
 import ru.demoqa.models.createNewUser.RequestCreateUserBodyModel;
 
 public class CreateUserBodyRequest {

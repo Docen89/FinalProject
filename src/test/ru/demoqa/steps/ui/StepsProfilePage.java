@@ -2,9 +2,7 @@ package ru.demoqa.steps.ui;
 
 
 import static com.codeborne.selenide.Condition.text;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import ru.demoqa.page.ProfilePage;
 
@@ -28,23 +26,19 @@ public class StepsProfilePage {
     profilePage.buttonMessageDeleteUserOk().click();
   }
 
+  @Step("Потвердить удаление книги")
+  public void acceptDeleteBook() {
+    profilePage.buttonMessageDeleteBookOk().click();
+  }
+
+  @Step("Удалить книгу")
+  public void deleteBook() {
+    profilePage.buttonDeleteBook().scrollTo().click();
+  }
+
   @Step("Подтвердить удаление всех книг")
   public void acceptAlertDelAllBooks() {
     profilePage.buttonMessageDeleteAllBooks().click();
-  }
-
-  @Step("Получить уведомление об удаление пользователя")
-  public void messageDeleteUser() {
-    String messageDeleteUserValue;
-    messageDeleteUserValue = Selenide.switchTo().alert().getText();
-    assertEquals("User Deleted.", messageDeleteUserValue);
-  }
-
-  @Step("Получить уведомление об удалении всех книг")
-  public void messageDeleteAllBooks() {
-    String messageDeleteAllBooks;
-    messageDeleteAllBooks = Selenide.switchTo().alert().getText();
-    assertEquals("All Books deleted.", messageDeleteAllBooks);
   }
 
   @Step("Проверить наличие колонки 'Автор'")

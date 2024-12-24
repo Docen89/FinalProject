@@ -1,6 +1,7 @@
 package ru.demoqa.helpers;
 
 import static ru.demoqa.test.BaseTest.cfg;
+
 import ru.demoqa.api.check.ActionsResponce;
 import ru.demoqa.steps.api.StepsApi;
 
@@ -15,7 +16,9 @@ public class GuiUserCookie {
 
 
   private GuiUserCookie() {
-    ActionsResponce responceOldUser = stepsApi.userLoginInfo(cfg.guiNewUserNameValue(), cfg.guiNewPasswordValue());
+    ActionsResponce responceOldUser = stepsApi.userLoginInfo(
+        cfg.guiNewUserNameValue(),
+        cfg.guiNewPasswordValue());
     guiTokenValueNewUser = responceOldUser.getBodyFieldString("token");
     guiExpiresValueNewUser = responceOldUser.getBodyFieldString("expires");
     guiUserIdValueNewUser = responceOldUser.getBodyFieldString("userId");

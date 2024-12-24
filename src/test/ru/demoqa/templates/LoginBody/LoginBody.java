@@ -1,4 +1,4 @@
-package ru.demoqa.models.LoginBody;
+package ru.demoqa.templates.LoginBody;
 
 import ru.demoqa.models.Login.LoginModel;
 

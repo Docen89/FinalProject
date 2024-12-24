@@ -40,6 +40,14 @@ public class ProfilePage {
     return $x(" //*[@id='description-label']").as("Описание книги");
   }
 
+  public SelenideElement buttonDeleteBook() {
+    return $x("//*[@id='delete-record-undefined']").as("Кнопка 'Удалить книгу'");
+  }
+
+  public SelenideElement buttonMessageDeleteBookOk() {
+    return $x("//*[@id='closeSmallModal-ok']").as("Аллерт - сообщение об удалении книги");
+  }
+
 }
 
 
