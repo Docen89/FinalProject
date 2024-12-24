@@ -6,26 +6,25 @@ import ru.demoqa.api.check.ActionsResponce;
 import ru.demoqa.steps.api.StepsApi;
 
 
-public class CookieKillUser {
+public class KillUserGui {
 
-  private static CookieKillUser instance;
+  private static KillUserGui instance;
   private String userIdValueKillUser;
   private String tokenValueKillUser;
   private String expiresValueKillUser;
   StepsApi stepsApi = new StepsApi();
 
 
-  private CookieKillUser() {
-    ActionsResponce responceKillUser = stepsApi.userLoginInfo(cfg.killPasswordValue(),
-        cfg.killUserNameValue());
+  private KillUserGui() {
+    ActionsResponce responceKillUser = stepsApi.userLoginInfo(cfg.killUserNameValue(), cfg.killPasswordValue());
     userIdValueKillUser = responceKillUser.getBodyFieldString("userId");
     tokenValueKillUser = responceKillUser.getBodyFieldString("token");
     expiresValueKillUser = responceKillUser.getBodyFieldString("expires");
   }
 
-  public static synchronized CookieKillUser getInstance() {
+  public static synchronized KillUserGui getInstance() {
     if (instance == null) {
-      instance = new CookieKillUser();
+      instance = new KillUserGui();
     }
     return instance;
   }

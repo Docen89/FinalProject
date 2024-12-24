@@ -24,8 +24,6 @@ public class BaseTest {
     baseUrl = cfg.baseUri();
     Configuration.browserSize = cfg.browserSize();
     open("favicon.ico");
-    helpersStepsUI.createNewUser(cfg.killPasswordValue(), cfg.killUserNameValue());
-
   }
 
 }

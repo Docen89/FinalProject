@@ -15,8 +15,7 @@ public class GuiUserCookie {
 
 
   private GuiUserCookie() {
-    ActionsResponce responceOldUser = stepsApi.userLoginInfo(cfg.guiNewPasswordValue(),
-        cfg.guiNewUserNameValue());
+    ActionsResponce responceOldUser = stepsApi.userLoginInfo(cfg.guiNewUserNameValue(), cfg.guiNewPasswordValue());
     guiTokenValueNewUser = responceOldUser.getBodyFieldString("token");
     guiExpiresValueNewUser = responceOldUser.getBodyFieldString("expires");
     guiUserIdValueNewUser = responceOldUser.getBodyFieldString("userId");

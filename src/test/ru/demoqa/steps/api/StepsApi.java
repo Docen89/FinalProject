@@ -17,6 +17,7 @@ import static ru.demoqa.test.BaseTest.cfg;
 
 import lombok.Getter;
 import ru.demoqa.api.check.ActionsResponce;
+import ru.demoqa.helpers.InfoApiUser;
 import ru.demoqa.helpers.IsbnBook;
 import ru.demoqa.models.LoginBody.LoginBody;
 import ru.demoqa.models.authorizedBody.RequestAuthorizedBody;
@@ -37,13 +38,6 @@ public class StepsApi {
   @Getter
   String userIdDellUser;
 
-  @Step("Подготовка тестовых данных. Получение userId")
-  public String getLoginUserId(String password, String userName) {
-    String userId;
-    userId = userLoginInfo(password, userName).getBodyFieldString("userId");
-    return userId;
-  }
-
   @Step("Очистка тестовых данных. Удаление нового пользователя")
   public void clearDeleteKillUser(String userId) {
     deleteUser(userId).shouldHave(statusCode(204));
@@ -51,27 +45,25 @@ public class StepsApi {
 
   @Step("Очистка тестовых данных. Удаление книги из профиля пользователя")
   public void clearDeleteBookFromUserProfile() {
-    deleteBookProfileUser();
+    deleteBookProfileUser(InfoApiUser.getInstance().getUserIdValueApiUser());
   }
 
   @Step("Подготовка тестовых данных. Добавление книги в профиль пользователю")
   public void testDataAddBookToProfileUser() {
-    addBookProfileUser(getLoginUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue()),
-        cfg.oldUserNameValue(), cfg.oldPasswordValue());
+    addBookProfileUser(cfg.oldUserNameValue(),cfg.oldPasswordValue(), InfoApiUser.getInstance().getUserIdValueApiUser());
   }
 
   @Step("Подготовка тестовых данных.Создание нового пользователя")
   public void testDataAddNewUserAndUserId() {
-    userIdDellUser = createNewAccount(cfg.killPasswordValue(), cfg.killUserNameValue(),
-        cfg.killUserNameValue(), cfg.killPasswordValue()).shouldHave(statusCode(201))
+    userIdDellUser = createNewAccount(cfg.apiKillUserNameValue(),cfg.apiKillPasswordValue(),
+        cfg.apiKillUserNameValue(),cfg.apiKillPasswordValue()).shouldHave(statusCode(201))
         .getBodyFieldString("userID");
   }
 
   @Step("Создать нового пользователя")
-  public ActionsResponce createNewAccount(String userName, String password, String userNameBody,
-      String passwordBody) {
+  public ActionsResponce createNewAccount(String userName, String password,String userNameBody, String passwordBody) {
     return new ActionsResponce(given().spec(restRequestSpecAuth(userName, password))
-        .body(createUserBodyRequest.RequestCreateUserBody(userNameBody, passwordBody)).expect()
+        .body(createUserBodyRequest.RequestCreateUserBody(passwordBody,userNameBody)).expect()
         .spec(responseSpec()).when().post(ACCOUNT_USER));
   }
 
@@ -82,9 +74,9 @@ public class StepsApi {
   }
 
   @Step("Получить токен авторизации")
-  public ActionsResponce getToken(String password, String userName) {
+  public ActionsResponce getToken(String userName, String password) {
     return new ActionsResponce(given().spec(restRequestSpec())
-        .body(requestAuthorizedBody.RequestAuthorizedBody(password, userName)).expect()
+        .body(requestAuthorizedBody.RequestAuthorizedBody(userName,password)).expect()
         .spec(responseSpec()).when().post(ACCOUNT_GENERATE_TOKEN));
   }
 
@@ -98,22 +90,20 @@ public class StepsApi {
   @Step("Удалить ранее созданного пользователя")
   public ActionsResponce deleteUser(String userIdValue) {
     return new ActionsResponce(given().spec(restRequestSpec().auth().preemptive()
-            .basic(cfg.killUserNameValue(), cfg.killPasswordValue())).expect().spec(responseSpec())
+            .basic(cfg.apiKillUserNameValue(),cfg.apiKillPasswordValue())).expect().spec(responseSpec())
         .when().delete(ACCOUNT_USER_USER_ID, userIdValue));
   }
 
   @Step("Удалить книгу у пользователя из профиля")
-  public ActionsResponce deleteBookProfileUser() {
+  public ActionsResponce deleteBookProfileUser(String userId) {
     return new ActionsResponce(
-        given().spec(restRequestSpecAuth(cfg.oldUserNameValue(), cfg.oldPasswordValue())).body(
-                deleteBookUserBody.DeleteBookUserBody(
-                    getLoginUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue()),
-                    IsbnBook.getInstance().isbnBookValue())).expect().spec(responseSpec()).when()
+        given().spec(restRequestSpecAuth(cfg.oldUserNameValue(),cfg.oldPasswordValue())).body(
+                deleteBookUserBody.DeleteBookUserBody(userId, IsbnBook.getInstance().isbnBookValue())).expect().spec(responseSpec()).when()
             .delete(BOOKSTORE_BOOK));
   }
 
   @Step("Добавить книгу пользователю в профиль")
-  public ActionsResponce addBookProfileUser(String userId, String userName, String password) {
+  public ActionsResponce addBookProfileUser(String userName, String password, String userId) {
     return new ActionsResponce(given().spec(restRequestSpecAuth(userName, password).body(
             addBookUserBody.BodyAddBook(IsbnBook.getInstance().isbnBookValue(), userId))).expect()
         .spec(responseSpec()).when().post(BOOKSTORE_BOOKS));
@@ -134,22 +124,22 @@ public class StepsApi {
   }
 
   @Step("Запросить данные о пользователе")
-  public ActionsResponce getInfoUserProfile(String userName, String password) {
+  public ActionsResponce getInfoUserProfile(String userName, String password, String userId) {
     return new ActionsResponce(
         given().spec(restRequestSpecAuth(userName, password)).expect().spec(responseSpec()).when()
-            .get(ACCOUNT_USER_USER_ID, getLoginUserId(password, userName)));
+            .get(ACCOUNT_USER_USER_ID, userId));
   }
 
 
   @Step("Получить авторизацию пользователя")
   public ActionsResponce authUser(String userName, String password) {
     return new ActionsResponce(given().spec(restRequestSpec())
-        .body(requestAuthorizedBody.RequestAuthorizedBody(userName, password)).expect()
+        .body(requestAuthorizedBody.RequestAuthorizedBody(userName,password)).expect()
         .spec(responseSpec()).when().post(AUTHORIZED));
   }
 
   @Step("Получить данные авторизации пользователя")
-  public ActionsResponce userLoginInfo(String password, String userName) {
+  public ActionsResponce userLoginInfo(String userName, String password) {
     return new ActionsResponce(
         given().spec(restRequestSpec()).body(loginBody.LoginBody(password, userName)).expect()
             .spec(responseSpec()).when().post(ACCOUNT_LOGIN));

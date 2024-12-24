@@ -8,6 +8,7 @@ import static ru.demoqa.test.BaseTest.cfg;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import ru.demoqa.generationdata.GenerationDate;
+import ru.demoqa.helpers.KillUserGui;
 import ru.demoqa.helpers.GuiUserCookie;
 import ru.demoqa.steps.api.StepsApi;
 
@@ -26,22 +27,24 @@ public class HelpersStepsUI {
   }
 
   @Step("Вспомогательные шаги.Создать нового пользователя")
-  public void createNewUser(String password, String userName) {
-    stepsApi.createNewAccount(password, userName, userName, password);
-    stepsApi.getToken(password, userName);
-    stepsApi.authUser(password, userName);
+  public void createNewUser(String userName, String password) {
+    stepsApi.createNewAccount(cfg.killUserNameValue(), cfg.killPasswordValue(), cfg.killUserNameValue(), cfg.killPasswordValue());
+    stepsApi.getToken(cfg.killUserNameValue(), cfg.killPasswordValue());
+    stepsApi.authUser(userName,password);
+    stepsLoginPage.openSiteWithCookieUser(PROFILE,
+        KillUserGui.getInstance().getUserIdValueKillUser(),
+        KillUserGui.getInstance().getTokenValueKillUser(),
+        KillUserGui.getInstance().getExpiresValueKillUser());
   }
 
   @Step("Вспомогательные шаги.Добавить книгу в профиль к пользователю")
   public void addBookUser() {
-    stepsApi.addBookProfileUser(
-        stepsApi.getLoginUserId(cfg.guiNewPasswordValue(), cfg.guiNewUserNameValue()),
-        cfg.guiNewUserNameValue(), cfg.guiNewPasswordValue());
+    stepsApi.addBookProfileUser(cfg.guiNewUserNameValue(), cfg.guiNewPasswordValue(),GuiUserCookie.getInstance().getGuiUserIdValueNewUser());
   }
 
   @Step("Вспомогательные шаги.Удалить книгу у пользователя")
   public void deleteBookUser() {
-    stepsApi.deleteBookProfileUser();
+    stepsApi.deleteBookProfileUser(GuiUserCookie.getInstance().getGuiUserIdValueNewUser());
   }
 
   @Step("Подготовка тестовых данных. Авторизация с невалидными значениями LogoPass.Pass not valid")

@@ -9,7 +9,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.demoqa.helpers.CookieKillUser;
 import ru.demoqa.helpers.GuiUserCookie;
 import ru.demoqa.steps.ui.HelpersStepsUI;
 import ru.demoqa.steps.ui.StepsBookStorePage;
@@ -80,11 +79,7 @@ public class TestUi extends BaseTest {
   @Feature("Действия над пользователем")
   @DisplayName("Удаление аккаунта пользователя")
   public void deleteUserAccount() {
-    helpersStepsUI.clear();
-    stepsLoginPage.openSiteWithCookieUser(PROFILE,
-        CookieKillUser.getInstance().getUserIdValueKillUser(),
-        CookieKillUser.getInstance().getTokenValueKillUser(),
-        CookieKillUser.getInstance().getExpiresValueKillUser());
+    helpersStepsUI.createNewUser(cfg.killUserNameValue(),cfg.killPasswordValue());
     stepsProfilePage.clickButtonDeleteAccount();
     stepsProfilePage.acceptAlertDelUser();
     helpersStepsUI.clear();

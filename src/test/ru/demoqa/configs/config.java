@@ -35,4 +35,10 @@ public interface config extends Config {
   String guiNewPasswordValue();
 
 
+  @Key("api.new.user.name.value")
+  String apiKillUserNameValue();
+
+  @Key("api.new.password.value")
+  String apiKillPasswordValue();
+
 }

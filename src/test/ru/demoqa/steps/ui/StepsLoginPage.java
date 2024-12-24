@@ -56,7 +56,6 @@ public class StepsLoginPage extends BaseTest {
   @Step("Открыть страницу сайта с Cookie нового пользователя")
   public void openSiteWithCookieUser(String endPointTwo, String userID, String token,
       String expires) {
-    stepsApi.authUser(cfg.guiNewUserNameValue(), cfg.guiNewPasswordValue());
     WebDriverRunner.getWebDriver().manage().addCookie((new Cookie("userID", userID)));
     WebDriverRunner.getWebDriver().manage().addCookie((new Cookie("token", token)));
     WebDriverRunner.getWebDriver().manage().addCookie((new Cookie("expires", expires)));

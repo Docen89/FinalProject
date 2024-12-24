@@ -11,7 +11,9 @@ import io.qameta.allure.Owner;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.demoqa.helpers.InfoApiUser;
 import ru.demoqa.helpers.IsbnBook;
+import ru.demoqa.helpers.KillUserApi;
 import ru.demoqa.steps.api.StepsApi;
 
 import static ru.demoqa.test.BaseTest.cfg;
@@ -28,7 +30,7 @@ public class TestApi {
   @DisplayName("Создание нового пользователя")
   public void createNewUser() {
     stepsApi.testDataAddNewUserAndUserId();
-    stepsApi.authUser(cfg.killUserNameValue(), cfg.killPasswordValue());
+    stepsApi.authUser(cfg.apiKillUserNameValue(),cfg.apiKillPasswordValue());
     stepsApi.clearDeleteKillUser(stepsApi.getUserIdDellUser());
   }
 
@@ -36,9 +38,9 @@ public class TestApi {
   @Feature("Авторизация")
   @DisplayName("Авторизация зарегистрированным пользователем")
   public void authValidUser() {
-    stepsApi.getToken(cfg.oldPasswordValue(), cfg.oldUserNameValue()).shouldHave(statusCode(200))
+    stepsApi.getToken(cfg.oldUserNameValue(), cfg.oldPasswordValue()).shouldHave(statusCode(200))
         .shouldHave(bodyField("result", equalTo("User authorized successfully.")));
-    stepsApi.userLoginInfo(cfg.oldPasswordValue(), cfg.oldUserNameValue())
+    stepsApi.userLoginInfo(cfg.oldUserNameValue(), cfg.oldPasswordValue())
         .shouldHave(statusCode(200))
         .shouldHave(bodyField("username", equalTo(cfg.oldUserNameValue())));
   }
@@ -58,9 +60,8 @@ public class TestApi {
   @DisplayName("Добавление книги к пользователю в профиль")
   public void addBookToOldUser() {
     stepsApi.addBookProfileUser(
-        stepsApi.getLoginUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue()),
-        cfg.oldUserNameValue(), cfg.oldPasswordValue()).shouldHave(statusCode(201));
-    stepsApi.deleteBookProfileUser().shouldHave(statusCode(204));
+        cfg.oldUserNameValue(), cfg.oldPasswordValue(), InfoApiUser.getInstance().getUserIdValueApiUser()).shouldHave(statusCode(201));
+    stepsApi.deleteBookProfileUser(InfoApiUser.getInstance().getUserIdValueApiUser()).shouldHave(statusCode(204));
   }
 
   @Test
@@ -69,7 +70,7 @@ public class TestApi {
   public void bookIsAlreadyThereUser() {
     stepsApi.testDataAddBookToProfileUser();
     stepsApi.checkMessageResponseRepeatedAddBooKProfileUser(
-            stepsApi.getLoginUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue()))
+            InfoApiUser.getInstance().getUserIdValueApiUser())
         .shouldHave(statusCode(400)).shouldHave(
             bodyField("message", equalTo("ISBN already present in the User's Collection!")));
     stepsApi.clearDeleteBookFromUserProfile();
@@ -79,10 +80,8 @@ public class TestApi {
   @Feature("Действия в профиле")
   @DisplayName("Удаляем книгу из профиля пользователя")
   public void deleteBookInProfileUser() {
-    stepsApi.addBookProfileUser(
-        stepsApi.getLoginUserId(cfg.oldPasswordValue(), cfg.oldUserNameValue()),
-        cfg.oldUserNameValue(), cfg.oldPasswordValue());
-    stepsApi.deleteBookProfileUser().shouldHave(statusCode(204));
+    stepsApi.addBookProfileUser(cfg.oldUserNameValue(), cfg.oldPasswordValue(), InfoApiUser.getInstance().getUserIdValueApiUser());
+    stepsApi.deleteBookProfileUser(InfoApiUser.getInstance().getUserIdValueApiUser()).shouldHave(statusCode(204));
   }
 
   @Test
@@ -90,7 +89,7 @@ public class TestApi {
   @DisplayName("Удаление  пользователя")
   public void deleteNewUser() {
     stepsApi.testDataAddNewUserAndUserId();
-    stepsApi.deleteUser(stepsApi.getLoginUserId(cfg.killPasswordValue(), cfg.killUserNameValue()))
+    stepsApi.deleteUser(KillUserApi.getInstance().getUserIdValueApiKillUser())
         .shouldHave(statusCode(204));
   }
 
@@ -114,10 +113,10 @@ public class TestApi {
   @DisplayName("Проверка сохранения книги в профиле у пользователя")
   public void checkBookProfileUser() {
     stepsApi.testDataAddBookToProfileUser();
-    stepsApi.getInfoUserProfile(cfg.oldUserNameValue(), cfg.oldPasswordValue())
+    stepsApi.getInfoUserProfile(cfg.oldUserNameValue(), cfg.oldPasswordValue(), InfoApiUser.getInstance().getUserIdValueApiUser())
         .shouldHave(statusCode(200))
         .shouldHave(bodyField("books[0].isbn", equalTo(IsbnBook.getInstance().isbnBookValue())));
-    stepsApi.deleteBookProfileUser();
+    stepsApi.deleteBookProfileUser(InfoApiUser.getInstance().getUserIdValueApiUser());
   }
 
 }
